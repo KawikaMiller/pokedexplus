@@ -1,4 +1,8 @@
 import React from "react";
+import MoveRow from "../right/moves/MoveRow";
+import MoveRowSort from "../right/moves/MoveRowSort";
+import MoveTabs from "../right/moves/MoveTabs";
+import MoveDetails from "../right/moves/MoveDetails";
 
 function MyMain (props) {
 
@@ -60,37 +64,15 @@ function MyMain (props) {
 
       <div id='right-side' style={{border: '1px solid blue', flexGrow: '1'}}>
         <div id='moves-container' style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'space-between', border: '1px solid black', padding: '0.5rem', height: '100%'}}>
-          <div id='moves-header' style={{flexGrow: '1', border: '1px solid red', height: '100px', width: '100%'}}>
-            <div>Top</div>
-            <div>Bot</div>
+          <div id='moves-header'>
+            <MoveTabs />
+            <MoveRowSort />
           </div>
           <div id='moves-list' style={{flexGrow: '4', border: '1px solid red', height: '500px', width: '100%', margin: '0.5rem 0'}}>
-            <div className="move-row" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-              <div>Level</div>
-              <div>Name</div>
-              <div>Power</div>
-              <div>Accuracy</div>
-              <div>PP</div>
-              <div>Damage</div>
-              <div>Type</div>
-            </div>
+            
+            <MoveRow />
           </div>
-          <div id='moves-details' style={{flexGrow: '1', border: '1px solid red', height: '150px', width: '100%', display: 'flex'}}>
-            <div id='move-type-effectiveness' style={{border: '1px solid red', flexGrow: '1'}}>
-              <div id='selected-move-name'>
-                Solar-Beam
-              </div>
-              <div id='selected-move-strong-against'>
-                Strong Against: 
-              </div>
-              <div id='selected-move-weak-against'>
-                Weak Against: 
-              </div>
-            </div>
-            <div id='move-description' style={{border: '1px solid white', flexGrow: '2'}}>
-
-            </div>
-          </div>
+            <MoveDetails />
         </div>
       </div>
     </div>

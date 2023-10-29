@@ -1,14 +1,81 @@
+/* breakpoints: 375 small mobile, 1050 right side cannot squish any further, 1125 medium web */
+
 #my-main{
   display: flex; 
   flex-direction: row;
   justify-content: center;
   padding: 0.5rem; 
   height: 100vh;
-  background-color: green;
+  background-color: rgb(60, 66, 85);
 }
 
 #left-side{
-  width: 640px;
+  min-width: 640px;
+}
+
+/* moves */
+
+#moves-header{
+  border: 1px solid red;
+  /* height: 100px;  */
+  /* padding: 0.5rem; */
+  width: 100%;
+}
+
+#move-tabs, .learn-methods {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.learn-methods > *, .move-gen{
+  padding: 1rem;
+  border: 1px solid blue;
+}
+
+button.move-sort{
+  border: 1px solid rgb(255, 142, 142);
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: red;
+}
+
+button.move-sort:hover{
+  background-color: rgb(255, 100, 100);
+}
+
+.move-row{
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid magenta; */
+  justify-content: space-between;
+}
+
+.move-row > *{
+  border: 1px solid blue;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.25rem 0;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.move-num{
+  flex-grow: 0.5;
+  max-width: 10%;
+}
+
+.move-str{
+  flex-grow: 1;
+  max-width: 40%;
+}
+
+.move-img{
+  flex-grow: 0.5;
+  max-width: 10%;
 }
 
 @media screen and (max-width: 375px) {
