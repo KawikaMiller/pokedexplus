@@ -1,4 +1,4 @@
-/* breakpoints: 375 small mobile, 1050 right side cannot squish any further, 1125 medium web */
+/* breakpoints: 375 small mobile, 1070 right side cannot squish any further, 1125 medium web */
 
 #my-main{
   display: flex; 
@@ -10,7 +10,7 @@
 }
 
 #left-side{
-  min-width: 640px;
+  min-width: 500px;
 }
 
 /* moves */

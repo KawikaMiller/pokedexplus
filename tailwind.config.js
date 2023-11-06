@@ -8,8 +8,11 @@ module.exports = {
   theme: {
     screens: {
       'mobile': '375px',
-      
+
     },
+    // colors: {
+    //   pkRed: `rgb(213, 25, 25)`,
+    // },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
