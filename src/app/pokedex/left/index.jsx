@@ -1,58 +1,165 @@
 import React from "react";
 import PokemonArt from "./PokemonArt";
+import BasicInfo from "./BasicInfo";
 
 function LeftSide(props){
 
   return(
-    <div id='left-side' className="bg-red-700" style={{border: '1px solid red'}}>
-      <div id='left-side-top' className="flex h-3/5">
-        <div id='left-side-top-left' className="bg-transparent m-2 w-2/3 h-auto">
-          <div id='pokemon-image' className="h-2/3 bg-cyan-400 border-8 rounded-md border-white border-solid">
-            <PokemonArt />
-          </div>
-          <div id='pokemon-image-toggles' style={{border: '1px solid red', height: '10%'}}>
-            toggles go here
-          </div>
-          <div id='pokemon-basic-info' style={{border: '1px solid red', height: '24%'}}>
-            <div id='basic-info-top' className="flex justify-between items-center h-1/2">
-              <h1 id='pokemon-name' className="font-bold text-3xl">Bulbasaur</h1> 
-              <h1 id='pokemon-number'>#0001</h1>
-            </div>
-            <div id='basic-info-bot' style={{display: 'flex', justifyContent: 'space-between'}}>
-              <h1 id='pokemon-category'>The Seed Pokemon</h1> 
-              <div id='pokemon-types' style={{display: 'flex', justifyContent: 'space-between', width: '33%'}}>
-                <div id='type1' style={{border: '1px solid red', width: '50%'}}>Type 1</div>
-                <div id='type2' style={{border: '1px solid red', width: '50%'}}>Type 2</div>
-              </div>
-            </div>
+    <div id='left-side' className="bg-pkRed" style={{border: '1px solid red'}}>
+
+      <div id='left-side-header' className="flex justify-between p-2">
+        <p>prev</p>
+        <div>searchbar goes here?</div>
+        <p>next</p>
+      </div>
+
+      <div id='left-side-top' className="flex h-3/6">
+        <div id='left-side-top-left' className="bg-transparent m-2 w-2/3 h-auto flex flex-col justify-between">
+          <PokemonArt />
+          <BasicInfo />
+
+
+          <div id='pokemon-image-toggles' className="flex justify-around items-center" style={{ height: '10%'}}>
+            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Cry</button>
+            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Shiny</button>
+            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Mega</button>
+            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Dyna</button>
           </div>
         </div>
-        <div id='left-side-top-right' style={{backgroundColor: 'rgba(125, 55, 200, 0.25)', margin: '0.5rem', width: '33%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
-          <section id='pokemon-bio-height'  style={{border: '1px solid green'}}>Height: </section>
-          <section id='pokemon-bio-weight'>Weight: </section>
-          <section id='pokemon-bio-gender'>Gender Ratio: </section>
-          <section id='pokemon-bio-egg'>Egg Group: </section>
-          <section id='pokemon-bio-hatch'>Hatch Time: </section>
-          <section id='pokemon-bio-growth'>Growth Rate: </section>
-          <section id='pokemon-bio-catch'>Catch Rate: </section>
-          <section id='pokemon-bio-ev'>EV Yield: </section>
-          <section id='pokemon-bio-exp'>EXP Yield: </section>
+
+        <div id='left-side-top-right' className="m-2 w-1/3 flex flex-col justify-between items-center bg-transparent/50">
+
+          <section id='pokemon-bio-height' className="w-full flex flex-col items-center">
+            <h4 className="font-bold">Height</h4>
+            <hr className="w-5/6"></hr>
+            <p>9'99"</p>
+          </section>
+
+          <section id='pokemon-bio-weight' className="w-full flex flex-col items-center">
+            <h4 className="font-bold">Weight</h4>
+            <hr className="w-5/6"></hr>
+            <p>999kgs</p>
+          </section>
+
+          <section id='pokemon-bio-gender' className="w-full flex flex-col items-center">
+            <h4 className="font-bold">Gender Ratio</h4>
+            <hr className="w-5/6"></hr>
+            <p>progress bar here</p>
+          </section>
+
+          <section id='pokemon-bio-egg' className="w-full flex flex-col items-center">
+            <h4 className="font-bold">Egg Group</h4>
+            <hr className="w-5/6"></hr>
+            <p>Monster | Grass</p>
+          </section>
+
+          <section id='pokemon-bio-hatch' className="w-full flex flex-col items-center">            
+            <h4 className="font-bold">Hatch Time</h4>
+            <hr className="w-5/6"></hr>
+            <p>99 Cycles</p>
+          </section>
+
+          <section id='pokemon-bio-growth' className="w-full flex flex-col items-center">            
+            <h4 className="font-bold">Growth Rate</h4>
+            <hr className="w-5/6"></hr>
+            <p>Medium-Slow</p>
+          </section>
+
+          <section id='pokemon-bio-catch' className="w-full flex flex-col items-center">          
+            <h4 className="font-bold">Catch Rate</h4>
+            <hr className="w-5/6"></hr>
+            <p>999</p>
+          </section>
+
+          <section id='pokemon-bio-ev' className="w-full flex flex-col items-center">          
+            <h4 className="font-bold">EV Yield</h4>
+            <hr className="w-5/6"></hr>
+            <p>999 XP</p>
+          </section>
+
+          <section id='pokemon-bio-exp' className="w-full flex flex-col items-center">             
+            <h4 className="font-bold">EXP Yield</h4>
+            <hr className="w-5/6"></hr>
+            <p>1SPATK 2SPDEF</p>
+          </section>
+
         </div>
       </div>
-      <div id='left-side-mid' style={{height: '20%', display: 'flex', justifyContent: 'space-between'}}>
-        <div id='pokemon-type-matchup' style={{border: '1px solid red', width: '66%', margin: '0.5rem'}}>
-          type matchup
+
+      <div id='left-side-mid' className="h-1/5 m-2">
+        <div id='pokemon-abilities' className="flex justify-around bg-transparent/50 my-2">
+          <p>Ability 1</p>
+          <p>Ability 2</p>
+          <p>Hidden Ability</p>
         </div>
-        <div id='pokemon-base-stats'  style={{border: '1px solid red', width: '33%', margin: '0.5rem'}}>
-          base stats
+        <div className="flex justify-between">
+          <div id='pokemon-type-matchup' className="w-2/3 mr-1 flex flex-col justify-evenly bg-transparent/50">
+            <section className="flex h-full">
+              <h4 className="w-1/3">Weak To: </h4>
+              <div className="bg-transparent/25 w-2/3"></div>
+            </section>
+            <section className="flex h-full my-1">
+              <h4 className="w-1/3">Resistant To: </h4>
+              <div className="bg-transparent/25 w-2/3"></div>
+            </section>
+            <section className="flex h-full">
+              <h4 className="w-1/3">Immune To: </h4>
+              <div className="bg-transparent/25 w-2/3"></div>
+            </section>
+          </div>
+          <div id='pokemon-base-stats' className="w-1/3 ml-1 bg-transparent/50 flex flex-col justify-evenly" >
+            <section className="flex">
+              <h4 className="w-1/3">HP</h4>
+              <p className="text-center bg-transparent/25 w-2/3">999</p>
+            </section>
+            <section className="flex">
+              <h4 className="w-1/3">ATK</h4>
+              <p className="text-center bg-transparent/25 w-2/3">999</p>
+            </section>
+            <section className="flex">
+              <h4 className="w-1/3">DEF</h4>
+              <p className="text-center bg-transparent/25 w-2/3">999</p>
+            </section>
+            <section className="flex">
+              <h4 className="w-1/3">SPATK</h4>
+              <p className="text-center bg-transparent/25 w-2/3">999</p>
+            </section>
+            <section className="flex">
+              <h4 className="w-1/3">SPDEF</h4>
+              <p className="text-center bg-transparent/25 w-2/3">999</p>
+            </section>
+            <section className="flex">
+              <h4 className="w-1/3">SPD</h4>
+              <p className="text-center bg-transparent/25 w-2/3">999</p>
+            </section>
+          </div>
         </div>
       </div>
       <div id='left-side-bot' style={{height: '20%'}}>
-        <div id='pokemon-pokedex-entries' style={{border: '1px solid red', height: 'calc(100% - 0.5rem)', margin: '0 0.5rem'}}>
-          <div id='pokedex-entries-gen-selector' style={{border: '1px solid red'}}>
-            pokedex gen selctor
+        <div id='pokemon-pokedex-entries' className="my-0 mx-2 flex flex-col border-red-50 border-2 h-full">
+
+          <div id='pokedex-entries-gen-selector' className="flex justify-around" style={{border: '1px solid red'}}>
+            <button>I</button>
+            <button>II</button>
+            <button>III</button>
+            <button>IV</button>
+            <button>V</button>
+            <button>VI</button>
+            <button>VII</button>
+            <button>VIII</button>
+            <button>IX</button>
           </div>
-            pokedex entry
+
+          <div id='pokedex-entry-container' className="h-full align-middle flex flex-col justify-start items-center">
+            <div id='pokedex-entry-gen-label' className="w-5/6">
+              <h5 id='pokedex-entry-gen-text' className="text-center">Gen I : Red</h5>
+              <hr></hr>
+            </div>
+            <p id="pokedex-entry-text" className="text-center my-2">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, est vel totam sapiente corporis eveniet eos incidunt quaerat. Eius, nemo?
+            </p>
+          </div>
+
         </div>
     </div>
     </div>

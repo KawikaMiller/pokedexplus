@@ -1,16 +1,16 @@
 /* breakpoints: 375 small mobile, 1070 right side cannot squish any further, 1125 medium web */
 
-#my-main{
+/* #my-main{
   display: flex; 
   flex-direction: row;
   justify-content: center;
   padding: 0.5rem; 
   height: 100vh;
   background-color: rgb(60, 66, 85);
-}
+} */
 
 #left-side{
-  min-width: 500px;
+  /* min-width: 500px; */
 }
 
 /* moves */
@@ -76,26 +76,4 @@ button.move-sort:hover{
 .move-img{
   flex-grow: 0.5;
   max-width: 10%;
-}
-
-@media screen and (max-width: 375px) {
-  root {
-    background-color: red !important
-  }
-  
-  #my-main{
-    flex-direction: column;
-    background-color: purple;
-    overflow-y: scroll;
-    height: auto;
-  }
-
-  #left-side{
-    height: 95vh;
-    width: calc(375px - 1rem)
-  }
-
-  #right-side{
-    height: 80vh;
-  }
 }
