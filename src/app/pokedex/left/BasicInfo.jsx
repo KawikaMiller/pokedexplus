@@ -15,10 +15,10 @@ function BasicInfo(props) {
         <h1 id='pokemon-category' className="">The Seed Pokemon</h1> 
         <div id='pokemon-types' className="flex justify-between w-1/3">
           <div id='type1' className="w-1/2 text-center">
-            <TypeBadge type='grass' />
+            <TypeBadge type='Grass'/>
           </div>
           <div id='type2' className="w-1/2 text-center">
-            <TypeBadge type='poison' />
+            <TypeBadge type='Poison'/>
           </div>
         </div>
       </div>
