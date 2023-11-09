@@ -4,20 +4,20 @@ import TypeBadge from "../accessory/TypeBadge";
 function BasicInfo(props) {
 
   return(
-    <div id='pokemon-basic-info'className="h-2/3 flex flex-col justify-between">
+    <div id='pokemon-basic-info'className="lg:h-2/3 flex flex-col justify-start">
 
       <div id='basic-info-top' className="flex justify-between items-center h-1/2">
         <h1 id='pokemon-name' className="font-bold text-3xl">Bulbasaur</h1> 
-        <h1 id='pokemon-number' className="font-semibold text-3xl">#0001</h1>
+        <h1 id='pokemon-number' className="self-end font-medium lg:font-semibold text-xl lg:text-3xl h-full">#0001</h1>
       </div>
 
       <div id='basic-info-bot' className="flex justify-between items-center">
         <h1 id='pokemon-category' className="">The Seed Pokemon</h1> 
-        <div id='pokemon-types' className="flex justify-between w-1/3">
-          <div id='type1' className="w-1/2 text-center">
+        <div id='pokemon-types' className="flex justify-end w-1/3">
+          <div id='type1' className="w-fit pr-1 text-center">
             <TypeBadge type='Grass'/>
           </div>
-          <div id='type2' className="w-1/2 text-center">
+          <div id='type2' className="w-fit pl-1 text-center">
             <TypeBadge type='Poison'/>
           </div>
         </div>

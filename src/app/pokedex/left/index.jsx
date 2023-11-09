@@ -5,7 +5,7 @@ import BasicInfo from "./BasicInfo";
 function LeftSide(props){
 
   return(
-    <div id='left-side' className="bg-pkRed" style={{border: '1px solid red'}}>
+    <div id='left-side' className="bg-pkRed">
 
       <div id='left-side-header' className="flex justify-between p-2">
         <p>prev</p>
@@ -13,8 +13,8 @@ function LeftSide(props){
         <p>next</p>
       </div>
 
-      <div id='left-side-top' className="flex h-3/6">
-        <div id='left-side-top-left' className="bg-transparent m-2 w-2/3 h-auto flex flex-col justify-between">
+      <div id='left-side-top' className="flex h-3/6 xxs:flex-col lg:flex-row">
+        <div id='left-side-top-left' className="bg-transparent m-2 xxs:w-fit lg:w-2/3 h-1/3 lg:h-auto flex flex-col justify-between">
           <PokemonArt />
           <BasicInfo />
 
@@ -27,61 +27,71 @@ function LeftSide(props){
           </div>
         </div>
 
-        <div id='left-side-top-right' className="m-2 w-1/3 flex flex-col justify-between items-center bg-transparent/50">
+        <div id='left-side-top-right' className="w-auto lg:w-1/3 m-2 flex flex-wrap lg:flex-nowrap lg:flex-col justify-between items-center bg-transparent/50">
 
-          <section id='pokemon-bio-height' className="w-full flex flex-col items-center">
-            <h4 className="font-bold">Height</h4>
-            <hr className="w-5/6"></hr>
-            <p>9'99"</p>
-          </section>
+          <div id='bio-height-weight-gender' className="flex lg:flex-col justify-around w-full">
+            <div className="w-1/2 lg:w-full flex lg:flex-col justify-around">
+              <section id='pokemon-bio-height' className="w-max lg:w-full flex flex-col items-center">
+                <h4 className="font-bold">Height</h4>
+                <hr className="w-full lg:w-5/6"></hr>
+                <p>9'99"</p>
+              </section>
 
-          <section id='pokemon-bio-weight' className="w-full flex flex-col items-center">
-            <h4 className="font-bold">Weight</h4>
-            <hr className="w-5/6"></hr>
-            <p>999kgs</p>
-          </section>
+              <section id='pokemon-bio-weight' className="w-max lg:w-full flex flex-col items-center">
+                <h4 className="font-bold">Weight</h4>
+                <hr className="w-full lg:w-5/6"></hr>
+                <p>999kgs</p>
+              </section>              
+            </div>
 
-          <section id='pokemon-bio-gender' className="w-full flex flex-col items-center">
-            <h4 className="font-bold">Gender Ratio</h4>
-            <hr className="w-5/6"></hr>
-            <p>progress bar here</p>
-          </section>
+            <section id='pokemon-bio-gender' className="w-1/2 lg:w-full flex flex-col items-center">
+              <h4 className="font-bold">Gender Ratio</h4>
+              <hr className="w-5/6"></hr>
+              <p>progress bar</p>
+            </section>
+          </div>
 
-          <section id='pokemon-bio-egg' className="w-full flex flex-col items-center">
-            <h4 className="font-bold">Egg Group</h4>
-            <hr className="w-5/6"></hr>
-            <p>Monster | Grass</p>
-          </section>
+          <div id='bio-breeding' className="flex lg:flex-col justify-around w-full">
+            <section id='pokemon-bio-egg' className="w-1/2 lg:w-full flex flex-col items-center">
+              <h4 className="font-bold">Egg Group</h4>
+              <hr className="w-5/6"></hr>
+              <p>Monster | Grass</p>
+            </section>
 
-          <section id='pokemon-bio-hatch' className="w-full flex flex-col items-center">            
-            <h4 className="font-bold">Hatch Time</h4>
-            <hr className="w-5/6"></hr>
-            <p>99 Cycles</p>
-          </section>
+            <section id='pokemon-bio-hatch' className="w-1/2 lg:w-full flex flex-col items-center">            
+              <h4 className="font-bold">Hatch Time</h4>
+              <hr className="w-5/6"></hr>
+              <p>99 Cycles</p>
+            </section>            
+          </div>
 
-          <section id='pokemon-bio-growth' className="w-full flex flex-col items-center">            
-            <h4 className="font-bold">Growth Rate</h4>
-            <hr className="w-5/6"></hr>
-            <p>Medium-Slow</p>
-          </section>
+          <div id='bio-rates' className="flex lg:flex-col justify-around w-full">
+            <section id='pokemon-bio-growth' className="w-1/2 lg:w-full flex flex-col items-center">            
+              <h4 className="font-bold">Growth Rate</h4>
+              <hr className="w-5/6"></hr>
+              <p>Medium-Slow</p>
+            </section>
 
-          <section id='pokemon-bio-catch' className="w-full flex flex-col items-center">          
-            <h4 className="font-bold">Catch Rate</h4>
-            <hr className="w-5/6"></hr>
-            <p>999</p>
-          </section>
+            <section id='pokemon-bio-catch' className="w-1/2 lg:w-full flex flex-col items-center">          
+              <h4 className="font-bold">Catch Rate</h4>
+              <hr className="w-5/6"></hr>
+              <p>999</p>
+            </section>
+          </div>
 
-          <section id='pokemon-bio-ev' className="w-full flex flex-col items-center">          
-            <h4 className="font-bold">EV Yield</h4>
-            <hr className="w-5/6"></hr>
-            <p>999 XP</p>
-          </section>
+          <div id='bio-yields' className="flex lg:flex-col justify-around w-full">
+            <section id='pokemon-bio-ev' className="w-1/2 lg:w-full flex flex-col items-center">          
+              <h4 className="font-bold">EV Yield</h4>
+              <hr className="w-5/6"></hr>
+              <p>999 XP</p>
+            </section>
 
-          <section id='pokemon-bio-exp' className="w-full flex flex-col items-center">             
-            <h4 className="font-bold">EXP Yield</h4>
-            <hr className="w-5/6"></hr>
-            <p>1SPATK 2SPDEF</p>
-          </section>
+            <section id='pokemon-bio-exp' className="w-1/2 lg:w-full flex flex-col items-center">             
+              <h4 className="font-bold">EXP Yield</h4>
+              <hr className="w-5/6"></hr>
+              <p>1SPATK 2SPDEF</p>
+            </section>
+          </div>
 
         </div>
       </div>

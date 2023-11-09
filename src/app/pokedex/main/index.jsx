@@ -11,7 +11,7 @@ function MyMain (props) {
     <>
     <header>HEADER</header>
     <div>Searchbar</div>
-    <div id='my-main' className="flex flex-col lg:flex-row justify-center p-2 lg:h-screen bg-slate-800">
+    <div id='my-main' className="flex flex-col lg:flex-row justify-center p-2 lg:h-screen place-content-center bg-slate-800">
       <LeftSide />
 
       <div id='right-side' style={{border: '1px solid blue', flexGrow: '1'}}>

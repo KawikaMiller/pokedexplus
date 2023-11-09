@@ -8,7 +8,7 @@ function MoveTabs() {
         Gen
       </div>
 
-      <div className='learn-methods'>
+      <div className='learn-methods overflow-x-clip'>
         <div>Level</div>
         <div>Machine</div>
         <div>Egg</div>
