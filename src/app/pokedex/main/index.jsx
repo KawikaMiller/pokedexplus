@@ -9,26 +9,28 @@ function MyMain (props) {
 
   return(
     <>
-    <header>HEADER</header>
-    <div>Searchbar</div>
-    <div id='my-main' className="flex flex-col lg:flex-row justify-center p-2 lg:h-screen place-content-center bg-slate-800">
+    {/* <div>Searchbar</div> */}
+    <div id='my-main' className="flex flex-col lg:flex-row justify-center p-2 lg:h-[97vh] place-content-center lg:w-[90%] bg-slate-800">
       <LeftSide />
 
-      <div id='right-side' style={{border: '1px solid blue', flexGrow: '1'}}>
-        <div id='moves-container' style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'space-between', border: '1px solid black', padding: '0.5rem', height: '100%'}}>
-          <div id='moves-header'>
+      <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed border-solid border-2 border-red-50">
+
+        <div id='moves-container' className="h-full flex flex-col justify-center p-2">
+
+          <div id='moves-header' className="h-fit">
             <MoveTabs />
-            <MoveRowSort />
-          </div>
-          <div id='moves-list' style={{flexGrow: '4', border: '1px solid red', height: '500px', width: '100%', margin: '0.5rem 0'}}>
             
+          </div>
+
+          <div id='moves-list' className="h-4/5 w-full my-2 mx-0">
+            <MoveRowSort />
             <MoveRow />
           </div>
             <MoveDetails />
         </div>
+
       </div>
     </div>
-    <footer>FOOTER</footer>
     </>
   )
 

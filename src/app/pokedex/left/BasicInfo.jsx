@@ -4,12 +4,12 @@ import TypeBadge from "../accessory/TypeBadge";
 function BasicInfo(props) {
 
   return(
-    <div id='pokemon-basic-info'className="lg:h-2/3 flex flex-col justify-between">
+    <div id='pokemon-basic-info' className="flex flex-col justify-between h-fit">
 
       <div>
         <div id='basic-info-top' className="flex justify-between items-center h-1/2">
           <h1 id='pokemon-name' className="font-bold text-3xl">Bulbasaur</h1> 
-          <h1 id='pokemon-number' className="self-end font-medium lg:font-semibold text-xl lg:text-3xl h-full">#0001</h1>
+          <h1 id='pokemon-number' className="font-medium lg:font-semibold text-xl">#0001</h1>
         </div>
 
         <div id='basic-info-bot' className="flex justify-between items-center">
@@ -23,13 +23,6 @@ function BasicInfo(props) {
             </div>
           </div>
         </div>        
-      </div>
-
-      <div id='pokemon-image-toggles' className="flex justify-around items-center">
-        <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Cry</button>
-        <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Shiny</button>
-        <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Mega</button>
-        <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 m-0.5">Dyna</button>
       </div>
 
     </div>

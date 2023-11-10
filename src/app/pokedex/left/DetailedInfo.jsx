@@ -2,10 +2,10 @@ import React from "react";
 
 function DetailedInfo() {
   return (
-    <div id='detailed-info' className="w-auto md:w-1/3 m-2 flex flex-wrap md:flex-nowrap md:flex-col justify-between items-center bg-transparent/50">   
+    <div id='detailed-info' className="w-auto md:w-1/3 m-2 flex flex-wrap md:flex-nowrap md:flex-col justify-between items-center p-1 lg:text-md bg-transparent/50">   
 
-      <div id='bio-height-weight-gender' className="flex md:flex-col justify-around w-full sm:h-2/5 sm:justify-evenly">
-        <div className="w-1/2 sm:h-1/2 md:w-full flex md:flex-col justify-around">
+      <div id='bio-height-weight-gender' className="flex md:flex-col justify-around w-full sm:h-1/4 sm:justify-evenly">
+        <div className="w-1/2 md:w-full flex justify-around">
           <section id='pokemon-bio-height' className="w-max md:w-full flex flex-col items-center">
             <h4 className="font-bold">Height</h4>
             <hr className="w-full md:w-5/6"></hr>
@@ -26,11 +26,11 @@ function DetailedInfo() {
         </section>
       </div>
 
-      <div id='bio-breeding' className="flex md:flex-col justify-around w-full sm:h-1/5">
+      <div id='bio-breeding' className="flex md:flex-col justify-around w-full sm:h-1/4">
         <section id='pokemon-bio-egg' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Egg Group</h4>
           <hr className="w-5/6"></hr>
-          <p>Monster | Grass</p>
+          <p>Monster|Grass</p>
         </section>
 
         <section id='pokemon-bio-hatch' className="w-1/2 md:w-full flex flex-col items-center">
@@ -40,7 +40,7 @@ function DetailedInfo() {
         </section>
       </div>
 
-      <div id='bio-rates' className="flex md:flex-col justify-around w-full sm:h-1/5">
+      <div id='bio-rates' className="flex md:flex-col justify-around w-full sm:h-1/4">
         <section id='pokemon-bio-growth' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Growth Rate</h4>
           <hr className="w-5/6"></hr>
@@ -54,7 +54,7 @@ function DetailedInfo() {
         </section>
       </div>
 
-      <div id='bio-yields' className="flex md:flex-col justify-around w-full sm:h-1/5">
+      <div id='bio-yields' className="flex md:flex-col justify-around w-full sm:h-1/4">
         <section id='pokemon-bio-ev' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">EV Yield</h4>
           <hr className="w-5/6"></hr>
