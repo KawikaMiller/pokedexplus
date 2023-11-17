@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google'
 import './style/globals.css'
 import './style/mystyle.css'
+import Header from './pokedex/header'
+import Footer from './pokedex/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,9 +15,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className='h-32 bg-blue-700'>THIS IS THE HEADER</header>
+        <Header />
         {children}
-        <footer className='h-32'>THIS IS THE FOOTER</footer>
+        <Footer />
       </body>
     </html>
   )
