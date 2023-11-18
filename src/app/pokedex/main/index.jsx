@@ -1,39 +1,36 @@
 import React from "react";
-import MoveRow from "../right/moves/MoveRow";
-import MoveRowSort from "../right/moves/MoveRowSort";
-import MoveTabs from "../right/moves/MoveTabs";
-import MoveDetails from "../right/moves/MoveDetails";
 import LeftSide from "../left";
+import RightSide from "../right";
 
-function MyMain (props) {
+function Main(props) {
 
-  return(
-    <>
-    {/* <div>Searchbar</div> */}
-    <div id='my-main' className="flex flex-col lg:flex-row justify-center p-2 lg:h-[97vh] place-content-center lg:w-[90%]">
-      <LeftSide />
+  return (
+    <main className='lg:flex lg:justify-center bg-slate-800'>
+      <div id='pokedex-container' className="flex flex-col lg:flex-row justify-center p-2 py-10 lg:h-[97vh] place-content-center lg:w-[80%]">
+        <LeftSide />
 
-      <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed border-solid border-2 border-red-50">
+        {/* <div id="mid-spacer" className="w-20 bg-pkRed border-red-700 border-2"></div> */}
 
-        <div id='moves-container' className="h-full flex flex-col justify-center p-2">
+        <RightSide />
 
-          <div id='moves-header' className="h-fit">
-            <MoveTabs />
-            
-          </div>
-
-          <div id='moves-list' className="h-4/5 w-full my-2 mx-0">
-            <MoveRowSort />
-            <MoveRow />
-          </div>
-            <MoveDetails />
+        {/* <div id='side-tabs' className="w-20">
+        <div id='tab1' className="h-20 bg-pkRed w-full relative right-2 flex justify-center items-center rounded-tr-md hover:bg-blue-600 z-1">
+          1
         </div>
-
+        <div id='tab1' className="h-20 bg-pkRed w-full relative right-2 flex justify-center items-center hover:bg-blue-600 z-1">
+          2
+        </div>
+        <div id='tab1' className="h-20 bg-pkRed w-full relative right-2 flex justify-center items-center  hover:bg-blue-600 z-1">
+          3
+        </div>
+        <div id='tab1' className="h-20 bg-pkRed w-full relative right-2 flex justify-center items-center rounded-br-md hover:bg-blue-600 z-1">
+          4
+        </div>
+      </div> */}
       </div>
-    </div>
-    </>
+    </main>
   )
 
 }
 
-export default MyMain;
+export default Main;

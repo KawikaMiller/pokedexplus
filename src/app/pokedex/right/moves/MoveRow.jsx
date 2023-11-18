@@ -1,16 +1,18 @@
 import React from "react";
 
-function MoveRow (props) {
+function MoveRow ({css}) {
+
+  // onClick -> show modal w/ detailed information
 
   return(
-    <div className="move-row">
-      <div className="move-num">999</div>
-      <div className="move-str">Menacing Moonraze Maelstrom</div>
-      <div className="move-num">999</div>
-      <div className="move-num">100</div>
-      <div className="move-num">45</div>
-      <div className="move-img">Dmg</div>
-      <div className="move-img">Type</div>
+    <div className={`${css.row} bg-black/50 mx-[0.125rem]`}>
+      <div className={`${css.numAndImg}`}>999</div>
+      <div className={css.str}>Menacing Moonraze Maelstrom</div>
+      <div className={`${css.numAndImg}`}>999</div>
+      <div className={`${css.numAndImg}`}>100</div>
+      <div className={`${css.numAndImg}`}>45</div>
+      <div className={`${css.numAndImg}`}>Dmg</div>
+      <div className={`${css.numAndImg}`}>Type</div>
     </div>
   )
 

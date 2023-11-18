@@ -1,16 +1,16 @@
 import React from "react";
 
-function MoveRowSort() {
+function MoveRowSort({css}) {
 
   return(
-    <div className="move-row sort">
-      <div className="move-num"><button className='move-sort'>Level</button></div>
-      <div className="move-str"><button className='move-sort'>Name</button></div>
-      <div className="move-num"><button className='move-sort'>Power</button></div>
-      <div className="move-num"><button className='move-sort'>Accuracy</button></div>
-      <div className="move-num"><button className='move-sort'>PP</button></div>
-      <div className="move-img"><button className='move-sort'>Damage</button></div>
-      <div className="move-img"><button className='move-sort'>Type</button></div>
+    <div className={css.row}>
+      <div className={`${css.row} ${css.numAndImg}`}><button className={css.button}>Level</button></div>
+      <div className={`${css.row} ${css.str}`}><button className={css.button}>Name</button></div>
+      <div className={`${css.row} ${css.numAndImg}`}><button className={css.button}>Power</button></div>
+      <div className={`${css.row} ${css.numAndImg}`}><button className={css.button}>Accuracy</button></div>
+      <div className={`${css.row} ${css.numAndImg}`}><button className={css.button}>PP</button></div>
+      <div className={`${css.row} ${css.numAndImg}`}><button className={css.button}>Damage</button></div>
+      <div className={`${css.row} ${css.numAndImg}`}><button className={css.button}>Type</button></div>
     </div>
   )
 

@@ -1,9 +1,9 @@
 import React from "react";
 
-function MoveDetails() {
+function MoveDetails(props) {
 
   return(
-    <div id='moves-details' className="h-2/5" style={{flexGrow: '1', border: '1px solid red', height: '150px', width: '100%'}}>
+    <div id='moves-details' className="h-1/5 w-full bg-transparent/50" >
 
       <div id='selected-move-name' style={{height: '25%', padding: '0 0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
         <h2 style={{fontSize: '1.5rem', fontWeight: '700', verticalAlign: 'middle'}}>Solar Beam</h2>

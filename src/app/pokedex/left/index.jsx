@@ -6,17 +6,29 @@ import Abilities from "./Abilities";
 import TypeMatchup from "./TypeMatchup";
 import BaseStats from "./BaseStats";
 import PokedexEntries from "./PokedexEntries";
+import SearchBar from "../SearchBar";
+
+import { useDispatch, useSelector } from "react-redux";
+import pokeSlice from "@/app/reduxStore/pokeSlice";
 
 function LeftSide(props){
 
   return(
-    <div id='left-side' className="bg-pkRed lg:w-1/2 flex flex-col justify-between">
+    <div id='left-side' className="bg-pkRed lg:w-1/2 flex flex-col justify-between rounded-l-md">
 
-      {/* <div id='left-side-header' className="flex justify-between py-1 px-2">
-        <p>prev</p>
-        <div>searchbar goes here?</div>
-        <p>next</p>
-      </div> */}
+      <div id='left-side-header' className="flex justify-between py-1 px-2">
+        <div className="w-1/6 flex justify-between">
+          <div className="bg-cyan-400 w-10 h-10 rounded-[50%] border-4"></div>
+          <div className="bg-red-600 w-4 h-4 rounded-[50%] border-2"></div>
+          <div className="bg-yellow-300 w-4 h-4 rounded-[50%] border-2"></div>
+          <div className="bg-green-500 w-4 h-4 rounded-[50%] border-2"></div>
+        </div>
+        <div className="w-full flex justify-between px-6">
+          <p>prev</p>
+          <SearchBar />
+          <p>next</p>
+        </div>
+      </div>
 
       <div id='left-side-top' className="flex flex-col items-center md:items-stretch h-full min-h-0 min-w-0 md:flex-row md:justify-center">
         <div id='left-side-top-left' className="bg-transparent m-2 w-fit flex flex-col justify-between min-h-0 min-w-0 lg:max-h-full">
