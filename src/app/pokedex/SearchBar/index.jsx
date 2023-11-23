@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+
+import MT from "@/app/lib/clientmaterialtailwind";
+
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import dexSlice from "@/app/reduxStore/dexSlice";
@@ -44,7 +47,7 @@ function SearchBar(props){
 
   return(
     <form type='submit' onSubmit={handleSearch}>
-      <input type="text" onChange={handleChange} id='query' className="text-black w-full"/>
+      <MT.Input onChange={handleChange} id='query' className="text-white w-full" label="Search for.." color="white"/>
     </form>
   )
 

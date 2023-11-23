@@ -13,12 +13,10 @@ function RightSide(props) {
   const str = 'max-w-[40%] grow-[1]'
 
   return (
-    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-r-md z-10">
+    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md z-10">
 
       <div id='moves-container' className="h-full flex flex-col justify-center p-2">
-
         <MoveTabs />
-
         <div id='moves-list' className="h-4/5 w-full my-2 mx-0">
           <MoveRowSort css={{button, row, numAndImg, str}}/>
           <MoveRow css={{button, row, numAndImg, str}}/>

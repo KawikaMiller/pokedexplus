@@ -46,24 +46,18 @@ function PokemonArt(props) {
         :
         src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.forms[pokeState.formIdx].apiId}.png`
     :
-    src = null
+    src = 'https://placehold.co/475x475/22d3ee/22d3ee?text=\n'
 
   return (
 
-    <div className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center">
+    <div className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative">
       <img id='pokemon-image' src={src} style={{visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt='alt-text-go-here' className={`max-w-auto max-h-full`} />
-      {!dexState.isLoading ?
-        <>
-          <Spinner animation="grow" role="status" variant="light" className="z-10 relative right-1/2">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-          {/* <Spinner animation="grow" role="status" variant="light">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
-          <Spinner animation="grow" role="status" variant="light">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner> */}
-        </>
+      {dexState.isLoading ?
+        <div className="z-10 absolute flex w-full justify-evenly">
+          <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
+          <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
+          <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
+        </div>
         :
         null
       }

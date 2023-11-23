@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "@material-tailwind/react": "^2.1.4",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.2",
     "base-64": "^1.0.0",
