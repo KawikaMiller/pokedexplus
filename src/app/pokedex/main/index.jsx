@@ -5,7 +5,7 @@ import RightSide from "../right";
 function Main(props) {
 
   return (
-    <main className='lg:flex lg:justify-center bg-slate-800'>
+    <main className='lg:flex lg:justify-center bg-blue-gray-700'>
       <div id='pokedex-container' className="flex flex-col lg:flex-row justify-center p-2 py-10 lg:h-[97vh] place-content-center lg:w-[80%]">
         <LeftSide />
 

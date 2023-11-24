@@ -13,7 +13,7 @@ function RightSide(props) {
   const str = 'max-w-[40%] grow-[1]'
 
   return (
-    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md z-10">
+    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10">
 
       <div id='moves-container' className="h-full flex flex-col justify-center p-2">
         <MoveTabs />

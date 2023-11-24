@@ -14,7 +14,7 @@ import pokeSlice from "@/app/reduxStore/pokeSlice";
 function LeftSide(props){
 
   return(
-    <div id='left-side' className="bg-pkRed lg:w-1/2 flex flex-col justify-between rounded-t-md lg:rounded-l-md">
+    <div id='left-side' className="bg-pkRed lg:w-1/2 flex flex-col justify-between rounded-t-md lg:rounded-l-md lg:rounded-tr-none">
 
       <div id='left-side-header' className="flex justify-between py-1 px-2">
         <div className="w-fit flex justify-between">

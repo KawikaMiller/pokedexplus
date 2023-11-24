@@ -46,7 +46,7 @@ function SearchBar(props){
   }
 
   return(
-    <form type='submit' onSubmit={handleSearch}>
+    <form type='submit' onSubmit={handleSearch} className="w-5/6">
       <MT.Input onChange={handleChange} id='query' className="text-white w-full" label="Search for.." color="white"/>
     </form>
   )
