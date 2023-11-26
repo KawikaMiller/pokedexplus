@@ -1,28 +1,41 @@
 import React from "react";
 
+import MT from "@/app/lib/clientmaterialtailwind";
+
+import { capitalizeWord } from "@/app/lib/helpers";
+
+import { useDispatch, useSelector } from "react-redux";
+import pokeSlice from "@/app/reduxStore/pokeSlice";
+
 function DetailedInfo() {
+
+  const pokeState = useSelector(state => state.pokemon)
+
   return (
-    <div id='detailed-info' className="w-auto md:w-1/3 m-2 flex flex-wrap md:flex-nowrap md:flex-col justify-between items-center p-1 lg:text-md bg-transparent/50">   
+    <div id='detailed-info' className="w-auto md:w-1/3 lg:w-3/5 m-2 flex flex-wrap md:flex-nowrap md:flex-col justify-between items-center p-1 lg:text-md bg-transparent/50">   
 
       <div id='bio-height-weight-gender' className="flex md:flex-col justify-around w-full sm:h-1/4 sm:justify-evenly">
         <div className="w-1/2 md:w-full flex justify-around">
           <section id='pokemon-bio-height' className="w-max md:w-full flex flex-col items-center">
             <h4 className="font-bold">Height</h4>
             <hr className="w-full md:w-5/6"></hr>
-            <p>9'99"</p>
+            <p>{`${pokeState?.pokemon?.height.m}m` || '--'}</p>
           </section>
 
           <section id='pokemon-bio-weight' className="w-max md:w-full flex flex-col items-center">
             <h4 className="font-bold">Weight</h4>
             <hr className="w-full md:w-5/6"></hr>
-            <p>999kgs</p>
+            <p>{`${pokeState?.pokemon?.weight.kg}kg` || '--'}</p>
           </section>
         </div>
 
         <section id='pokemon-bio-gender' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Gender Ratio</h4>
           <hr className="w-5/6"></hr>
-          <p>progress bar</p>
+        <MT.Progress barProps={{className: 'rounded-none'}} value={100 - pokeState?.pokemon?.genderRate/8 * 100} className="bg-pink-400 mt-2 w-5/6" color="blue" size="sm"/>
+        <p className="text-[0.75rem]">
+        {`${100 - (pokeState.pokemon?.genderRate / 8 * 100)} ♂ | ${pokeState.pokemon?.genderRate / 8 * 100}% ♀`}
+        </p>
         </section>
       </div>
 
@@ -30,13 +43,26 @@ function DetailedInfo() {
         <section id='pokemon-bio-egg' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Egg Group</h4>
           <hr className="w-5/6"></hr>
-          <p>Monster|Grass</p>
+          <div className="flex justify-between">
+            {pokeState?.pokemon?.eggGroups.map((element, idx) => (
+              <p className="whitespace-pre-wrap" >
+                {
+                  idx == 0 ? 
+                  `${capitalizeWord(element)} // `
+                  :
+                  `${capitalizeWord(element)}`
+                }
+              </p>
+            ))}
+          </div>
         </section>
 
         <section id='pokemon-bio-hatch' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Hatch Time</h4>
           <hr className="w-5/6"></hr>
-          <p>99 Cycles</p>
+          <p>
+            {pokeState?.pokemon?.hatchTime} Cycles
+          </p>
         </section>
       </div>
 
@@ -44,27 +70,33 @@ function DetailedInfo() {
         <section id='pokemon-bio-growth' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Growth Rate</h4>
           <hr className="w-5/6"></hr>
-          <p>Medium-Slow</p>
+          <p>
+            {pokeState?.pokemon?.name ? capitalizeWord(pokeState?.pokemon?.growthRate.name) : null}
+          </p>
         </section>
 
         <section id='pokemon-bio-catch' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Catch Rate</h4>
           <hr className="w-5/6"></hr>
-          <p>999</p>
+          <p>{(pokeState?.pokemon?.catchRate / 255 * 100).toFixed(2)} %</p>
         </section>
       </div>
 
       <div id='bio-yields' className="flex md:flex-col justify-around w-full sm:h-1/4">
         <section id='pokemon-bio-ev' className="w-1/2 md:w-full flex flex-col items-center">
-          <h4 className="font-bold">EV Yield</h4>
+          <h4 className="font-bold">EXP Yield</h4>
           <hr className="w-5/6"></hr>
-          <p>999 XP</p>
+          <p>{pokeState?.pokemon?.baseExpYield} EXP</p>
         </section>
 
         <section id='pokemon-bio-exp' className="w-1/2 md:w-full flex flex-col items-center">
-          <h4 className="font-bold">EXP Yield</h4>
+          <h4 className="font-bold">EV Yield</h4>
           <hr className="w-5/6"></hr>
-          <p>1SPATK 2SPDEF</p>
+          <p>{pokeState?.pokemon?.evYields.map((element) => {
+            if(element.yield){
+              return `${element.yield} ${element.name}`
+            }
+          })}</p>
         </section>
       </div>
 

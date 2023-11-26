@@ -1,7 +1,7 @@
 'use client';
 
 import MT from "../lib/clientmaterialtailwind";
-import { Bars3Icon, UserCircleIcon, HomeIcon, Cog6ToothIcon, PuzzlePieceIcon, BuildingStorefrontIcon, IdentificationIcon, EnvelopeIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon, UserCircleIcon, HomeIcon, Cog6ToothIcon, PuzzlePieceIcon, BuildingStorefrontIcon, IdentificationIcon, EnvelopeIcon, ArrowLeftOnRectangleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Typography } from "@material-tailwind/react";
 import React, {useState} from "react";
 
@@ -18,10 +18,11 @@ function Header(props) {
           <Bars3Icon className="h-max w-max min-w-0 min-h-0 text-white"/>
         </MT.Button>
         <MT.Drawer open={isOpen} onClose={() => openDrawer(false)} className="p-4 bg-pkRed">
-          <div id='drawer-label' className="w-full">
+          <div id='drawer-label' className="w-full flex justify-between items-center">
             <MT.Typography variant="h2">Pokedex +</MT.Typography>
-            <hr className="w-full"></hr>
+            <XMarkIcon className="w-6 h-auto" onClick={() => openDrawer(false)}/>
           </div>
+          <hr className="w-full"></hr>
           <div id='drawer-nav' className="flex flex-col justify-between h-[95%]">
             <MT.List className="h-5/6">
               <MT.ListItem>
