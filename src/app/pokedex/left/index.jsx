@@ -41,7 +41,6 @@ function LeftSide(props){
             <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 mx-0.5">Dyna</button>
           </div>
         </div>
-
         <DetailedInfo />
       </div>
 
