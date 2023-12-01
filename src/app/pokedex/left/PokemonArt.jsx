@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import sprites from "@/app/lib/sprites";
+import PokemonFormsAndCry from "./PokemonFormsAndCry";
 
 function PokemonArt(props) {
 
@@ -52,7 +53,7 @@ function PokemonArt(props) {
 
     <div className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative">
       <img id='pokemon-image' src={src} style={{visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt='alt-text-go-here' className={`max-w-auto max-h-full`} />
-      {dexState.isLoading ?
+      {/* {dexState.isLoading ?
         <div className="z-10 absolute flex w-full justify-evenly">
           <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
           <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
@@ -60,7 +61,10 @@ function PokemonArt(props) {
         </div>
         :
         null
-      }
+      } */}
+      <div className="absolute top-1 left-1">
+        <PokemonFormsAndCry />
+      </div>
     </div>
 
   )

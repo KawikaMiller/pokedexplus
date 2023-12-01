@@ -10,6 +10,7 @@ import SearchBar from "../SearchBar";
 
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
+import PokemonFormsAndCry from "./PokemonFormsAndCry";
 
 function LeftSide(props){
 
@@ -34,12 +35,7 @@ function LeftSide(props){
         <div id='left-side-top-left' className="bg-transparent m-2 w-fit flex flex-col justify-between min-h-0 min-w-0 lg:max-h-full">
           <PokemonArt />
           <BasicInfo />
-          <div id='pokemon-image-toggles' className="flex justify-around items-center">
-            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 mx-0.5">Cry</button>
-            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 mx-0.5">Shiny</button>
-            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 mx-0.5">Mega</button>
-            <button className="border-red-100 bg-blue-500 w-1/4 p-2 hover:bg-cyan-300 mx-0.5">Dyna</button>
-          </div>
+          {/* <PokemonFormsAndCry /> */}
         </div>
         <DetailedInfo />
       </div>

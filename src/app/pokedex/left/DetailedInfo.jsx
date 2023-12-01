@@ -25,7 +25,7 @@ function DetailedInfo() {
           <section id='pokemon-bio-weight' className="w-max md:w-full flex flex-col items-center">
             <h4 className="font-bold">Weight</h4>
             <hr className="w-full md:w-5/6"></hr>
-            <p>{pokeState?.pokemon?.weight.m ? `${pokeState.pokemon.weight.m}m` : `--`}</p>
+            <p>{pokeState?.pokemon?.weight.kg ? `${pokeState.pokemon.weight.kg}kg` : `--`}</p>
           </section>
         </div>
 
