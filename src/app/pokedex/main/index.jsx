@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import LeftSide from "../left";
 import RightSide from "../right";
+import MT from "@/app/lib/clientmaterialtailwind";
+
+import { useDispatch, useSelector } from "react-redux";
+import dexSlice from "@/app/reduxStore/dexSlice";
 
 function Main(props) {
+
+  // const [openAlert, setOpenAlert] = useState(true)
+  const dispatch = useDispatch();
+  const dexState = useSelector(state => state.pokedex);
+  const { toggleAlert } = dexSlice.actions;
+
+  function timeoutAlert() {
+    setTimeout(dispatch(toggleAlert({
+      status: false,
+      message: ''
+    })), 5000)
+  }
 
   return (
     <main className='lg:flex lg:justify-center bg-blue-gray-700'>
@@ -27,6 +43,7 @@ function Main(props) {
           4
         </div>
       </div> */}
+        <MT.Alert open={dexState.showAlert} onClose={() => dispatch(toggleAlert({status: !dexState.showAlert, message: 'test'}))} className="bg-pkRed sticky bottom-20 z-[1000] border-white border-2 self-center lg:justify-center w-5/6">{dexState.alertMessage}</MT.Alert>
       </div>
     </main>
   )

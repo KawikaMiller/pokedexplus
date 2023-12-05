@@ -1,9 +1,10 @@
 import React from "react";
-
 import { capitalizeWord, removeHyphen } from "@/app/lib/helpers";
+import DamageBadge from "../../accessory/DamageBadge";
 
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
+import TypeBadge from "../../accessory/TypeBadge";
 
 function MoveRow ({css, move, alt}) {
 
@@ -16,8 +17,8 @@ function MoveRow ({css, move, alt}) {
       <div className={`${css.numAndImg}`}>{move.power || `-`}</div>
       <div className={`${css.numAndImg}`}>{move.accuracy || `-`}</div>
       <div className={`${css.numAndImg}`}>{move.pp}</div>
-      <div className={`${css.numAndImg}`}>{move.dmgClass}</div>
-      <div className={`${css.numAndImg}`}>{move.type}</div>
+      <div className={`${css.numAndImg} flex justify-center`}>{<DamageBadge dmgClass={move.dmgClass} /> }</div>
+      <div className={`${css.numAndImg} flex justify-center`}>{<TypeBadge type={move.type} />}</div>
     </div>
   )
 

@@ -8,7 +8,9 @@ const dexSlice = createSlice({
     dexIdx: 0,
     moveIdx: 0,
     abilityIdx: 0,
-    isLoading: false
+    isLoading: false,
+    showAlert: false,
+    alertMessage: 'default alert message'
   },
   reducers: {
     setMainScreenIdx(state, action){
@@ -29,6 +31,10 @@ const dexSlice = createSlice({
     },
     toggleIsLoading(state, action){
       state.isLoading = action.payload;
+    },
+    toggleAlert(state, action){
+      state.showAlert = action.payload.status;
+      state.alertMessage = action.payload.message || 'default alert message';
     }
   }
 })

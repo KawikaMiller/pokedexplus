@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import dexSlice from "@/app/reduxStore/dexSlice";
 
-
 const server = process.env.NEXT_PUBLIC_SERVER;
 
 function SearchBar(props){
@@ -18,10 +17,12 @@ function SearchBar(props){
 
   const pokeState = useSelector(state => state.pokemon);
   // const settingsState = useSelector(state => state.settings)
+  const dexState = useSelector(state => state.pokedex);
 
   const dispatch = useDispatch();
 
   const { setPokemon, handleSearchInputChange } = pokeSlice.actions;
+  const { toggleAlert } = dexSlice.actions;
   const { toggleIsLoading } = dexSlice.actions;
 
   const handleChange = (event) => {
@@ -40,7 +41,8 @@ function SearchBar(props){
       dispatch(toggleIsLoading(false))
     }
     catch(e){
-      console.error(e)
+      // console.error(e)
+      dispatch(toggleAlert({status: !dexState.showAlert, message: 'Could not find pokemon. Please check your spelling'}))
       dispatch(toggleIsLoading(false))
     }
   }

@@ -26,6 +26,12 @@ module.exports = withMT({
     `bg-rock`,
     `bg-steel`,
     `bg-water`,
+    `bg-physicalBG`,
+    `bg-specialBG`,
+    `bg-statusBG`,
+    `fill-physicalFG`,
+    `fill-specialFG`,
+    `fill-statusFG`,
   ],
   theme: {
     extend: {
@@ -61,6 +67,12 @@ module.exports = withMT({
         rock: `#B8A038`,
         steel: `#B8B8D0`,
         water: `#6890F0`,
+        physicalBG: `#e86846`,
+        specialBG: `#4968d4`,
+        statusBG: `#838383`,
+        physicalFG: `#fcd44a`,
+        specialFG: `#92e2e2`,
+        statusFG: `#ebebe6`,
       }
     },
   },

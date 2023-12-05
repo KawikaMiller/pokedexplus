@@ -7,6 +7,10 @@ export function removeHyphen(word){
   return word.replace(`-`, ` `)
 }
 
+export function editPokemonName(word){
+  return `(${word})`
+}
+
 export function determineTypeEffectiveness(typeInfo){
   
   let types = ['normal', 'fire', 'water', 'grass', 'electric', 'flying', 'bug', 'rock', 'ground', 'fighting', 'steel', 'poison', 'ice', 'dragon', 'ghost', 'psychic', 'dark', 'fairy'];
