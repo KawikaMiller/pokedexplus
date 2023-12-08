@@ -26,7 +26,7 @@ function TypeMatchup() {
           {
             typeEffectiveness.map(element => {
               if (element.effectiveness > 1) {
-                return <div className="mr-3"><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
               } else return null;
             })
           }
@@ -39,7 +39,7 @@ function TypeMatchup() {
           {
             typeEffectiveness.map(element => {
               if (element.effectiveness < 1 && element.effectiveness > 0) {
-                return <div className="mr-3"><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
               } else return null;
             })
           }
@@ -52,7 +52,7 @@ function TypeMatchup() {
         {
             typeEffectiveness.map(element => {
               if(element.effectiveness === 0){
-                return <div className="mr-3"><TypeBadge type={element.type} effectiveness={element.effectiveness}/></div>
+                return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
               } else return null;
             })
           }

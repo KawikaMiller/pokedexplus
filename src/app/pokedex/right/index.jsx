@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 
 function RightSide(props) {
-  const [levelUpMoves, setLevelUpMoves] = useState([]);
+  const [levelMoves, setLevelMoves] = useState([]);
   const [tmMoves, setTmMoves] = useState([]);
   const [tutorMoves, setTutorMoves] = useState([]);
   const [eggMoves, setEggMoves] = useState([]);
+  const [activeMoves, setActiveMoves] = useState(undefined);
   const [generationMoves, setGenerationMoves] = useState({});
 
-  const [activeKey, setActiveKey] = useState(0);
+  const [movesKey, setMovesKey] = useState('level');
   const [activeGeneration, setActiveGeneration] = useState('yellow');
 
   const pokeState = useSelector(state => state.pokemon);
@@ -24,8 +25,8 @@ function RightSide(props) {
 
   const button = 'h-full w-full rounded-md bg-blue-500 mx-[0.125rem]';
   const row = "text-center align-middle py-1 px-0 overflow-x-hidden flex items-center justify-between"
-  const numAndImg = 'max-w-[10%] grow-[0.5]'
-  const str = 'max-w-[40%] grow-[1]'
+  const numAndImg = 'max-w-[13%] md:max-w-[10%] grow-[0.5]'
+  const str = 'max-w-[22%] md:max-w-[40%] grow-[1]'
 
   let hasMoves = {
     'red-blue': false,
@@ -92,33 +93,68 @@ function RightSide(props) {
       })
     })
 
-    setLevelUpMoves(levelArr);
+    setLevelMoves(levelArr);
     setTmMoves(tmArr);
     setTutorMoves(tutorArr);
     setEggMoves(eggArr);
   }
 
+  const updateActiveMoves = () => {
+    console.log('active moves updating')
+    switch(movesKey){
+      case 'level':
+        setActiveMoves(levelMoves);
+        break;
+      case 'machine':
+        setActiveMoves(tmMoves);
+        break;
+      case 'egg':
+        setActiveMoves(eggMoves);
+        break;
+      case 'tutor':
+        setActiveMoves(tutorMoves);
+        break;
+      default:
+        break;
+    };
+  }
+
+  // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
   useEffect(() => {
     parseMovesByGeneration(activeGeneration);
-    setGenerationMoves(hasMoves)
+    setGenerationMoves(hasMoves);
   }, [pokeState.pokemon, activeGeneration]) //eslint-disable-line
+
+  // allows moves to initially render after moves have been parsed for the first time
+  useEffect(() => {
+    setMovesKey('level');
+    setActiveMoves(levelMoves)
+  }, [levelMoves])
+
+  // updates rendered moves whenever a move tab is clicked (i.e. level, machine, egg, tutor)
+  useEffect(() => {
+    updateActiveMoves();
+  }, [movesKey]) //eslint-disable-line
 
   return (
     <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10">
 
-      <div id='moves-container' className="h-full  flex flex-col justify-start p-2">
+      <div id='moves-container' className="h-full flex flex-col justify-start p-2">
 
-        <MoveTabs />
+        <MoveTabs setMovesKey={setMovesKey}/>
 
         <div id='moves-list' className="min-h-0 w-full mx-0  flex flex-col justify-start">
 
-          <MoveRowSort css={{button, row, numAndImg, str}}/>
+          <MoveRowSort css={{button, row, numAndImg, str}} />
 
-          <div className=" overflow-y-scroll">
+          <div className=" overflow-y-scroll min-h-[inherit]">
+            
             {
-              pokeState?.pokemon?.moves.map((move, idx) => {
-                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} />
+              activeMoves?.length ? activeMoves.map((move, idx) => {
+                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} movesKey={movesKey} key={move.name}/>
               })
+              :
+              <p>NO VALID MOVES FOR THIS CATEGORY</p>
             }
           </div>
 

@@ -49,7 +49,7 @@ function LeftSide(props){
         </div>
         
         <div className="flex justify-between">
-          <TypeMatchup />
+          <TypeMatchup key={`type-matchup-container`}/>
           <BaseStats />
         </div>
       </div>
