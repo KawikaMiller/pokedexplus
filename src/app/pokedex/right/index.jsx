@@ -7,6 +7,7 @@ import MoveDetails from "./moves/MoveDetails";
 
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
+import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
 
 function RightSide(props) {
   const [levelMoves, setLevelMoves] = useState([]);
@@ -15,6 +16,7 @@ function RightSide(props) {
   const [eggMoves, setEggMoves] = useState([]);
   const [activeMoves, setActiveMoves] = useState(undefined);
   const [generationMoves, setGenerationMoves] = useState({});
+  const [isAscending, setIsAscending] = useState(true)
 
   const [movesKey, setMovesKey] = useState('level');
   const [activeGeneration, setActiveGeneration] = useState('yellow');
@@ -100,7 +102,6 @@ function RightSide(props) {
   }
 
   const updateActiveMoves = () => {
-    console.log('active moves updating')
     switch(movesKey){
       case 'level':
         setActiveMoves(levelMoves);
@@ -119,6 +120,24 @@ function RightSide(props) {
     };
   }
 
+  const sortMoves = (property) => {
+    console.log('sort moves hit', activeMoves)
+    if(activeMoves?.length){
+      let temp = [...activeMoves];
+      !isAscending ? 
+      temp = temp.sort((a, b) => (
+        a[property] === b[property] ? 0 : a[property] < b[property] ? -1 : 1
+      ))
+      :
+      temp = temp.sort((a, b) => (
+        a[property] === b[property] ? 0 : a[property] < b[property] ? 1 : -1
+      ))
+      
+      setIsAscending(!isAscending)
+      setActiveMoves(temp)
+    }
+  }
+
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
   useEffect(() => {
     parseMovesByGeneration(activeGeneration);
@@ -127,8 +146,12 @@ function RightSide(props) {
 
   // allows moves to initially render after moves have been parsed for the first time
   useEffect(() => {
+    let temp = [...levelMoves];
+    temp.sort((a, b) => (
+      a.levelLearned === b.levelLearned ? 0 : a.levelLearned < b.levelLearned ? -1 : 1
+    ))
+    setActiveMoves(temp);
     setMovesKey('level');
-    setActiveMoves(levelMoves)
   }, [levelMoves])
 
   // updates rendered moves whenever a move tab is clicked (i.e. level, machine, egg, tutor)
@@ -145,7 +168,7 @@ function RightSide(props) {
 
         <div id='moves-list' className="min-h-0 w-full mx-0  flex flex-col justify-start">
 
-          <MoveRowSort css={{button, row, numAndImg, str}} />
+          <MoveRowSort css={{button, row, numAndImg, str}} sortMoves={sortMoves} isAscending={isAscending} />
 
           <div className=" overflow-y-scroll min-h-[inherit]">
             
