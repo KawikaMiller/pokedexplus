@@ -17,6 +17,8 @@ function RightSide(props) {
   const [activeMoves, setActiveMoves] = useState(undefined);
   const [generationMoves, setGenerationMoves] = useState({});
   const [isAscending, setIsAscending] = useState(true)
+  const [showMoveModal, setShowMoveModal] = useState(false)
+  const [moveModalData, setMoveModalData] = useState(undefined)
 
   const [movesKey, setMovesKey] = useState('level');
   const [activeGeneration, setActiveGeneration] = useState('yellow');
@@ -174,7 +176,7 @@ function RightSide(props) {
             
             {
               activeMoves?.length ? activeMoves.map((move, idx) => {
-                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} movesKey={movesKey} key={move.name}/>
+                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} movesKey={movesKey} key={move.name} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData}/>
               })
               :
               <p>NO VALID MOVES FOR THIS CATEGORY</p>
@@ -182,7 +184,7 @@ function RightSide(props) {
           </div>
 
         </div>
-        {/* <MoveDetails /> */}
+        <MoveDetails showMoveModal={showMoveModal} setShowMoveModal={setShowMoveModal} move={moveModalData}/>
       </div>
 
     </div>

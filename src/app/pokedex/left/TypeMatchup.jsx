@@ -22,7 +22,7 @@ function TypeMatchup() {
 
       <section className="flex h-full">
         <h4 className="w-1/3 self-center pl-2">Weak</h4>
-        <div className="bg-transparent/25 w-2/3 flex items-center overflow-x-auto">
+        <div className="bg-transparent/25 w-2/3 p-1 flex items-center overflow-x-auto">
           {
             typeEffectiveness.map(element => {
               if (element.effectiveness > 1) {
@@ -35,7 +35,7 @@ function TypeMatchup() {
 
       <section className="flex h-full my-1">
         <h4 className="w-1/3 self-center pl-2">Resist</h4>
-        <div className="bg-transparent/50 w-2/3 flex items-center overflow-x-auto">
+        <div className="bg-transparent/50 w-2/3 p-1 flex items-center overflow-x-auto">
           {
             typeEffectiveness.map(element => {
               if (element.effectiveness < 1 && element.effectiveness > 0) {
@@ -48,7 +48,7 @@ function TypeMatchup() {
 
       <section className="flex h-full">
         <h4 className="w-1/3 self-center pl-2">Immune</h4>
-        <div className="bg-transparent/25 w-2/3 flex flex-wrap items-center overflow-x-auto">
+        <div className="bg-transparent/25 w-2/3 p-1 flex flex-wrap items-center overflow-x-auto">
         {
             typeEffectiveness.map(element => {
               if(element.effectiveness === 0){
