@@ -32,14 +32,14 @@ function DetailedInfo() {
         <section id='pokemon-bio-gender' className="w-1/2 md:w-full flex flex-col items-center">
           <h4 className="font-bold">Gender Ratio</h4>
           <hr className="w-5/6"></hr>
-          <MT.Progress
-            barProps={{ className: 'rounded-none' }}
-            value={100 - pokeState?.pokemon?.genderRate / 8 * 100} 
-            className={(pokeState?.pokemon?.genderRate ? `bg-pink-400` : `bg-white/30`) + ` mt-2 w-5/6`}
-            color="blue" size="sm" />
           <p className="text-[0.75rem]">
             {pokeState?.pokemon?.genderRate ? `${100 - (pokeState.pokemon?.genderRate / 8 * 100)} ♂ | ${pokeState.pokemon?.genderRate / 8 * 100}% ♀` : '--'}
           </p>
+          <MT.Progress
+            barProps={{ className: 'rounded-none' }}
+            value={100 - pokeState?.pokemon?.genderRate / 8 * 100} 
+            className={(pokeState?.pokemon?.genderRate ? `bg-pink-400` : `bg-white/30`) + ` mb-2 w-5/6`}
+            color="blue" size="sm" />
         </section>
       </div>
 
