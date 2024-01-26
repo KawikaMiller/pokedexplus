@@ -21,7 +21,7 @@ function RightSide(props) {
   const [moveModalData, setMoveModalData] = useState(undefined)
 
   const [movesKey, setMovesKey] = useState('level');
-  const [activeGeneration, setActiveGeneration] = useState('yellow');
+  const [activeVersion, setActiveVersion] = useState('black-2-white-2');
 
   const pokeState = useSelector(state => state.pokemon);
   // const dexState = useSelector(state => state.pokedex);
@@ -56,7 +56,7 @@ function RightSide(props) {
     'brilliant-diamond-and-shining-pearl': false,
     'legends-arceus': false,
     'scarlet-violet': false,
-}
+  }
 
   // this runs all four previous parse methods
   const parseMovesByGeneration = (version) => {
@@ -67,17 +67,17 @@ function RightSide(props) {
 
     pokeState.pokemon?.moves.forEach(move => {
       move.versionDetails.forEach(details => {
-        
-        if(!hasMoves[details.version]){
+
+        if (!hasMoves[details.version]) {
           hasMoves[details.version] = true;
         };
 
 
         if (details.version === version) {
-          let nMove = {...move};
+          let nMove = { ...move };
           nMove.learnMethod = details.learnMethod;
           nMove.levelLearned = details.levelLearned;
-          switch(details.learnMethod){
+          switch (details.learnMethod) {
             case 'level-up':
               levelArr.push(nMove);
               break;
@@ -98,13 +98,14 @@ function RightSide(props) {
     })
 
     setLevelMoves(levelArr);
+    console.log('LEVEL ARR: ', levelArr)
     setTmMoves(tmArr);
     setTutorMoves(tutorArr);
     setEggMoves(eggArr);
   }
 
   const updateActiveMoves = () => {
-    switch(movesKey){
+    switch (movesKey) {
       case 'level':
         setActiveMoves(levelMoves);
         break;
@@ -124,17 +125,17 @@ function RightSide(props) {
 
   const sortMoves = (property) => {
     console.log('sort moves hit', activeMoves)
-    if(activeMoves?.length){
+    if (activeMoves?.length) {
       let temp = [...activeMoves];
-      !isAscending ? 
-      temp = temp.sort((a, b) => (
-        a[property] === b[property] ? 0 : a[property] < b[property] ? -1 : 1
-      ))
-      :
-      temp = temp.sort((a, b) => (
-        a[property] === b[property] ? 0 : a[property] < b[property] ? 1 : -1
-      ))
-      
+      !isAscending ?
+        temp = temp.sort((a, b) => (
+          a[property] === b[property] ? 0 : a[property] < b[property] ? -1 : 1
+        ))
+        :
+        temp = temp.sort((a, b) => (
+          a[property] === b[property] ? 0 : a[property] < b[property] ? 1 : -1
+        ))
+
       setIsAscending(!isAscending)
       setActiveMoves(temp)
     }
@@ -142,9 +143,9 @@ function RightSide(props) {
 
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
   useEffect(() => {
-    parseMovesByGeneration(activeGeneration);
+    parseMovesByGeneration(activeVersion);
     setGenerationMoves(hasMoves);
-  }, [pokeState.pokemon, activeGeneration]) //eslint-disable-line
+  }, [pokeState.pokemon, activeVersion]) //eslint-disable-line
 
   // allows moves to initially render after moves have been parsed for the first time
   useEffect(() => {
@@ -166,25 +167,26 @@ function RightSide(props) {
 
       <div id='moves-container' className="h-full flex flex-col justify-start p-2">
 
-        <MoveTabs setMovesKey={setMovesKey}/>
+        <MoveTabs setMovesKey={setMovesKey} />
 
         <div id='moves-list' className="min-h-0 w-full mx-0  flex flex-col justify-start">
 
-          <MoveRowSort css={{button, row, numAndImg, str}} sortMoves={sortMoves} isAscending={isAscending} />
+          <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
 
           <div className=" overflow-y-scroll min-h-[inherit]">
-            
+
             {
-              activeMoves?.length ? activeMoves.map((move, idx) => {
-                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} movesKey={movesKey} key={move.name} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData}/>
-              })
-              :
-              <p>NO VALID MOVES FOR THIS CATEGORY</p>
+              activeMoves?.length ?
+                activeMoves.map((move, idx) => {
+                  return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
+                })
+                :
+                <p>NO VALID MOVES FOR THIS CATEGORY</p>
             }
           </div>
 
         </div>
-        <MoveDetails showMoveModal={showMoveModal} setShowMoveModal={setShowMoveModal} move={moveModalData}/>
+        {/* <MoveDetails showMoveModal={showMoveModal} setShowMoveModal={setShowMoveModal} move={moveModalData}/> */}
       </div>
 
     </div>

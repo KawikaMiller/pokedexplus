@@ -37,7 +37,8 @@ module.exports = withMT({
     extend: {
       screens: {
         'xxs': '375px',
-        'xs': '500px'
+        'xs': '500px',
+        'lg': '1280px'
       },
       fontFamily:{
         sans:["Kanit", 'sans-serif'],

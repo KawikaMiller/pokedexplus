@@ -12,7 +12,7 @@ function DetailedInfo() {
   const pokeState = useSelector(state => state.pokemon)
 
   return (
-    <div id='detailed-info' className="w-auto md:w-1/3 lg:w-3/5 m-2 flex flex-wrap md:flex-nowrap md:flex-col justify-between items-center p-1 lg:text-md bg-transparent/50">
+    <div id='detailed-info' className="bg-transparent/50 w-auto m-2 flex flex-wrap items-center p-1 justify-between md:w-1/3 md:flex-nowrap md:flex-col lg:text-md lg:full">
 
       <div id='bio-height-weight-gender' className="flex md:flex-col justify-around w-full sm:h-1/4 sm:justify-evenly">
         <div className="w-1/2 md:w-full flex justify-around">
@@ -52,7 +52,7 @@ function DetailedInfo() {
               <p className="whitespace-pre-wrap" >
                 {
                   idx == 0 ?
-                    `${capitalizeWord(element)} // `
+                    `${capitalizeWord(element)}& `
                     :
                     `${capitalizeWord(element)}`
                 }

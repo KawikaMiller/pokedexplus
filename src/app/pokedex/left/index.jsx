@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import PokemonFormsAndCry from "./PokemonFormsAndCry";
 
+const leftSideTopCSS = "flex flex-col items-center md:items-stretch h-full min-h-0 min-w-0 md:flex-row md:justify-center"
+
 function LeftSide(props){
 
   return(
@@ -31,7 +33,7 @@ function LeftSide(props){
         </div>
       </div>
 
-      <div id='left-side-top' className="flex flex-col items-center md:items-stretch h-full min-h-0 min-w-0 md:flex-row md:justify-center">
+      <div id='left-side-top' className={leftSideTopCSS}>
         <div id='left-side-top-left' className="bg-transparent m-2 w-fit flex flex-col justify-between min-h-0 min-w-0 lg:max-h-full">
           <PokemonArt />
           <BasicInfo />
@@ -40,18 +42,19 @@ function LeftSide(props){
         <DetailedInfo />
       </div>
 
-      <div id='left-side-mid' className="h-1/5 lg:h-fit m-2">
-        <Abilities />
-
-        <div className="flex bg-slate-500 mt-4">
-          <h4 className="text-lg w-2/3">Type Matchups</h4>
-          <h4 className="text-lg w-1/3">Base Stats</h4>
-        </div>
+      <div id='left-side-mid' className="h-1/5 lg:h-fit flex justify-center">
         
-        <div className="flex justify-between">
-          <TypeMatchup key={`type-matchup-container`}/>
+        <TypeMatchup key={`type-matchup-container`}/>
+
+        <div className="flex flex-col w-1/3">
+          <Abilities />
           <BaseStats />
         </div>
+
+        {/* <div className="flex bg-slate-500 mt-4 w-full">
+          <h4 className="text-lg w-2/3">Type Matchups</h4>
+          <h4 className="text-lg w-1/3">Base Stats</h4>
+        </div> */}
       </div>
 
       {/* <PokedexEntries /> */}

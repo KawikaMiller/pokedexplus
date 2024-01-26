@@ -51,7 +51,8 @@ function PokemonArt(props) {
 
   return (
 
-    <div className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative">
+    <div id='pokemon-image-container' className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative lg:h-full">
+      
       <img id='pokemon-image' src={src} style={{visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt='alt-text-go-here' className={`max-w-auto max-h-full`} />
       {/* {dexState.isLoading ?
         <div className="z-10 absolute flex w-full justify-evenly">
