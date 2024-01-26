@@ -20,12 +20,17 @@ function Abilities(){
   return(
     <div id='pokemon-abilities-container' className="m-2">
       <h4 className="text-lg">Abilities</h4>
-      <div id='pokemon-abilities' className="flex justify-around bg-transparent/50">
+      <div id='pokemon-abilities' className="flex flex-wrap justify-around bg-transparent/50">
         {
           pokeState.pokemon?.abilities ? 
-          pokeState.pokemon.abilities.map(ability => <p onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}</p>)
+          pokeState.pokemon.abilities.map(ability => <p className="p-2" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}<span className="text-xs">{ability.is_hidden ? '(H)' : null}</span></p>)
           :
-          <p>--</p>
+          <>
+          <p>Long Name</p>
+          <p>Long Name Ability</p>
+          <p>Long Name Ability</p>
+          <p>Long Name</p>
+          </>
         }
       </div>
 

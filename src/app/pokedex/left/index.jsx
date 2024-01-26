@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import PokemonFormsAndCry from "./PokemonFormsAndCry";
 
-const leftSideTopCSS = "flex flex-col items-center md:items-stretch h-full min-h-0 min-w-0 md:flex-row md:justify-center"
+const leftSideTopCSS = "flex flex-col items-center h-full min-h-0 min-w-0 md:flex-row md:justify-center md:items-stretch"
 
 function LeftSide(props){
 
@@ -42,11 +42,11 @@ function LeftSide(props){
         <DetailedInfo />
       </div>
 
-      <div id='left-side-mid' className="h-1/5 lg:h-fit flex justify-center">
+      <div id='left-side-mid' className="flex flex-col md:flex-row h-1/5 justify-center lg:h-fit">
         
         <TypeMatchup key={`type-matchup-container`}/>
 
-        <div className="flex flex-col w-1/3">
+        <div className="flex flex-col w-auto md:w-1/3">
           <Abilities />
           <BaseStats />
         </div>
