@@ -163,25 +163,25 @@ function RightSide(props) {
   }, [movesKey]) //eslint-disable-line
 
   return (
-    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10">
+    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10 p-2">
 
-      <div id='moves-container' className="h-full flex flex-col justify-start p-2">
+      <div id='moves-container' className="h-full flex flex-col justify-start">
 
         <MoveTabs setMovesKey={setMovesKey} />
 
-        <div id='moves-list' className="min-h-0 w-full mx-0  flex flex-col justify-start">
+        <div id='moves-list' className="min-h-0 h-full w-full mx-0  flex flex-col justify-start">
 
           <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
 
-          <div className=" overflow-y-scroll min-h-[inherit]">
+          <div className=" overflow-y-auto min-h-[inherit] h-full bg-black/50 rounded-md">
 
             {
               activeMoves?.length ?
                 activeMoves.map((move, idx) => {
-                  return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
+                  return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
                 })
                 :
-                <p>NO VALID MOVES FOR THIS CATEGORY</p>
+                <div className="text-center">missingMoveData</div>
             }
           </div>
 

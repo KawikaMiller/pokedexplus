@@ -17,8 +17,8 @@ function TypeMatchup() {
   }, [pokeState.pokemon])
 
   return (
-    <div id='pokemon-type-matchup-container' className="m-2 flex flex-col flex-grow">
-      <h4 className="text-lg">Type Matchups</h4>
+    <div id='pokemon-type-matchup-container' className="w-full flex flex-col h-full">
+      {/* <h4 className="text-lg">Type Matchups</h4> */}
       <div id='pokemon-type-matchup' className="flex flex-col bg-transparent/50 h-full">
 
         <section id='type-weakness' className="flex h-1/3">

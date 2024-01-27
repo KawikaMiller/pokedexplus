@@ -1,5 +1,6 @@
 import React from "react";
 import TypeBadge from "../accessory/TypeBadge";
+import Abilities from "./Abilities";
 
 import { capitalizeWord } from "@/app/lib/helpers";
 
@@ -11,14 +12,12 @@ function BasicInfo(props) {
   const pokeState = useSelector(state => state.pokemon)
 
   return (
-    <div id='pokemon-basic-info' className="flex flex-col justify-end h-fit mt-4">
-
-      {/* <div> */}
+    <div id='pokemon-basic-info' className="flex flex-col justify-end h-fit">
         {/* POKEMON NAME AND NUMBER */}
-        <div id='basic-info-top' className="flex justify-between items-center h-1/2 mt-4 lg:mt-0">
+        <div id='basic-info-top' className="flex justify-between items-center lg:mt-0">
           <h1 id='pokemon-name' className="font-bold text-4xl">{pokeState?.pokemon?.name ? capitalizeWord(pokeState.pokemon.name) : 'missingName'}</h1>
 
-          <div id='pokemon-types' className="flex justify-end w-1/5">
+          <div id='pokemon-types' className="flex justify-end w-fit">
             {pokeState?.pokemon?.types.map((element) => {
               return (
                 <div id={`type${element.slot}`} className="w-10 h-10 ml-2 flex justify-center items-center">
@@ -30,7 +29,7 @@ function BasicInfo(props) {
         </div>
 
         {/* POKEMON GENUS AND TYPE(S) */}
-        <div id='basic-info-bot' className="flex justify-between items-center">
+        <div id='basic-info-bot' className="flex justify-between items-end">
 
           <h1 id='pokemon-number' className="font-medium lg:font-semibold text-xl">{pokeState?.pokemon?.id ? `#${pokeState.pokemon?.id.toString().padStart(4, '0')}` : '#----'}</h1>
 
@@ -41,12 +40,8 @@ function BasicInfo(props) {
               `--`
             }
           </h1>
-
-
         </div>
-
-      {/* </div> */}
-
+        <Abilities />
     </div>
   )
 

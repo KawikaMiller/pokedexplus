@@ -19,11 +19,11 @@ function Abilities(){
 
   return(
     <div id='pokemon-abilities-container' className="">
-      <h4 className="text-lg">Abilities</h4>
+      {/* <h4 className="text-lg">Abilities</h4> */}
       <div id='pokemon-abilities' className="flex flex-wrap justify-around bg-transparent/50 p-1">
         {
           pokeState.pokemon?.abilities ? 
-          pokeState.pokemon.abilities.map(ability => <p className="p-2" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}<span className="text-xs">{ability.is_hidden ? '(H)' : null}</span></p>)
+          pokeState.pokemon.abilities.map(ability => <p className="p-1" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}<span className="text-xs">{ability.is_hidden ? '(H)' : null}</span></p>)
           :
           <>
           <p>Long Name</p>

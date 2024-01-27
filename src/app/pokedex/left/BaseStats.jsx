@@ -9,7 +9,7 @@ function BaseStats() {
 
   return (
     <div id='pokemon-base-stats-container' className="">
-      <h4 className="text-lg">Base Stats</h4>
+      {/* <h4 className="text-lg">Base Stats</h4> */}
       <div id='pokemon-base-stats' className="bg-transparent/50 flex flex-col justify-evenly" >
         {
 

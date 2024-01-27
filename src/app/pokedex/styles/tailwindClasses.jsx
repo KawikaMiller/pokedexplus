@@ -4,3 +4,9 @@ export const modalStyle = {
   body: 'flex flex-col justify-center items-center bg-blue-gray-200 text-black',
   footer: 'flex justify-end items-center bg-white text-black border-t-4 border-black rounded-b-md'
 }
+
+export const cardStyle = {
+  header: 'h-20 w-full flex justify-between border-b-2 border-b-black/25 p-1',
+  main: '',
+  footer: '',
+}
