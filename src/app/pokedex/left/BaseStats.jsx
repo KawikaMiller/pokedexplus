@@ -8,9 +8,9 @@ function BaseStats() {
   const statNames = ['HP', 'ATK', 'DEF', 'SPATK', 'SPDEF', 'SPD']
 
   return (
-    <div id='pokemon-base-stats-container' className="">
+    <div id='pokemon-base-stats-container' className="h-full">
       {/* <h4 className="text-lg">Base Stats</h4> */}
-      <div id='pokemon-base-stats' className="bg-transparent/50 flex flex-col justify-evenly" >
+      <div id='pokemon-base-stats' className="bg-transparent/50 flex flex-col justify-between h-full" >
         {
 
           pokeState.pokemon?.stats ?
