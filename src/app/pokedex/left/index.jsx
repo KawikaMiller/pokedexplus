@@ -24,7 +24,7 @@ function LeftSide(props) {
           <div className="bg-yellow-300 w-4 h-4 rounded-[50%] mx-1 border-2"></div>
           <div className="bg-green-500 w-4 h-4 rounded-[50%] mx-1 border-2"></div>
         </div>
-        <div className="w-5/6 flex justify-end pl-6 items-center">
+        <div className="w-1/3 lg:w-5/6 flex justify-end pl-6 items-center">
         {/* <p>prev</p> */}
         <SearchBar />
         {/* <p>next</p> */}
@@ -34,12 +34,12 @@ function LeftSide(props) {
 
       <div id="left-body" className="flex flex-col justify-between min-h-0">
 
-        <div id="left-body-top" className="flex h-fit">
-          <div id='art-and-basic-container' className="flex flex-col m-2 min-h-fit justify-between w-2/3 border">
+        <div id="left-body-top" className="flex flex-col lg:flex-row h-fit">
+          <div id='art-and-basic-container' className="flex flex-col w-auto m-2 min-h-fit justify-between lg:w-2/3 border">
             <PokemonArt />
             <BasicInfo />
           </div>
-          <div id='detailed-info-container' className="flex-grow m-2 w-1/3 border">
+          <div id='detailed-info-container' className="flex-grow m-2 w-auto lg:w-1/3 border">
             <DetailedInfo />
           </div>
         </div>

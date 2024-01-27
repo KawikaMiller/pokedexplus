@@ -18,7 +18,7 @@ function BaseStats() {
             pokeState.pokemon?.stats.map((stat, idx) => (
               <>
                 <section className="flex justify-center items-center">
-                  <h4 className="w-1/3 lg:w-1/3 text-center">{stat.name}</h4>
+                  <h4 className="w-5/6 lg:w-1/3 text-center">{stat.name}</h4>
                   <p className="text-center bg-transparent/25 w-2/3">{stat.base_stat}</p>
                 </section>
                 {
