@@ -32,9 +32,9 @@ function LeftSide(props) {
       </div>
 
 
-      <div id="left-body" className="flex flex-col justify-between min-h-0">
+      <div id="left-body" className="flex flex-col justify-between min-h-0 lg:h-full">
 
-        <div id="left-body-top" className="flex flex-col lg:flex-row h-fit">
+        <div id="left-body-top" className="flex flex-col lg:flex-row h-fit lg:h-[75%]">
           <div id='art-and-basic-container' className="flex flex-col w-auto m-2 min-h-fit justify-between lg:w-2/3 border">
             <PokemonArt />
             <BasicInfo />
@@ -45,10 +45,10 @@ function LeftSide(props) {
         </div>
 
         <div id="left-body-bot" className="flex min-h-0">
-          <div id='type-matchup-container' className="flex flex-col mx-2 justify-between w-2/3 border">
+          <div id='type-matchup-container' className="flex flex-col mx-2 justify-between w-auto lg:w-2/3 lg:min-w-0 border">
             <TypeMatchup />
           </div>
-          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full w-1/3 border">
+          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full lg:w-1/3 border">
             <BaseStats />
           </div>
         </div>

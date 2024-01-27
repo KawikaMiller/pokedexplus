@@ -22,8 +22,8 @@ function TypeMatchup() {
       <div id='pokemon-type-matchup' className="flex flex-col bg-transparent/50 h-full">
 
         <section id='type-weakness' className="flex h-1/3">
-          <h4 className="w-1/3 self-center pl-2">Weak</h4>
-          <div className="bg-transparent/25 w-2/3 p-1 flex items-center overflow-x-auto">
+          <h4 className="w-1/4 self-center pl-2">Weak</h4>
+          <div className="bg-transparent/25 w-3/4 p-1 flex items-center overflow-x-auto">
             {
               typeEffectiveness.map(element => {
                 if (element.effectiveness > 1) {
@@ -35,21 +35,23 @@ function TypeMatchup() {
         </section>
 
         <section id='type-resistance' className="flex h-1/3 my-1">
-          <h4 className="w-1/3 self-center pl-2">Resist</h4>
-          <div className="bg-transparent/50 w-2/3 p-1 flex items-center overflow-x-auto">
-            {
-              typeEffectiveness.map(element => {
-                if (element.effectiveness < 1 && element.effectiveness > 0) {
-                  return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
-                } else return null;
-              })
-            }
+          <h4 className="w-1/4 self-center pl-2">Resist</h4>
+          <div className="bg-transparent/50 w-3/4 p-1 flex items-center overflow-x-auto">
+            <div className="flex overflow-x-auto">
+              {
+                typeEffectiveness.map(element => {
+                  if (element.effectiveness < 1 && element.effectiveness > 0) {
+                    return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                  } else return null;
+                })
+              }
+            </div>
           </div>
         </section>
 
         <section id='type-immune' className="flex h-1/3">
-          <h4 className="w-1/3 self-center pl-2">Immune</h4>
-          <div className="bg-transparent/25 w-2/3 p-1 flex items-center overflow-x-auto">
+          <h4 className="w-1/4 self-center pl-2">Immune</h4>
+          <div className="bg-transparent/25 w-3/4 p-1 flex items-center overflow-x-auto">
             {
               typeEffectiveness.map(element => {
                 if (element.effectiveness === 0) {
