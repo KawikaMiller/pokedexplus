@@ -45,10 +45,10 @@ function LeftSide(props) {
         </div>
 
         <div id="left-body-bot" className="flex min-h-0">
-          <div id='type-matchup-container' className="flex flex-col mx-2 justify-between w-auto lg:w-2/3 lg:min-w-0 border">
+          <div id='type-matchup-container' className="flex flex-col mx-2 justify-between w-2/3 lg:w-2/3 lg:min-w-0 border">
             <TypeMatchup />
           </div>
-          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full lg:w-1/3 border">
+          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full w-1/3 lg:w-1/3 border">
             <BaseStats />
           </div>
         </div>
