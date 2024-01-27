@@ -3,7 +3,7 @@ import React from "react";
 function MoveRowSort({css, sortMoves}) {
 
   return(
-    <div className={'text-center align-middle py-2 px-0 flex items-center justify-center'}>
+    <div className={'text-center align-middle flex items-center justify-center'}>
       <div className={`${css.row} ${css.numAndImg}`} onClick={() => sortMoves('levelLearned')}>
         <button className={css.button}>
           {/* <p className="sm:block md:hidden">Lvl</p>

@@ -8,14 +8,18 @@ import BaseStats from "./BaseStats";
 import PokedexEntries from "./PokedexEntries";
 import SearchBar from "../SearchBar";
 
+import { cardStyle } from "../styles/tailwindClasses";
+
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import PokemonFormsAndCry from "./PokemonFormsAndCry";
 
+const leftSideStyle = 'rounded-t-md lg:rounded-l-md lg:rounded-tr-none'
+
 function LeftSide(props) {
 
   return (
-    <div id='left-side' className="bg-pkRed lg:w-1/2 flex flex-col rounded-t-md lg:rounded-l-md lg:rounded-tr-none p-2 max-h-[100%] min-h-0">
+    <div id='left-side' className={`${leftSideStyle} ${cardStyle.main}`}>
 
       <div id='left-header' className="min-h-[3rem] w-full flex justify-between border-b-2 border-b-black/25 p-1">
         <div className="w-fit flex justify-between">
@@ -61,29 +65,3 @@ function LeftSide(props) {
 }
 
 export default LeftSide;
-
-// (<div id='left-body-top' className="flex flex-col items-center h-full min-h-0 min-w-0 md:flex-row md:justify-between md:items-stretch max-w-3/4">
-// <div id='left-body-top-a' className="bg-transparent m-2 w-fit flex flex-col justify-between min-h-0 min-w-0 lg:max-h-full flex-grow">
-//   <PokemonArt />
-//   <BasicInfo />
-//   {/* <PokemonFormsAndCry /> */}
-// </div>
-// <DetailedInfo />
-// </div>
-
-// <div id='left-side-mid' className="flex flex-col justify-center md:flex-row lg:h-fit max-w-3/4">
-
-// <TypeMatchup key={`type-matchup-container`} />
-
-// <div className="flex flex-col w-auto md:w-1/3 m-2">
-//   <Abilities />
-//   <BaseStats />
-// </div>
-
-// {/* <div className="flex bg-slate-500 mt-4 w-full">
-//   <h4 className="text-lg w-2/3">Type Matchups</h4>
-//   <h4 className="text-lg w-1/3">Base Stats</h4>
-// </div> */}
-// </div>
-
-// {/* <PokedexEntries /> */})

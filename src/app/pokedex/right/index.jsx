@@ -8,6 +8,8 @@ import MoveDetails from "./moves/MoveDetails";
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
+import { cardStyle } from "../styles/tailwindClasses";
+import MT from "@/app/lib/clientmaterialtailwind";
 
 function RightSide(props) {
   const [levelMoves, setLevelMoves] = useState([]);
@@ -98,7 +100,6 @@ function RightSide(props) {
     })
 
     setLevelMoves(levelArr);
-    console.log('LEVEL ARR: ', levelArr)
     setTmMoves(tmArr);
     setTutorMoves(tutorArr);
     setEggMoves(eggArr);
@@ -162,32 +163,54 @@ function RightSide(props) {
     updateActiveMoves();
   }, [movesKey]) //eslint-disable-line
 
+  const rightSideStyle = `rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10`
+
+  const headerTabs = [
+    {
+      label: 'Moves',
+      value: 'moves'
+    },
+    {
+      label: 'Team Builder',
+      value: 'team builder'
+    }
+  ]
+
   return (
-    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10 p-2">
+    <div id='right-side' className={`${rightSideStyle} ${cardStyle.main}`}>
 
-      <div id='moves-container' className="h-full flex flex-col justify-start">
-
-        <MoveTabs setMovesKey={setMovesKey} />
-
-        <div id='moves-list' className="min-h-0 h-full w-full mx-0  flex flex-col justify-start">
-
-          <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
-
-          <div className=" overflow-y-auto min-h-[inherit] h-full bg-black/50 rounded-md">
-
-            {
-              activeMoves?.length ?
-                activeMoves.map((move, idx) => {
-                  return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
-                })
-                :
-                <div className="text-center">missingMoveData</div>
-            }
-          </div>
-
-        </div>
-        {/* <MoveDetails showMoveModal={showMoveModal} setShowMoveModal={setShowMoveModal} move={moveModalData}/> */}
+      <div id="right-header" className={`${cardStyle.header}`}>
+        <MT.Tabs value='moves' className='w-full'>
+          <MT.TabsHeader className="bg-blue-800/100" indicatorProps={{ className: 'bg-blue-500' }}>
+            {headerTabs.map(({ label, value }) => <MT.Tab className="text-sm text-white" key={value} value={value}>{label}</MT.Tab>)}
+          </MT.TabsHeader>
+        </MT.Tabs>
       </div>
+
+      <div id="right-body" className={`${cardStyle.body.container}`}>
+        <div id='right-body-top'>
+          <div id='move-tabs-container' className="m-2 border">
+            <MoveTabs setMovesKey={setMovesKey} />
+          </div>
+        </div>
+
+        <div className=" overflow-y-auto min-h-0 h-full bg-black/50 rounded-md border mx-2">
+          <div className="sticky top-0 z-[100] bg-black">
+            <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
+          </div>
+          {
+            activeMoves?.length ?
+              activeMoves.map((move, idx) => {
+                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
+              })
+              :
+              <div className="text-center">missingMoveData</div>
+          }
+        </div>
+
+      </div>
+
+
 
     </div>
   )
@@ -195,3 +218,27 @@ function RightSide(props) {
 }
 
 export default RightSide;
+
+// (<div id='moves-container' className="h-full flex flex-col justify-start">
+
+// <MoveTabs setMovesKey={setMovesKey} />
+
+// <div id='moves-list' className="min-h-0 h-full w-full mx-0  flex flex-col justify-start">
+
+//   <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
+
+//   <div className=" overflow-y-auto min-h-[inherit] h-full bg-black/50 rounded-md">
+
+//     {
+//       activeMoves?.length ?
+//         activeMoves.map((move, idx) => {
+//           return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
+//         })
+//         :
+//         <div className="text-center">missingMoveData</div>
+//     }
+//   </div>
+
+// </div>
+// {/* <MoveDetails showMoveModal={showMoveModal} setShowMoveModal={setShowMoveModal} move={moveModalData}/> */}
+// </div>)

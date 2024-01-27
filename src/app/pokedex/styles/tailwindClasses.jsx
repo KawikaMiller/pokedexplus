@@ -6,7 +6,12 @@ export const modalStyle = {
 }
 
 export const cardStyle = {
-  header: 'h-20 w-full flex justify-between border-b-2 border-b-black/25 p-1',
-  main: '',
-  footer: '',
+  main: 'bg-pkRed flex flex-col p-2 max-h-[100%] min-h-0 lg:w-1/2',
+  header: 'min-h-[3rem] w-full flex justify-between border-b-2 border-b-black/25 p-1',
+  body: {
+    container: 'flex flex-col justify-between min-h-0 lg:h-full',
+    top: 'flex flex-col lg:flex-row h-fit lg:h-[75%]',
+    bot: 'flex min-h-0',
+  },
 }
+

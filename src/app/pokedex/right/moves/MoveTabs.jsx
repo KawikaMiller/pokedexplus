@@ -4,7 +4,7 @@ import MT from '@/app/lib/clientmaterialtailwind';
 function MoveTabs(props) {
 
   return(
-    <div id='moves-header' className="h-20 w-full flex justify-between border-b-2 border-b-black/25 p-1">
+    <div id='moves-header' className="w-full flex justify-between">
       <div className='flex'>
         <div className='p-2 flex justify-center items-center bg-blue-600 border-blue-700 border-[1px] rounded-tl-md' onClick={() => props.setMovesKey('level')}><p>Lvl</p></div>
         <div className='p-2 flex justify-center items-center bg-blue-600 border-blue-700 border-[1px]' onClick={() => props.setMovesKey('machine')}>Machine</div>
