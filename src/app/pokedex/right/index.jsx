@@ -189,12 +189,12 @@ function RightSide(props) {
 
       <div id="right-body" className={`${cardStyle.body.container}`}>
         <div id='right-body-top'>
-          <div id='move-tabs-container' className="m-2 border">
+          <div id='move-tabs-container' className="mx-2 mt-2 border">
             <MoveTabs setMovesKey={setMovesKey} />
           </div>
         </div>
 
-        <div className=" overflow-y-auto min-h-0 h-full bg-black/50 rounded-md border mx-2">
+        <div className=" overflow-y-auto min-h-0 h-full bg-black/50  border mx-2">
           <div className="sticky top-0 z-[100] bg-black">
             <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
           </div>
