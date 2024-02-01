@@ -1,6 +1,6 @@
 import React from 'react';
 import MT from '@/app/lib/clientmaterialtailwind';
-import { menu } from '@material-tailwind/react';
+import { removeHyphen, capitalizeWord } from '@/app/lib/helpers';
 
 function MoveTabs(props) {
 
@@ -31,34 +31,14 @@ function MoveTabs(props) {
         </MT.TabsHeader>
       </MT.Tabs>
 
-
-      {/* <MT.Menu>
-        <MT.MenuHandler>
-          <div className='p-2 flex justify-center items-center rounded-t-md bg-blue-600 border-blue-700 border-[1px] '>Gen I</div>
-        </MT.MenuHandler>
-        <MT.MenuList>
-          <MT.MenuItem>Red/Blue</MT.MenuItem>
-          <MT.MenuItem>Yellow</MT.MenuItem>
-          <MT.MenuItem>Gold/Silver</MT.MenuItem>
-          <MT.MenuItem>Crystal</MT.MenuItem>
-        </MT.MenuList>
-      </MT.Menu> */}
-      {/* <div id='gen-select-container' className='z-[200] max-h-[36px] w-1/3'> */}
-        {/* <MT.Select label='Generation' color='blue' size='md' className='max-h-[36px] text-white'
-          labelProps={{ style: { color: 'white' } }}>
-          <MT.Option>Red/Blue</MT.Option>
-          <MT.Option>Yellow</MT.Option>
-          <MT.Option>Gold/Silver</MT.Option>
-          <MT.Option>Crystal</MT.Option>
-        </MT.Select> */}
-        <select className='w-1/3 rounded-md h-[36px] bg-blue-500 text-white ml-1'>
-          <option>Gen 1</option>
-          <option>Gen 2</option>
-          <option>Gen 3</option>
-          <option>Gen 4</option>
+        <select onChange={(e) => props.setActiveVersion(e.target.value)} className='w-1/3 rounded-md h-[36px] bg-blue-700 text-white ml-1 border border-white'>
+          {Object.keys(props.generationMoves).map(key => (
+            props.generationMoves[key] ? 
+            <option value={key}>{capitalizeWord(removeHyphen(key))}</option> 
+            : 
+            null
+          ))}
         </select>
-      {/* </div> */}
-
     </div>
   )
 

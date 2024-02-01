@@ -24,6 +24,7 @@ function RightSide(props) {
 
   const [movesKey, setMovesKey] = useState('level');
   const [activeVersion, setActiveVersion] = useState('black-2-white-2');
+  const [activeTab, setActiveTab] = useState(0);
 
   const pokeState = useSelector(state => state.pokemon);
   // const dexState = useSelector(state => state.pokedex);
@@ -34,7 +35,7 @@ function RightSide(props) {
   const numAndImg = 'max-w-[13%] md:max-w-[10%] grow-[0.5]'
   const str = 'max-w-[22%] md:max-w-[40%] grow-[1]'
 
-  let hasMoves = {
+  let gensWithMoves = {
     'red-blue': false,
     yellow: false,
     'gold-silver': false,
@@ -70,8 +71,8 @@ function RightSide(props) {
     pokeState.pokemon?.moves.forEach(move => {
       move.versionDetails.forEach(details => {
 
-        if (!hasMoves[details.version]) {
-          hasMoves[details.version] = true;
+        if (!gensWithMoves[details.version]) {
+          gensWithMoves[details.version] = true;
         };
 
 
@@ -145,7 +146,8 @@ function RightSide(props) {
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
   useEffect(() => {
     parseMovesByGeneration(activeVersion);
-    setGenerationMoves(hasMoves);
+    setGenerationMoves(gensWithMoves);
+    console.log('GENS WITH MOVES: ', gensWithMoves)
   }, [pokeState.pokemon, activeVersion]) //eslint-disable-line
 
   // allows moves to initially render after moves have been parsed for the first time
@@ -163,6 +165,19 @@ function RightSide(props) {
     updateActiveMoves();
   }, [movesKey]) //eslint-disable-line
 
+  useEffect(() => {console.log(activeVersion)}, [activeVersion])
+
+  const handleActiveTab = (e, idx) => {
+    let tabs = document.getElementsByClassName('right-header-tab');
+
+    for(let i = 0; i < tabs.length; i++){
+      tabs[i].className = tabs[i].className.replace('bg-blue-500', 'bg-blue-800')
+    }
+
+    e.target.className = e.target.className.replace('bg-blue-800', 'bg-blue-500')
+    setActiveTab(idx)
+  }
+
   const rightSideStyle = `rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10`
 
   const headerTabs = [
@@ -177,19 +192,19 @@ function RightSide(props) {
   ]
 
   const tabStyle = {
-    first: 'flex grow justify-center items-center bg-blue-600 border-blue-700 border-[1px] rounded-tl-md',
-    middle: 'flex grow justify-center items-center bg-blue-600 border-blue-700 border-[1px]',
-    last: 'flex grow justify-center items-center bg-blue-600 border-blue-700 border-[1px] rounded-tr-md'
+    first: 'flex grow justify-center items-center bg-blue-500 border-blue-700 border-[1px] rounded-tl-md',
+    middle: 'flex grow justify-center items-center bg-blue-800 border-blue-700 border-[1px]',
+    last: 'flex grow justify-center items-center bg-blue-800 border-blue-700 border-[1px] rounded-tr-md',
   }
 
   return (
     <div id='right-side' className={`${rightSideStyle} ${cardStyle.main}`}>
 
       <div id="right-header" className={`${cardStyle.header}`}>
-        <div className='flex w-full justify-stretch'>
+        <div id='right-header-tabs-container' className='flex w-full justify-stretch'>
           {
             headerTabs.map((tab, idx) => (
-              <div className={idx === 0 ? tabStyle.first : idx === headerTabs.length - 1 ? tabStyle.last : tabStyle.middle}>{tab.label}</div>
+              <div className={(idx === 0 ? tabStyle.first : idx === headerTabs.length - 1 ? tabStyle.last : tabStyle.middle) + ' right-header-tab'} onClick={(e) => handleActiveTab(e, idx)} >{tab.label}</div>
             ))
           }
         </div>
@@ -198,7 +213,7 @@ function RightSide(props) {
       <div id="right-body" className={`${cardStyle.body.container}`}>
         <div id='right-body-top'>
           <div id='move-tabs-container' className="mx-2 mt-2 border">
-            <MoveTabs setMovesKey={setMovesKey} />
+            <MoveTabs generationMoves={generationMoves} setActiveVersion={setActiveVersion} setMovesKey={setMovesKey} />
           </div>
         </div>
 
@@ -226,27 +241,3 @@ function RightSide(props) {
 }
 
 export default RightSide;
-
-// (<div id='moves-container' className="h-full flex flex-col justify-start">
-
-// <MoveTabs setMovesKey={setMovesKey} />
-
-// <div id='moves-list' className="min-h-0 h-full w-full mx-0  flex flex-col justify-start">
-
-//   <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
-
-//   <div className=" overflow-y-auto min-h-[inherit] h-full bg-black/50 rounded-md">
-
-//     {
-//       activeMoves?.length ?
-//         activeMoves.map((move, idx) => {
-//           return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
-//         })
-//         :
-//         <div className="text-center">missingMoveData</div>
-//     }
-//   </div>
-
-// </div>
-// {/* <MoveDetails showMoveModal={showMoveModal} setShowMoveModal={setShowMoveModal} move={moveModalData}/> */}
-// </div>)
