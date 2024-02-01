@@ -24,8 +24,8 @@ function MoveTabs(props) {
   ]
 
   return (
-    <div id='moves-header' className="w-full flex flex-col-reverse justify-between items-center py-1">
-      <MT.Tabs value='level' className='grow w-full'>
+    <div id='moves-header' className="w-full flex justify-between items-center py-1">
+      <MT.Tabs value='level' className='grow w-full mr-1'>
         <MT.TabsHeader className="bg-blue-800/100" indicatorProps={{ className: 'bg-blue-500' }}>
           {moveTabs.map(({ label, value }) => <MT.Tab onClick={() => props.setMovesKey(value)} className="text-sm text-white" key={value} value={value}>{label}</MT.Tab>)}
         </MT.TabsHeader>
@@ -43,15 +43,21 @@ function MoveTabs(props) {
           <MT.MenuItem>Crystal</MT.MenuItem>
         </MT.MenuList>
       </MT.Menu> */}
-      <div className='z-[200] max-h-[36px]'>
-          <MT.Select  label='Generation' color='blue' size='md' className='max-h-[36px] text-white' 
-          labelProps={{style:{color: 'white'}}}>
-            <MT.Option>Red/Blue</MT.Option>
-            <MT.Option>Yellow</MT.Option>
-            <MT.Option>Gold/Silver</MT.Option>
-            <MT.Option>Crystal</MT.Option>
-          </MT.Select>
-      </div>
+      {/* <div id='gen-select-container' className='z-[200] max-h-[36px] w-1/3'> */}
+        {/* <MT.Select label='Generation' color='blue' size='md' className='max-h-[36px] text-white'
+          labelProps={{ style: { color: 'white' } }}>
+          <MT.Option>Red/Blue</MT.Option>
+          <MT.Option>Yellow</MT.Option>
+          <MT.Option>Gold/Silver</MT.Option>
+          <MT.Option>Crystal</MT.Option>
+        </MT.Select> */}
+        <select className='w-1/3 rounded-md h-[36px] bg-blue-500 text-white ml-1'>
+          <option>Gen 1</option>
+          <option>Gen 2</option>
+          <option>Gen 3</option>
+          <option>Gen 4</option>
+        </select>
+      {/* </div> */}
 
     </div>
   )
