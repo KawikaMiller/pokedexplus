@@ -176,15 +176,23 @@ function RightSide(props) {
     }
   ]
 
+  const tabStyle = {
+    first: 'flex grow justify-center items-center bg-blue-600 border-blue-700 border-[1px] rounded-tl-md',
+    middle: 'flex grow justify-center items-center bg-blue-600 border-blue-700 border-[1px]',
+    last: 'flex grow justify-center items-center bg-blue-600 border-blue-700 border-[1px] rounded-tr-md'
+  }
+
   return (
     <div id='right-side' className={`${rightSideStyle} ${cardStyle.main}`}>
 
       <div id="right-header" className={`${cardStyle.header}`}>
-        <MT.Tabs value='moves' className='w-full'>
-          <MT.TabsHeader className="bg-blue-800/100" indicatorProps={{ className: 'bg-blue-500' }}>
-            {headerTabs.map(({ label, value }) => <MT.Tab className="text-sm text-white" key={value} value={value}>{label}</MT.Tab>)}
-          </MT.TabsHeader>
-        </MT.Tabs>
+        <div className='flex w-full justify-stretch'>
+          {
+            headerTabs.map((tab, idx) => (
+              <div className={idx === 0 ? tabStyle.first : idx === headerTabs.length - 1 ? tabStyle.last : tabStyle.middle}>{tab.label}</div>
+            ))
+          }
+        </div>
       </div>
 
       <div id="right-body" className={`${cardStyle.body.container}`}>

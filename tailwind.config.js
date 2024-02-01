@@ -41,6 +41,13 @@ module.exports = withMT({
       fontFamily:{
         sans:["Kanit", 'sans-serif'],
       },
+      flexGrow: {
+        2: '2',
+        3: '3',
+        4: '4',
+        10: '10',
+        100: '100'
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
