@@ -11,6 +11,7 @@ import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext"
 import { cardStyle } from "../styles/tailwindClasses";
 import MT from "@/app/lib/clientmaterialtailwind";
 import Moves from "./moves/index.jsx";
+import TeamBuilder from "./teamBuilder";
 
 function RightSide(props) {
   const [levelMoves, setLevelMoves] = useState([]);
@@ -100,7 +101,7 @@ function RightSide(props) {
             <Moves />
           :
           activeTab === 1 ?
-            <div>TEAMBUILDER</div>
+           <TeamBuilder />
           :
           <div>oopsie</div>
         }
