@@ -164,9 +164,9 @@ export const natureModifiers = [
 ]
 
 // determines how nature affects stats
-export const getNatureModifier = (natureModifiersArr, pokemonNature, affectedStatName) => {
+export const getNatureModifier = (pokemonNature, affectedStatName) => {
   // nature will be undefined if pokemon has a neutral nature (nature that does not buff/debuff any stat)
-  let nature = natureModifiersArr.find(nature => nature.name.toLowerCase() === pokemonNature);
+  let nature = natureModifiers.find(nature => nature.name === pokemonNature);
   let modifier = 1;
 
   // if nature is undefined, modifier stays at 1
@@ -179,4 +179,11 @@ export const getNatureModifier = (natureModifiersArr, pokemonNature, affectedSta
   }
 
   return modifier;
+}
+
+export const calculateStatTotal = (stat, level, nature) => {
+  const natureModifier = getNatureModifier(nature, stat.name);
+  console.log(natureModifier)
+
+  return Math.floor(((Math.floor(((2 * stat.base_stat + stat.iv + Math.floor(stat.ev / 4)) * level) / 100)) + 5) * natureModifier);
 }
