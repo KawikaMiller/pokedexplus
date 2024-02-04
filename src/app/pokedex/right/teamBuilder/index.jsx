@@ -10,6 +10,7 @@ import TeamSlot from "./TeamSlot";
 import TypeMatchup from "../../left/TypeMatchup";
 import BaseStats from "../../left/BaseStats";
 import InfoPanel from "./InfoPanel";
+import TeamOptions from "./TeamOptions";
 
 function TeamBuilder (props) {
 
@@ -23,9 +24,9 @@ function TeamBuilder (props) {
 
   return(
     <>
-      <div id='right-body-team-builder' className="flex flex-col justify-between min-h-0 lg:h-full border border-white">
+      <div id='right-body-team-builder' className="flex flex-col justify-between min-h-0 lg:h-full">
       <div id="right-body-top-team-builder" className="flex flex-col lg:flex-row h-fit lg:h-[75%]">
-          <div id='team-member-container' className="flex-col lg:flex lg:flex-wrap bg-black/50 w-full p-1 min-h-fit justify-evenly items-center border">
+          <div id='team-member-container' className="flex-col lg:flex lg:flex-wrap bg-black/25 rounded-md m-2 w-full min-h-fit justify-evenly items-center border">
             <TeamSlot handleDialog={handleDialog} position={0}/>
             <TeamSlot handleDialog={handleDialog} position={1}/>
             <TeamSlot handleDialog={handleDialog} position={2}/>
@@ -36,11 +37,11 @@ function TeamBuilder (props) {
         </div>
 
         <div id="right-body-bot-team-builder" className="flex min-h-0">
-          <div id='type-matchup-container' className="flex flex-col mx-2 justify-between w-full h-full lg:min-w-0 border">
+          <div id='info-panel-container' className="flex flex-col mx-2 justify-between w-full h-full lg:min-w-0 lg:w-2/3 border">
             <InfoPanel />
           </div>
           <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full w-1/3 lg:w-1/3 border">
-            
+            <TeamOptions />
           </div>
         </div>
       </div>
