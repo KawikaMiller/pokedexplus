@@ -11,14 +11,14 @@ function TeamSlot(props) {
   const teamState = useSelector(state => state.team)
   const pokeState = useSelector(state => state.pokemon)
   const dispatch = useDispatch();
-  const { addToTeam, setFocusedMember } = teamSlice.actions;
+  const { addToTeam, setFocus } = teamSlice.actions;
 
   return (
     <>
       <MT.Card className="m-1 lg:m-0 lg:w-[48%] lg:h-[32%] bg-black/50 min-h-0">
         <MT.CardBody 
           className="p-2 items-center h-full w-auto text-white"
-          onClick={teamState.team[props.position].name ? () => dispatch(setFocusedMember(teamState.team[props.position])) : null}
+          onClick={() => dispatch(setFocus(props.position))}
         >
           {
             teamState.team[props.position].name ?

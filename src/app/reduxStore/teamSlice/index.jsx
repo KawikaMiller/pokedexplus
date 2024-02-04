@@ -5,7 +5,7 @@ const teamSlice = createSlice({
   initialState: {
     team: [{}, {}, {}, {}, {}, {}],
     teamName: 'My Team',
-    focusedMember: {},
+    focus: 0,
     id: undefined,
     fetchedTeams: [],
     showTypeChart: false,
@@ -13,8 +13,8 @@ const teamSlice = createSlice({
     showSaveTeam: false,
   },
   reducers: {
-    setFocusedMember(state, action){
-      state.focusedMember = action.payload
+    setFocus(state, action){
+      state.focus = action.payload
     },
     setTeamsName(state, action) {
       state.teamName = action.payload
