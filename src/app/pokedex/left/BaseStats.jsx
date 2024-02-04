@@ -5,49 +5,47 @@ import { useDispatch, useSelector } from "react-redux";
 function BaseStats() {
 
   const pokeState = useSelector(state => state.pokemon);
+  const statNames = ['HP', 'ATK', 'DEF', 'SPATK', 'SPDEF', 'SPD']
 
   return (
-    <div id='pokemon-base-stats' className="w-1/3 ml-1 bg-transparent/50 flex flex-col justify-evenly" >
-      {
+    <div id='pokemon-base-stats-container' className="h-full">
+      {/* <h4 className="text-lg">Base Stats</h4> */}
+      <div id='pokemon-base-stats' className="bg-transparent/50 flex flex-col justify-between h-full" >
+        {
 
-        pokeState.pokemon?.stats ?
+          pokeState.pokemon?.stats ?
 
-          pokeState.pokemon?.stats.map(stat => (
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">{stat.name}</h4>
-              <p className="text-center bg-transparent/25 w-2/3">{stat.base_stat}</p>
-            </section>
-          ))
+            pokeState.pokemon?.stats.map((stat, idx) => (
+              <>
+                <section className="flex justify-center items-center">
+                  <h4 className="w-5/6 lg:w-1/3 text-center">{stat.name}</h4>
+                  <p className="text-center bg-transparent/25 w-2/3">{stat.base_stat}</p>
+                </section>
+                {
+                  idx !== 5 ? <hr className="w-full"></hr> : null
+                }
+              </>
+            ))
 
-          :
+            :
 
-          <>
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">HP</h4>
-              <p className="text-center bg-transparent/25 w-2/3">---</p>
-            </section>
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">ATK</h4>
-              <p className="text-center bg-transparent/25 w-2/3">---</p>
-            </section>
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">DEF</h4>
-              <p className="text-center bg-transparent/25 w-2/3">---</p>
-            </section>
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">SPATK</h4>
-              <p className="text-center bg-transparent/25 w-2/3">---</p>
-            </section>
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">SPDEF</h4>
-              <p className="text-center bg-transparent/25 w-2/3">---</p>
-            </section>
-            <section className="flex">
-              <h4 className="w-4/5 sm:w-1/3 lg:w-1/3">SPD</h4>
-              <p className="text-center bg-transparent/25 w-2/3">---</p>
-            </section>
-          </>
-      }
+            <>
+              {
+                statNames.map((stat, idx) => (
+                  <>
+                    <section className="flex justify-center items-center">
+                      <h4 className="w-1/3 lg:w-1/3 text-center">{`${stat}`}</h4>
+                      <p className="text-center bg-transparent/25 w-2/3">---</p>
+                    </section>
+                    {
+                      idx !== 5 ? <hr className="w-full"></hr> : null
+                    }
+                  </>
+                ))
+              }
+            </>
+        }
+      </div>
     </div>
   )
 

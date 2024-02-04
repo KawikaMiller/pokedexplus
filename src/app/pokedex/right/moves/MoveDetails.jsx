@@ -1,35 +1,89 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import MT from "@/app/lib/clientmaterialtailwind";
+import TypeBadge from "../../accessory/TypeBadge";
+import { capitalizeWord, removeHyphen } from "@/app/lib/helpers";
+import { modalStyle } from "../../styles/tailwindClasses";
 
 function MoveDetails(props) {
 
-  return(
-    <div id='moves-details' className="h-1/5 w-full bg-transparent/50" >
+  let keys = useRef([])
 
-      <div id='selected-move-name' style={{height: '25%', padding: '0 0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-        <h2 style={{fontSize: '1.5rem', fontWeight: '700', verticalAlign: 'middle'}}>Solar Beam</h2>
-        <h3>Power</h3>
-        <h3>Accuracy</h3>
-        <h3>PP</h3>
-        <h3>Damage</h3>
-        <h3>Type</h3>
-      </div>
+  useEffect(() => {
+    props.move?.meta ? 
+    keys.current = Object.keys(props.move?.meta)
+    :
+    null
+  }, [props.move])
+  
 
-      <div style={{display: 'flex', height: '75%'}}>
-        <div id='move-type-effectiveness' style={{border: '1px solid red', flexGrow: '1', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0.5rem'}}>
-          <div id='selected-move-strong-against' style={{verticalAlign: 'middle', border: '1px solid magenta', height: '33%'}}>
-            Strong Against: 
+  return (
+    props.move ?
+      <MT.Dialog open={props.showMoveModal} handler={() => props.setShowMoveModal(false)} className={modalStyle.container}>
+        <MT.DialogHeader className={modalStyle.header}>
+            {capitalizeWord(removeHyphen(props.move.name))}
+            <TypeBadge type={props.move.type} />
+        </MT.DialogHeader>
+        <MT.DialogBody className={modalStyle.body}>
+          {/* {props.move.description} */}
+          {props.move.flavorTextEntries[props.move.flavorTextEntries.length - 1].flavorText}
+          <hr className="w-full my-2"></hr>
+          <div className="flex justify-between w-full text-xs">
+            <div className="flex flex-col justify-center items-center">
+              <p className="font-bold underline">Power</p>
+              <span className="font-normal">{props.move.power || '--'}</span>
+            </div>
+
+            <div className="flex flex-col justify-center items-center">
+              <p className="font-bold underline">Accuracy</p>
+              <span className="font-normal">{props.move.accuracy || '--'}</span>
+            </div>
+
+            <div className="flex flex-col justify-center items-center">
+              <p className="font-bold underline">PP</p>
+              <span className="font-normal">{props.move.pp || '--'}</span>
+            </div>
+
+            <div className="flex flex-col justify-center items-center">
+              <p className="font-bold underline">Damage Type</p>
+              <span className="font-normal">{props.move.dmgClass || '--'}</span>
+            </div>
           </div>
-          <div id='selected-move-weak-against' style={{verticalAlign: 'middle', border: '1px solid green', height: '33%'}}>
-            Weak Against: 
+          <hr className="w-full my-2"></hr>
+          <div className="flex justify-evenly">
+            {
+              keys.current.length ? keys.current.map((key) => {
+                if (props.move.meta[key]) {
+                  return (
+                    <div className="flex flex-col justify-center items-center text-xs">
+                      <p className="font-bold underline">{
+                        capitalizeWord(key.replace(/([a-z0-9])([A-Z])/g, '$1 $2'))
+                      }</p>
+                      <p className={
+                        (typeof props.move.meta[key] === 'number' ?
+                        props.move.meta[key] > 0 ? `text-green-800` : 
+                        props.move.meta[key] < 0 ? `text-red-600` :
+                        `text-black` : 'text-black') + ' font-black'
+                        
+                      }>
+                        {
+                          props.move.meta[key]
+                        }
+                      </p>
+                    </div>
+                  )
+                }
+              }) : null
+            }
           </div>
-        </div>
+        </MT.DialogBody>
+        <MT.DialogFooter className={modalStyle.footer}>
 
-        <div id='move-description' style={{border: '1px solid white', flexGrow: '0.75', overflow: 'hidden', width: '40%'}}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla in, vitae soluta eum itaque velit aspernatur eos deleniti veniam exercitationem illum, blanditiis, qui et fugiat. Praesentium optio sit amet voluptas aspernatur possimus iste eaque! Vitae omnis, quas hic velit impedit sapiente ipsum exercitationem eligendi quisquam magni similique itaque odit quibusdam!
-        </div>
-      </div>
+          <MT.Button size='sm' variant="filled" color="red" className="text-white" onClick={() => props.setShowMoveModal(false)}>X</MT.Button>
 
-    </div>
+        </MT.DialogFooter>
+      </MT.Dialog>
+      :
+      null
   )
 
 }

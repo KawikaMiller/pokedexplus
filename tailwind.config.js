@@ -36,11 +36,17 @@ module.exports = withMT({
   theme: {
     extend: {
       screens: {
-        'xxs': '375px',
-        'xs': '500px'
+        'lg': '1280px'
       },
       fontFamily:{
         sans:["Kanit", 'sans-serif'],
+      },
+      flexGrow: {
+        2: '2',
+        3: '3',
+        4: '4',
+        10: '10',
+        100: '100'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

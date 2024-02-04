@@ -7,124 +7,108 @@ import MoveDetails from "./moves/MoveDetails";
 
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
+import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
+import { cardStyle } from "../styles/tailwindClasses";
+import MT from "@/app/lib/clientmaterialtailwind";
+import Moves from "./moves/index.jsx";
+import TeamBuilder from "./teamBuilder";
 
 function RightSide(props) {
-  const [levelUpMoves, setLevelUpMoves] = useState([]);
+  const [levelMoves, setLevelMoves] = useState([]);
   const [tmMoves, setTmMoves] = useState([]);
   const [tutorMoves, setTutorMoves] = useState([]);
   const [eggMoves, setEggMoves] = useState([]);
+  const [activeMoves, setActiveMoves] = useState(undefined);
   const [generationMoves, setGenerationMoves] = useState({});
+  const [isAscending, setIsAscending] = useState(true)
+  const [showMoveModal, setShowMoveModal] = useState(false)
+  const [moveModalData, setMoveModalData] = useState(undefined)
 
-  const [activeKey, setActiveKey] = useState(0);
-  const [activeGeneration, setActiveGeneration] = useState('yellow');
+  const [movesKey, setMovesKey] = useState('level');
+  const [activeVersion, setActiveVersion] = useState('black-2-white-2');
+  const [activeTab, setActiveTab] = useState(0);
 
   const pokeState = useSelector(state => state.pokemon);
   // const dexState = useSelector(state => state.pokedex);
   // const settingsState = useSelector(state => state.settings);
 
-  const button = 'h-full w-full rounded-md bg-blue-500 mx-[0.125rem]';
-  const row = "text-center align-middle py-1 px-0 overflow-x-hidden flex items-center justify-between"
-  const numAndImg = 'max-w-[10%] grow-[0.5]'
-  const str = 'max-w-[40%] grow-[1]'
+  const handleActiveTab = (e, idx) => {
+    let tabs = document.getElementsByClassName('right-header-tab');
 
-  let hasMoves = {
-    'red-blue': false,
-    yellow: false,
-    'gold-silver': false,
-    crystal: false,
-    'ruby-sapphire': false,
-    emerald: false,
-    'firered-leafgreen': false,
-    colosseum: false,
-    xd: false,
-    'diamond-pearl': false,
-    platinum: false,
-    'heartgold-soulsilver': false,
-    'black-white': false,
-    'black-2-white-2': false,
-    'x-y': false,
-    'omega-ruby-alpha-sapphire': false,
-    'sun-moon': false,
-    'ultra-sun-ultra-moon': false,
-    'lets-go-pikachu-lets-go-eevee': false,
-    'sword-shield': false,
-    'brilliant-diamond-and-shining-pearl': false,
-    'legends-arceus': false,
-    'scarlet-violet': false,
-}
+    for(let i = 0; i < tabs.length; i++){
+      tabs[i].className = tabs[i].className.replace('bg-blue-500', 'bg-blue-800')
+    }
 
-  // this runs all four previous parse methods
-  const parseMovesByGeneration = (version) => {
-    let levelArr = [];
-    let tmArr = [];
-    let tutorArr = [];
-    let eggArr = [];
-
-    pokeState.pokemon?.moves.forEach(move => {
-      move.versionDetails.forEach(details => {
-        
-        if(!hasMoves[details.version]){
-          hasMoves[details.version] = true;
-        };
-
-
-        if (details.version === version) {
-          let nMove = {...move};
-          nMove.learnMethod = details.learnMethod;
-          nMove.levelLearned = details.levelLearned;
-          switch(details.learnMethod){
-            case 'level-up':
-              levelArr.push(nMove);
-              break;
-            case 'machine':
-              tmArr.push(nMove);
-              break;
-            case 'tutor':
-              tutorArr.push(nMove);
-              break;
-            case 'egg':
-              eggArr.push(nMove);
-              break;
-            default:
-              console.log('error parsing moves by learn method');
-          }
-        }
-      })
-    })
-
-    setLevelUpMoves(levelArr);
-    setTmMoves(tmArr);
-    setTutorMoves(tutorArr);
-    setEggMoves(eggArr);
+    e.target.className = e.target.className.replace('bg-blue-800', 'bg-blue-500')
+    setActiveTab(idx)
   }
 
-  useEffect(() => {
-    parseMovesByGeneration(activeGeneration);
-    setGenerationMoves(hasMoves)
-  }, [pokeState.pokemon, activeGeneration]) //eslint-disable-line
+  const rightSideStyle = `rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10`
+
+  const headerTabs = [
+    {
+      label: 'Moves',
+      value: 'moves'
+    },
+    {
+      label: 'Team Builder',
+      value: 'team builder'
+    }
+  ]
+
+  const tabStyle = {
+    first: 'flex grow justify-center items-center bg-blue-500 border-blue-700 border-[1px] rounded-tl-md',
+    middle: 'flex grow justify-center items-center bg-blue-800 border-blue-700 border-[1px]',
+    last: 'flex grow justify-center items-center bg-blue-800 border-blue-700 border-[1px] rounded-tr-md',
+  }
 
   return (
-    <div id='right-side' className="lg:w-1/2 h-auto bg-pkRed rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10">
+    <div id='right-side' className={`${rightSideStyle} ${cardStyle.main}`}>
 
-      <div id='moves-container' className="h-full  flex flex-col justify-start p-2">
-
-        <MoveTabs />
-
-        <div id='moves-list' className="min-h-0 w-full mx-0  flex flex-col justify-start">
-
-          <MoveRowSort css={{button, row, numAndImg, str}}/>
-
-          <div className=" overflow-y-scroll">
-            {
-              pokeState?.pokemon?.moves.map((move, idx) => {
-                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/50` : `bg-black/60`} />
-              })
-            }
-          </div>
-
+      <div id="right-header" className={`${cardStyle.header}`}>
+        <div id='right-header-tabs-container' className='flex w-full justify-stretch'>
+          {
+            headerTabs.map((tab, idx) => (
+              <div className={(idx === 0 ? tabStyle.first : idx === headerTabs.length - 1 ? tabStyle.last : tabStyle.middle) + ' right-header-tab'} onClick={(e) => handleActiveTab(e, idx)} >{tab.label}</div>
+            ))
+          }
         </div>
-        {/* <MoveDetails /> */}
       </div>
+
+      <div id="right-body" className={`${cardStyle.body.container}`}>
+        {/* <div id='right-body-top'>
+          <div id='move-tabs-container' className="mx-2 mt-2 border">
+            <MoveTabs generationMoves={generationMoves} setActiveVersion={setActiveVersion} setMovesKey={setMovesKey} />
+          </div>
+        </div>
+
+        <div className=" overflow-y-auto min-h-0 h-full bg-black/50  border mx-2">
+          <div className="sticky top-0 z-[100] bg-black">
+            <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
+          </div>
+          {
+            activeMoves?.length ?
+              activeMoves.map((move, idx) => {
+                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
+              })
+              :
+              <div className="text-center">missingMoveData</div>
+          }
+        </div> */}
+
+        {
+          activeTab === 0 ?
+            <Moves />
+          :
+          activeTab === 1 ?
+           <TeamBuilder />
+          :
+          <div>oopsie</div>
+        }
+
+      </div>
+
+
 
     </div>
   )

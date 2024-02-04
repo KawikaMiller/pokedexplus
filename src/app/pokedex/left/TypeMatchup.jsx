@@ -17,47 +17,50 @@ function TypeMatchup() {
   }, [pokeState.pokemon])
 
   return (
+    <div id='pokemon-type-matchup-container' className="w-full flex flex-col h-full">
+      <div id='pokemon-type-matchup' className="flex flex-col bg-transparent/50 h-full">
 
-    <div id='pokemon-type-matchup' className="w-2/3 mr-1 flex flex-col justify-evenly bg-transparent/50">
+        <section id='type-weakness' className="flex h-1/3">
+          <h4 className="min-w-[4.5rem] grow self-center pl-2">Weak</h4>
+          <div className="bg-transparent/25 w-full p-1 flex items-center overflow-x-auto">
+            {
+              typeEffectiveness.map(element => {
+                if (element.effectiveness > 1) {
+                  return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                } else return null;
+              })
+            }
+          </div>
+        </section>
 
-      <section className="flex h-full">
-        <h4 className="w-1/3 self-center pl-2">Weak</h4>
-        <div className="bg-transparent/25 w-2/3 flex items-center overflow-x-auto">
-          {
-            typeEffectiveness.map(element => {
-              if (element.effectiveness > 1) {
-                return <div className="mr-3"><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
-              } else return null;
-            })
-          }
-        </div>
-      </section>
+        <section id='type-resistance' className="flex h-1/3 my-1">
+          <h4 className="min-w-[4.5rem] grow self-center pl-2">Resist</h4>
+          <div className="bg-transparent/50 w-full p-1 flex items-center overflow-x-auto">
+            <div className="flex overflow-x-auto">
+              {
+                typeEffectiveness.map(element => {
+                  if (element.effectiveness < 1 && element.effectiveness > 0) {
+                    return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                  } else return null;
+                })
+              }
+            </div>
+          </div>
+        </section>
 
-      <section className="flex h-full my-1">
-        <h4 className="w-1/3 self-center pl-2">Resist</h4>
-        <div className="bg-transparent/50 w-2/3 flex items-center overflow-x-auto">
-          {
-            typeEffectiveness.map(element => {
-              if (element.effectiveness < 1 && element.effectiveness > 0) {
-                return <div className="mr-3"><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
-              } else return null;
-            })
-          }
-        </div>
-      </section>
-
-      <section className="flex h-full">
-        <h4 className="w-1/3 self-center pl-2">Immune</h4>
-        <div className="bg-transparent/25 w-2/3 flex flex-wrap items-center overflow-x-auto">
-        {
-            typeEffectiveness.map(element => {
-              if(element.effectiveness === 0){
-                return <div className="mr-3"><TypeBadge type={element.type} effectiveness={element.effectiveness}/></div>
-              } else return null;
-            })
-          }
-        </div>
-      </section>
+        <section id='type-immune' className="flex h-1/3">
+          <h4 className="min-w-[4.5rem] grow self-center pl-2">Immune</h4>
+          <div className="bg-transparent/25 w-full p-1 flex items-center overflow-x-auto">
+            {
+              typeEffectiveness.map(element => {
+                if (element.effectiveness === 0) {
+                  return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                } else return null;
+              })
+            }
+          </div>
+        </section>
+      </div>
     </div>
   )
 
