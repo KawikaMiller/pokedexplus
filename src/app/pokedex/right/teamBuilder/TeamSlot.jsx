@@ -30,9 +30,9 @@ function TeamSlot(props) {
                     {capitalizeWord(teamState.team[props.position].name)}
                   </p>
 
-                  <div className="flex">
+                  <div className="flex justify-between w-1/4">
                     {
-                      teamState.team[props.position].types.map(el => <TypeBadge type={el.type.name} />)
+                      teamState.team[props.position].types.map(el => <TypeBadge type={el.type.name} size={6} />)
                     }
                   </div>
                 </div>
