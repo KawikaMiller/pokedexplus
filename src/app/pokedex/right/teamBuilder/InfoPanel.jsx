@@ -92,7 +92,7 @@ function InfoPanel() {
     <>
       <div key='info-panel-container' className="w-full h-full bg-black/50">
         {/* INFO PANEL HEADER */}
-        <div key='info-panel-header' className="flex justify-between p-0.5 h-1/4">
+        <div key='info-panel-header' className="flex justify-between p-0.5 h-1/5 border-b">
           {/* NAME */}
           <div key='info-panel-name'>
             {
@@ -109,7 +109,7 @@ function InfoPanel() {
           </div>
         </div>
         {/* INFO PANEL MAIN BODY */}
-        <div id='info-panel-body' key='info-panel-body' className="flex justify-between h-3/4">
+        <div id='info-panel-body' key='info-panel-body' className="flex justify-between h-4/5">
           <div key='info-panel-body-left-arrow' onClick={() => handleArrowClick(-1)}>
             <MT.Button className="h-full p-2">{`<`}</MT.Button>
           </div>
@@ -183,18 +183,26 @@ function InfoPanel() {
                 bodyIdx === 1 ?
                   // EV & IV INFORMATION
                   <form id='info-panel-stats' onChange={(e) => handleUpdateStats(e)} className="w-full h-full">
-                    <div key='info-panel-stat-values' className="w-full h-full flex text-black">
+                    <div key='info-panel-stat-values' className="w-full h-full flex text-black text">
                       {/* PHYSICAL */}
                       <div id='info-panel-stat-physical' className="mx-1 flex flex-col justify-evenly">
                         {/* HP */}
                         <div className="flex justify-center items-center">
-                          <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">HP</p>
-                          <input className="w-[30%] my-1 text-center border-r border-black/50" id='hpIv' placeholder="IV" value={teamState.team[teamState.focus].stats[0].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-[30%] rounded-r-md my-1 text-center" id='hpEv' placeholder="EV" type="number" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[0].ev || null}></input>
+                          <div className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center before:content-['HP'] before:relative before:bottom-4 before:right-2 before:text-xs">
+                            <p className="flex justify-center items-end max-h-0">
+                              {calculateStatTotal(teamState.team[teamState.focus].stats[0], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                            </p>
+                          </div>
+                          <input className="w-1/3 my-1 text-center border-r border-black/50" id='hpIv' placeholder="IV" value={teamState.team[teamState.focus].stats[0].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                          <input className="w-1/3 rounded-r-md my-1 text-center" id='hpEv' placeholder="EV" type="number" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[0].ev || null}></input>
                         </div>
                         {/* ATK */}
                         <div className="flex justify-center items-center">
-                          <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">ATK</p>
+                          <div className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center  relative">
+                            <p className="before:content-['ATK'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs">
+                              {calculateStatTotal(teamState.team[teamState.focus].stats[1], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                            </p>
+                          </div>
                           <input className="w-[30%] my-1 text-center border-r border-black/50" id='atkIv' placeholder="IV" value={teamState.team[teamState.focus].stats[1].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
                           <input className="w-[30%] rounded-r-md my-1 text-center" id='atkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[1].ev || null} type="number"></input>
                         </div>
@@ -215,7 +223,11 @@ function InfoPanel() {
                         </div>
                         {/* SPECIAL ATTACK */}
                         <div className="flex justify-center items-center">
-                          <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">SPATK</p>
+                          <div className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center  relative">
+                            <p className="before:content-['SPATK'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs">
+                              {calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                            </p>
+                          </div>
                           <input className="w-[30%] my-1 text-center border-r border-black/50" id='spatkIv' placeholder="IV" value={teamState.team[teamState.focus].stats[3].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
                           <input className="w-[30%] rounded-r-md my-1 text-center" id='spatkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[3].ev || null} type="number"></input>
                         </div>
@@ -239,28 +251,28 @@ function InfoPanel() {
                       </select>
                     </div>
                     <div className="flex justify-evenly items-center text-center">
-                    <div className="flex flex-col">
-                      <p>
-                        HP: {calculateStatTotal(teamState.team[teamState.focus].stats[0], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                      </p>
-                      <p>
-                        ATK: {calculateStatTotal(teamState.team[teamState.focus].stats[1], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                      </p>
-                      <p>
-                        DEF: {calculateStatTotal(teamState.team[teamState.focus].stats[2], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                      </p>
-                    </div>
-                    <div className="flex flex-col">
-                      <p>
-                        SPD: {calculateStatTotal(teamState.team[teamState.focus].stats[5], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                      </p>
-                      <p>
-                        SPATK: {calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                      </p>
-                      <p>
-                        SPDEF: {calculateStatTotal(teamState.team[teamState.focus].stats[4], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                      </p>
-                    </div>
+                      <div className="flex flex-col">
+                        <p>
+                          HP: {calculateStatTotal(teamState.team[teamState.focus].stats[0], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                        </p>
+                        <p>
+                          ATK: {calculateStatTotal(teamState.team[teamState.focus].stats[1], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                        </p>
+                        <p>
+                          DEF: {calculateStatTotal(teamState.team[teamState.focus].stats[2], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                        </p>
+                      </div>
+                      <div className="flex flex-col">
+                        <p>
+                          SPD: {calculateStatTotal(teamState.team[teamState.focus].stats[5], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                        </p>
+                        <p>
+                          SPATK: {calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                        </p>
+                        <p>
+                          SPDEF: {calculateStatTotal(teamState.team[teamState.focus].stats[4], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                        </p>
+                      </div>
                     </div>
 
 

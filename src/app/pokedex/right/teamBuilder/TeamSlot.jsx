@@ -15,7 +15,7 @@ function TeamSlot(props) {
 
   return (
     <>
-      <MT.Card className="m-1 lg:m-0 lg:w-[48%] lg:h-[32%] bg-black/50 min-h-0">
+      <MT.Card className={`m-1 lg:m-0 lg:w-[48%] lg:h-[32%] bg-black/50 min-h-0 ${teamState.focus == props.position ? 'border' : null}`}>
         <MT.CardBody 
           className="p-2 items-center h-full w-auto text-white"
           onClick={() => dispatch(setFocus(props.position))}

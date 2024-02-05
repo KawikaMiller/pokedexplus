@@ -37,10 +37,10 @@ function TeamBuilder (props) {
         </div>
 
         <div id="right-body-bot-team-builder" className="flex min-h-0">
-          <div id='info-panel-container' className="flex flex-col mx-2 justify-between w-full h-full lg:min-w-0 lg:w-2/3 border">
+          <div id='info-panel-container' className="flex flex-col mx-2 justify-between w-full h-full lg:min-w-0 lg:w-3/4 border">
             <InfoPanel />
           </div>
-          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full w-1/3 lg:w-1/3 border">
+          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full w-1/3 lg:w-1/4 border">
             <TeamOptions />
           </div>
         </div>

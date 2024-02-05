@@ -182,8 +182,12 @@ export const getNatureModifier = (pokemonNature, affectedStatName) => {
 }
 
 export const calculateStatTotal = (stat, level, nature) => {
-  const natureModifier = getNatureModifier(nature, stat.name);
-  console.log(natureModifier)
-
-  return Math.floor(((Math.floor(((2 * stat.base_stat + stat.iv + Math.floor(stat.ev / 4)) * level) / 100)) + 5) * natureModifier);
+  
+  if(stat.name === 'HP'){
+    return Math.floor(((2 * stat.base_stat + stat.iv + Math.floor(stat.ev / 4)) * level) / 100) + level + 10;
+  } else {
+    const natureModifier = getNatureModifier(nature, stat.name);
+    
+    return Math.floor(((Math.floor(((2 * stat.base_stat + stat.iv + Math.floor(stat.ev / 4)) * level) / 100)) + 5) * natureModifier);
+  }
 }
