@@ -90,200 +90,155 @@ function InfoPanel() {
 
   return (
     <>
-      <div key='info-panel-container' className="w-full h-full bg-black/50">
-        {/* INFO PANEL HEADER */}
-        <div key='info-panel-header' className="flex justify-between p-0.5 h-1/5 border-b">
-          {/* NAME */}
-          <div key='info-panel-name'>
-            {
-              teamState.team[teamState.focus]?.name ?
-                capitalizeWord(teamState.team[teamState.focus].name)
-                : `missingName`
-            }
-          </div>
-          {/* TYPES */}
-          <div key='info-panel-types' className={`flex ${teamState.team[teamState.focus].types?.length > 1 ? `justify-between` : `justify-center`} w-16`}>
-            {
-              teamState.team[teamState.focus].types ? teamState.team[teamState.focus].types.map(el => <TypeBadge type={el.type.name} size={6} />) : null
-            }
-          </div>
+
+      {/* INFO PANEL HEADER */}
+      <div key='info-panel-header' className="flex justify-between p-0.5  border-b">
+        {/* NAME */}
+        <div key='info-panel-name'>
+          {
+            teamState.team[teamState.focus]?.name ?
+              capitalizeWord(teamState.team[teamState.focus].name)
+              : `missingName`
+          }
         </div>
-        {/* INFO PANEL MAIN BODY */}
-        <div id='info-panel-body' key='info-panel-body' className="flex justify-between h-4/5">
-          <div key='info-panel-body-left-arrow' onClick={() => handleArrowClick(-1)}>
-            <MT.Button className="h-full p-2">{`<`}</MT.Button>
-          </div>
-          <div id="info-panel-body-info" key='info-panel-body-info' className="grow flex flex-col justify-between items-center h-full w-full px-0.5">
-            {
-              bodyIdx === 0 ?
-                // BATTLE INFORMATION
-                <form key='info-panel-battle' className="w-full h-full flex flex-col justify-evenly">
-                  {/* MOVE 1 */}
-                  <div id='info-panel-battle-moves-a' className="flex">
-                    <div className="flex justify-center items-center mx-1 w-1/2">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                        {
-                          teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                        }
-                      </select>
-                    </div>
-                    {/* MOVE 2 */}
-                    <div className="flex justify-center items-center mx-1 w-1/2">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                        {
-                          teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                        }
-                      </select>
-                    </div>
-                  </div>
-
-                  <div id='info-panel-battle-moves-b' className="flex">
-                    {/* MOVE 3 */}
-                    <div className="flex justify-center items-center mx-1 w-1/2">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                        {
-                          teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                        }
-                      </select>
-                    </div>
-                    {/* MOVE 4 */}
-                    <div className="flex justify-center items-center mx-1 w-1/2">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                        {
-                          teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                        }
-                      </select>
-                    </div>
-                  </div>
-                  {/* HELD ITEM AND ABILITIES */}
-                  <div id='info-panel-battle-ability-and-item' className="flex">
-                    {/* HELD ITEM */}
-                    <div className="flex justify-center items-center mx-1 w-1/2">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Item</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                        <option>TBA</option>
-                      </select>
-                    </div>
-                    {/* ABILITIES */}
-                    <div className="flex justify-center items-center mx-1 w-1/2">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Abil</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                        {
-                          teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{ability.name}</option>) : null
-                        }
-                      </select>
-                    </div>
-                  </div>
-                </form>
-                :
-                bodyIdx === 1 ?
-                  // EV & IV INFORMATION
-                  <form id='info-panel-stats' onChange={(e) => handleUpdateStats(e)} className="w-full h-full">
-                    <div key='info-panel-stat-values' className="w-full h-full flex text-black text">
-                      {/* PHYSICAL */}
-                      <div id='info-panel-stat-physical' className="mx-1 flex flex-col justify-evenly">
-                        {/* HP */}
-                        <div className="flex justify-center items-center">
-                          <div className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center before:content-['HP'] before:relative before:bottom-4 before:right-2 before:text-xs">
-                            <p className="flex justify-center items-end max-h-0">
-                              {calculateStatTotal(teamState.team[teamState.focus].stats[0], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                            </p>
-                          </div>
-                          <input className="w-1/3 my-1 text-center border-r border-black/50" id='hpIv' placeholder="IV" value={teamState.team[teamState.focus].stats[0].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-1/3 rounded-r-md my-1 text-center" id='hpEv' placeholder="EV" type="number" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[0].ev || null}></input>
-                        </div>
-                        {/* ATK */}
-                        <div className="flex justify-center items-center">
-                          <div className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center  relative">
-                            <p className="before:content-['ATK'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs">
-                              {calculateStatTotal(teamState.team[teamState.focus].stats[1], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                            </p>
-                          </div>
-                          <input className="w-[30%] my-1 text-center border-r border-black/50" id='atkIv' placeholder="IV" value={teamState.team[teamState.focus].stats[1].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-[30%] rounded-r-md my-1 text-center" id='atkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[1].ev || null} type="number"></input>
-                        </div>
-                        {/* DEF */}
-                        <div className="flex justify-center items-center">
-                          <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">DEF</p>
-                          <input className="w-[30%] my-1 text-center border-r border-black/50" id='defIv' placeholder="IV" value={teamState.team[teamState.focus].stats[2].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-[30%] rounded-r-md my-1 text-center" id='defEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[2].ev || null} type="number"></input>
-                        </div>
-                      </div>
-                      {/* SPECIAL */}
-                      <div id='info-panel-stat-special' className="mx-1 flex flex-col justify-evenly">
-                        {/* SPEED */}
-                        <div className="flex justify-center items-center">
-                          <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">SPD</p>
-                          <input className="w-[30%] my-1 text-center border-r border-black/50" id='spdIv' placeholder="IV" value={teamState.team[teamState.focus].stats[5].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-[30%] rounded-r-md my-1 text-center" id='spdEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[5].ev || null} type="number"></input>
-                        </div>
-                        {/* SPECIAL ATTACK */}
-                        <div className="flex justify-center items-center">
-                          <div className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center  relative">
-                            <p className="before:content-['SPATK'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs">
-                              {calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                            </p>
-                          </div>
-                          <input className="w-[30%] my-1 text-center border-r border-black/50" id='spatkIv' placeholder="IV" value={teamState.team[teamState.focus].stats[3].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-[30%] rounded-r-md my-1 text-center" id='spatkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[3].ev || null} type="number"></input>
-                        </div>
-                        {/* SPECIAL DEFENSE */}
-                        <div className="flex justify-center items-center">
-                          <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">SPDEF</p>
-                          <input className="w-[30%] my-1 text-center border-r border-black/50" id='spdefIv' placeholder="IV" value={teamState.team[teamState.focus].stats[4].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                          <input className="w-[30%] rounded-r-md my-1 text-center" id='spdefEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[4].ev || null} type="number"></input>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  :
-                  <div className="flex flex-col w-full h-full">
-                    <div className="flex justify-center min-h-0 w-full">
-                      <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center">Nature</p>
-                      <select className="w-2/3 h-fit text-center rounded-r-md text-black" onChange={(e) => handleUpdateNature(e.target.value)}>
-                        {
-                          natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
-                        }
-                      </select>
-                    </div>
-                    <div className="flex justify-evenly items-center text-center">
-                      <div className="flex flex-col">
-                        <p>
-                          HP: {calculateStatTotal(teamState.team[teamState.focus].stats[0], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                        </p>
-                        <p>
-                          ATK: {calculateStatTotal(teamState.team[teamState.focus].stats[1], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                        </p>
-                        <p>
-                          DEF: {calculateStatTotal(teamState.team[teamState.focus].stats[2], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                        </p>
-                      </div>
-                      <div className="flex flex-col">
-                        <p>
-                          SPD: {calculateStatTotal(teamState.team[teamState.focus].stats[5], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                        </p>
-                        <p>
-                          SPATK: {calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                        </p>
-                        <p>
-                          SPDEF: {calculateStatTotal(teamState.team[teamState.focus].stats[4], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
-                        </p>
-                      </div>
-                    </div>
-
-
-                  </div>
-            }
-          </div>
-          <div key='info-panel-body-right-arrow' onClick={() => handleArrowClick(1)} >
-            <MT.Button className="h-full p-2">{`>`}</MT.Button>
-          </div>
+        {/* TYPES */}
+        <div key='info-panel-types' className={`flex ${teamState.team[teamState.focus].types?.length > 1 ? `justify-between` : `justify-center`} w-16`}>
+          {
+            teamState.team[teamState.focus].types ? teamState.team[teamState.focus].types.map(el => <TypeBadge type={el.type.name} size={6} />) : null
+          }
         </div>
       </div>
+
+      {/* INFO PANEL MAIN BODY */}
+      <div id='info-panel-body' key='info-panel-body' className="h-full">
+
+        {
+          // BATTLE INFORMATION
+          <>
+            <form id='info-panel-form' onChange={(e) => handleUpdateStats(e)} className="w-full h-full text-black flex flex-col justify-evenly">
+
+                {/* HP */}
+                <div className="flex justify-center items-center">
+                  <div className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center before:content-['HP'] before:relative before:bottom-4 before:right-2 before:text-xs">
+                    <p className="flex justify-center items-end max-h-0">
+                      {calculateStatTotal(teamState.team[teamState.focus].stats[0], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                    </p>
+                  </div>
+                  <input className="w-1/3 my-1 text-center border-r border-black/50" id='hpIv' placeholder="IV" value={teamState.team[teamState.focus].stats[0].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                  <input className="w-1/3 rounded-r-md my-1 text-center" id='hpEv' placeholder="EV" type="number" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[0].ev || null}></input>
+                </div>
+
+                {/* ATK */}
+                <div className="flex justify-center items-center">
+                  <div className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center  relative">
+                    <p className="before:content-['ATK'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs">
+                      {calculateStatTotal(teamState.team[teamState.focus].stats[1], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                    </p>
+                  </div>
+                  <input className="w-[30%] my-1 text-center border-r border-black/50" id='atkIv' placeholder="IV" value={teamState.team[teamState.focus].stats[1].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                  <input className="w-[30%] rounded-r-md my-1 text-center" id='atkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[1].ev || null} type="number"></input>
+                </div>
+
+                {/* DEF */}
+                <div className="flex justify-center items-center">
+                  <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">DEF</p>
+                  <input className="w-[30%] my-1 text-center border-r border-black/50" id='defIv' placeholder="IV" value={teamState.team[teamState.focus].stats[2].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                  <input className="w-[30%] rounded-r-md my-1 text-center" id='defEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[2].ev || null} type="number"></input>
+                </div>
+
+                {/* SPEED */}
+                <div className="flex justify-center items-center">
+                  <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">SPD</p>
+                  <input className="w-[30%] my-1 text-center border-r border-black/50" id='spdIv' placeholder="IV" value={teamState.team[teamState.focus].stats[5].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                  <input className="w-[30%] rounded-r-md my-1 text-center" id='spdEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[5].ev || null} type="number"></input>
+                </div>
+
+                {/* SPECIAL ATTACK */}
+                <div className="flex justify-center items-center">
+                  <div className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center  relative">
+                    <p className="before:content-['SPATK'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs">
+                      {calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature)}
+                    </p>
+                  </div>
+                  <input className="w-[30%] my-1 text-center border-r border-black/50" id='spatkIv' placeholder="IV" value={teamState.team[teamState.focus].stats[3].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                  <input className="w-[30%] rounded-r-md my-1 text-center" id='spatkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[3].ev || null} type="number"></input>
+                </div>
+
+                {/* SPECIAL DEFENSE */}
+                <div className="flex justify-center items-center">
+                  <p className="bg-blue-500 w-2/5 text-white rounded-l-md px-1 text-center">SPDEF</p>
+                  <input className="w-[30%] my-1 text-center border-r border-black/50" id='spdefIv' placeholder="IV" value={teamState.team[teamState.focus].stats[4].iv || null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                  <input className="w-[30%] rounded-r-md my-1 text-center" id='spdefEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats[4].ev || null} type="number"></input>
+                </div>
+
+              {/* MOVE 1 */}
+              <div className="flex justify-center items-center mx-1">
+                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
+                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
+                  {
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
+                  }
+                </select>
+              </div>
+
+              {/* MOVE 2 */}
+              <div className="flex justify-center items-center mx-1">
+                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
+                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
+                  {
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
+                  }
+                </select>
+              </div>
+
+              {/* MOVE 3 */}
+              <div className="flex justify-center items-center mx-1">
+                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
+                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
+                  {
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
+                  }
+                </select>
+              </div>
+
+              {/* MOVE 4 */}
+              <div className="flex justify-center items-center mx-1">
+                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
+                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
+                  {
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
+                  }
+                </select>
+              </div>
+
+              {/* HELD ITEM */}
+              <div className="flex justify-center items-center mx-1">
+                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Item</p>
+                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
+                  <option>TBA</option>
+                </select>
+              </div>
+
+              {/* ABILITIES */}
+              <div className="flex justify-center items-center mx-1">
+                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Abil</p>
+                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
+                  {
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{ability.name}</option>) : null
+                  }
+                </select>
+              </div>
+            </form>
+          </>
+        }
+      </div>
+
+      {/* <div key='info-panel-body-right-arrow' onClick={() => handleArrowClick(1)} >
+          <MT.Button className="h-full p-2">{`>`}</MT.Button>
+        </div> */}
+
+      {/* </div> */}
+
       <div className="fixed w-full m-auto left-0 bot-1/4 flex justify-center">
         <MT.Alert id='ev-alert' color="red" open={showAlert} className="border rounded-md w-1/4 flex justify-center">
           EVs cannot total more than 510

@@ -24,9 +24,9 @@ function TeamBuilder (props) {
 
   return(
     <>
-      <div id='right-body-team-builder' className="flex flex-col justify-between min-h-0 lg:h-full">
-      <div id="right-body-top-team-builder" className="flex flex-col lg:flex-row h-fit lg:h-[75%]">
-          <div id='team-member-container' className="flex-col lg:flex lg:flex-wrap bg-black/25 rounded-md m-2 w-full min-h-fit justify-evenly items-center border">
+      <div id='right-body-team-builder' className="flex justify-between min-h-0 lg:h-full m-2">
+      <div id="right-body-top-team-builder" className="flex flex-col lg:flex-row h-fit lg:h-full lg:w-2/3">
+          <div id='team-member-container' className="flex-col lg:flex bg-black/25 rounded-md w-full min-h-fit justify-evenly items-center border">
             <TeamSlot handleDialog={handleDialog} position={0}/>
             <TeamSlot handleDialog={handleDialog} position={1}/>
             <TeamSlot handleDialog={handleDialog} position={2}/>
@@ -36,11 +36,11 @@ function TeamBuilder (props) {
           </div>
         </div>
 
-        <div id="right-body-bot-team-builder" className="flex min-h-0">
-          <div id='info-panel-container' className="flex flex-col mx-2 justify-between w-full h-full lg:min-w-0 lg:w-3/4 border">
+        <div id="right-body-bot-team-builder" className="flex flex-col min-h-0 w-1/3">
+          <div id='info-panel-container' className="flex flex-col mx-2 justify-between w-full h-full lg:min-w-0 lg:w-full border bg-black/50">
             <InfoPanel />
           </div>
-          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-full w-1/3 lg:w-1/4 border">
+          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-1/4 w-full border">
             <TeamOptions />
           </div>
         </div>

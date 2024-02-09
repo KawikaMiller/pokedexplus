@@ -15,7 +15,7 @@ function TeamSlot(props) {
 
   return (
     <>
-      <MT.Card className={`m-1 lg:m-0 lg:w-[48%] lg:h-[32%] bg-black/50 min-h-0 ${teamState.focus == props.position ? 'border' : null}`}>
+      <MT.Card className={`m-1 lg:m-1 lg:w-full lg:h-[32%] bg-black/50 min-h-0 ${teamState.focus == props.position ? 'border' : null}`}>
         <MT.CardBody 
           className="p-2 items-center h-full w-auto text-white"
           onClick={() => dispatch(setFocus(props.position))}
@@ -30,20 +30,20 @@ function TeamSlot(props) {
                     {capitalizeWord(teamState.team[props.position].name)}
                   </p>
 
-                  <div className="flex justify-between w-1/4">
+                  <div className="flex justify-between w-14">
                     {
-                      teamState.team[props.position].types.map(el => <TypeBadge type={el.type.name} size={6} />)
+                      teamState.team[props.position].types.map(el => <TypeBadge type={el.type.name} size={5} />)
                     }
                   </div>
                 </div>
 
-                <div key={`team-slot-${props.position}-body`} className="w-full flex grow">
-                  <div className="flex flex-col justify-center items-center mr-1">
-                    <img className="rounded-[50%] h-full" src={teamState.team[props.position].sprite.front_default} />
+                <div key={`team-slot-${props.position}-body`} className="w-full flex grow min-h-0">
+                  <div className="flex flex-col justify-center items-center mr-1 min-h-0 w-auto grow">
+                    <img className="rounded-[50%] max-h-full" src={teamState.team[props.position].sprite.front_default} />
                   </div>
-                  <div className="grow flex flex-col justify-evenly items-center">
-                  <MT.Button color="blue" className="w-full">Edit</MT.Button>
-                  <MT.Button color="red" className="w-full">Remove</MT.Button>
+                  <div className="flex justify-evenly items-center w-2/3">
+                  <MT.Button size="sm" color="blue" className="max-w-1/3">Edit</MT.Button>
+                  <MT.Button size='sm' color="red" className="max-w-1/3">Remove</MT.Button>
                   </div>
                 </div>
 
@@ -56,7 +56,7 @@ function TeamSlot(props) {
                 {
                   pokeState.pokemon ?
                     <div onClick={() => dispatch(addToTeam({ pokemon: pokeState.pokemon, position: props.position }))} className="w-1/2 h-full mr-1 bg-red-700 rounded-md hover:cursor-pointer hover:border flex flex-col justify-center items-center">
-                      <p>Add {capitalizeWord(pokeState.pokemon.name)}</p>
+                      {/* <p>Add {capitalizeWord(pokeState.pokemon.name)}</p> */}
                       <img className="" src={pokeState.pokemon.sprite.front_default} />
                     </div>
                     :
