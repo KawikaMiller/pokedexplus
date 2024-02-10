@@ -4,7 +4,7 @@ import MT from "@/app/lib/clientmaterialtailwind";
 
 import teamSlice from "@/app/reduxStore/teamSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { calculateStatTotal, capitalizeWord, natureModifiers } from "@/app/lib/helpers";
+import { calculateStatTotal, capitalizeWord, natureModifiers, removeHyphen } from "@/app/lib/helpers";
 import TypeBadge from "../../accessory/TypeBadge";
 
 function InfoPanel() {
@@ -16,7 +16,7 @@ function InfoPanel() {
   const [bodyIdx, setBodyIdx] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
 
-  const statLabelStyle = `before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-[81%] before:left-0 before before:text-xs`
+  const statLabelStyle = `before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs`
 
   const handleArrowClick = (value) => {
     let newIdx = bodyIdx + value;
@@ -45,18 +45,12 @@ function InfoPanel() {
     return e.target.value;
   }
 
-  const handleUpdateNature = (nature) => {
-    let temp = JSON.parse(JSON.stringify(teamState.team[teamState.focus]));
-    temp.nature = nature;
-    dispatch(addToTeam({
-      pokemon: temp,
-      position: teamState.focus
-    }))
-  }
 
-  const handleUpdateStats = (e) => {
+  const handleChangeForm = (e) => {
 
     let evTotal = Number(e.target.form.hpEv.value) + Number(e.target.form.atkEv.value) + Number(e.target.form.defEv.value) + Number(e.target.form.spatkEv.value) + Number(e.target.form.spdefEv.value) + Number(e.target.form.spdEv.value);
+
+    
 
     if (evTotal > 510) {
       setShowAlert(true)
@@ -82,6 +76,8 @@ function InfoPanel() {
 
       temp.stats[5].ev = Number(e.target.form.spdEv.value) || 0
       temp.stats[5].iv = Number(e.target.form.spdIv.value)
+
+      temp.nature = e.target.form.nature.value;
 
       dispatch(addToTeam({
         pokemon: temp,
@@ -117,7 +113,7 @@ function InfoPanel() {
         {
           // BATTLE INFORMATION
           <>
-            <form id='info-panel-form' onChange={(e) => handleUpdateStats(e)} className="w-full h-full text-black flex flex-col justify-evenly">
+            <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly">
 
               {/* HP */}
               <div className="flex justify-center items-center">
@@ -127,9 +123,9 @@ function InfoPanel() {
                   </p>
                 </div>
 
-                <input className="w-1/3 my-1 text-center border-r border-black/50" id='hpIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[0].iv : null} type="number" onChange={(e) => limitNumber(e, 2)} />
+                <input className="w-[30%] text-center border-r border-black/50" id='hpIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[0].iv : null} type="number" onChange={(e) => limitNumber(e, 2)} />
 
-                <input className="w-1/3 rounded-r-md my-1 text-center" id='hpEv' placeholder="EV" type="number" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[0].ev : null} />
+                <input className="w-[30%] rounded-r-md text-center" id='hpEv' placeholder="EV" type="number" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[0].ev : null} />
               </div>
 
               {/* ATK */}
@@ -140,9 +136,9 @@ function InfoPanel() {
                   </p>
                 </div>
 
-                <input className="w-[30%] my-1 text-center border-r border-black/50" id='atkIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[1].iv : null} type="number" onChange={(e) => limitNumber(e, 2)} />
+                <input className="w-[30%] text-center border-r border-black/50" id='atkIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[1].iv : null} type="number" onChange={(e) => limitNumber(e, 2)} />
 
-                <input className="w-[30%] rounded-r-md my-1 text-center" id='atkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[1].ev : null} type="number" />
+                <input className="w-[30%] rounded-r-md text-center" id='atkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[1].ev : null} type="number" />
               </div>
 
               {/* DEF */}
@@ -152,8 +148,8 @@ function InfoPanel() {
                     {teamState.team[teamState.focus].stats ? calculateStatTotal(teamState.team[teamState.focus].stats[2], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature) : '---'}
                   </p>
                 </div>
-                <input className="w-[30%] my-1 text-center border-r border-black/50" id='defIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[2].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                <input className="w-[30%] rounded-r-md my-1 text-center" id='defEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[2].ev : null} type="number"></input>
+                <input className="w-[30%] text-center border-r border-black/50" id='defIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[2].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                <input className="w-[30%] rounded-r-md text-center" id='defEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[2].ev : null} type="number"></input>
               </div>
 
               {/* SPECIAL ATTACK */}
@@ -163,8 +159,8 @@ function InfoPanel() {
                     {teamState.team[teamState.focus].stats ? calculateStatTotal(teamState.team[teamState.focus].stats[3], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature) : '---'}
                   </p>
                 </div>
-                <input className="w-[30%] my-1 text-center border-r border-black/50" id='spatkIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[3].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                <input className="w-[30%] rounded-r-md my-1 text-center" id='spatkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[3].ev : null} type="number"></input>
+                <input className="w-[30%] text-center border-r border-black/50" id='spatkIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[3].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                <input className="w-[30%] rounded-r-md text-center" id='spatkEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[3].ev : null} type="number"></input>
               </div>
 
               {/* SPECIAL DEFENSE */}
@@ -174,8 +170,8 @@ function InfoPanel() {
                     {teamState.team[teamState.focus].stats ? calculateStatTotal(teamState.team[teamState.focus].stats[4], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature) : '---'}
                   </p>
                 </div>
-                <input className="w-[30%] my-1 text-center border-r border-black/50" id='spdefIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[4].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                <input className="w-[30%] rounded-r-md my-1 text-center" id='spdefEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[4].ev : null} type="number"></input>
+                <input className="w-[30%] text-center border-r border-black/50" id='spdefIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[4].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                <input className="w-[30%] rounded-r-md text-center" id='spdefEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[4].ev : null} type="number"></input>
               </div>
 
               {/* SPEED */}
@@ -185,77 +181,83 @@ function InfoPanel() {
                     {teamState.team[teamState.focus].stats ? calculateStatTotal(teamState.team[teamState.focus].stats[5], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature) : '---'}
                   </p>
                 </div>
-                <input className="w-[30%] my-1 text-center border-r border-black/50" id='spdIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[5].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
-                <input className="w-[30%] rounded-r-md my-1 text-center" id='spdEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[5].ev : null} type="number"></input>
+                <input className="w-[30%] text-center border-r border-black/50" id='spdIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[5].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
+                <input className="w-[30%] rounded-r-md text-center" id='spdEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[5].ev : null} type="number"></input>
               </div>
 
               {/* NATURE */}
-              <div className="flex justify-center items-center">
-                {/* <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Nature</p> */}
-                <select className="w-full h-fit text-center rounded-md text-black before:content-['NATURE]">
-                  {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                  }
-                </select>
-
-              </div>
-
-              {/* MOVE 1 */}
-              <div className="flex justify-center items-center">
-                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                  {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                  }
-                </select>
-              </div>
-
-              {/* MOVE 2 */}
-              <div className="flex justify-center items-center">
-                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                  {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                  }
-                </select>
-              </div>
-
-              {/* MOVE 3 */}
-              <div className="flex justify-center items-center">
-                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                  {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                  }
-                </select>
-              </div>
-
-              {/* MOVE 4 */}
-              <div className="flex justify-center items-center">
-                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Move</p>
-                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                  {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{move.name}</option>) : null
-                  }
-                </select>
-              </div>
-
-              {/* HELD ITEM */}
-              <div className="flex justify-center items-center">
-                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Item</p>
-                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                  <option>TBA</option>
-                </select>
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Nature'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select id='nature' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
+                    }
+                  </select>
+                </div>
               </div>
 
               {/* ABILITIES */}
-              <div className="flex justify-center items-center">
-                <p className="bg-blue-500 w-1/3 text-white rounded-l-md px-1 text-center h-full">Abil</p>
-                <select className="w-2/3 h-fit text-center rounded-r-md text-black">
-                  {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{ability.name}</option>) : null
-                  }
-                </select>
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Ability'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
+                    }
+                  </select>
+                </div>
+              </div>
+
+              {/* HELD ITEM */}
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Held_Item'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    <option>TBA</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* MOVE 1 */}
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_1'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    }
+                  </select>
+                </div>
+              </div>
+
+              {/* MOVE 2 */}
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_2'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    }
+                  </select>
+                </div>
+              </div>
+
+              {/* MOVE 3 */}
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_3'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    }
+                  </select>
+                </div>
+              </div>
+
+              {/* MOVE 4 */}
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_4'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    }
+                  </select>
+                </div>
               </div>
             </form>
           </>

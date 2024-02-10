@@ -31,4 +31,8 @@ body {
   /* color: blue; */
 }
 
+:focus-visible{
+  outline: none;
+}
+
 
