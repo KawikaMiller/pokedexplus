@@ -104,6 +104,28 @@ function InfoPanel() {
 
           <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly">
 
+            <div className="flex justify-between">
+              {/* LEVEL */}
+              <div className="flex relative w-1/3">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Level'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <input id='level' type="number" max={100} min={1} className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`} />
+                </div>
+              </div>
+
+              {/* NATURE */}
+              <div className="flex relative w-3/6">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Nature'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select id='nature' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
+                    }
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+
             {/* HP */}
             <div className="flex justify-center items-center">
               <div className="bg-blue-500 w-2/5 text-white rounded-bl-md px-1 text-center relative">
@@ -172,17 +194,6 @@ function InfoPanel() {
               </div>
               <input className="w-[30%] text-center border-r border-black/50" id='spdIv' placeholder="IV" value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[5].iv : null} type="number" onChange={(e) => limitNumber(e, 2)}></input>
               <input className="w-[30%] rounded-r-md text-center" id='spdEv' placeholder="EV" onChange={(e) => limitNumber(e, 3)} value={teamState.team[teamState.focus].stats ? teamState.team[teamState.focus].stats[5].ev : null} type="number"></input>
-            </div>
-
-            {/* NATURE */}
-            <div className="flex relative">
-              <div className="w-full text-white rounded-bl-md text-center before:content-['Nature'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select id='nature' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                  {
-                    natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
-                  }
-                </select>
-              </div>
             </div>
 
             {/* ABILITIES */}

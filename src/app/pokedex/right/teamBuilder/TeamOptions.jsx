@@ -8,7 +8,7 @@ function TeamOptions() {
       <MT.Button size="sm" color="green" className="m-0.5 p-1">New Team</MT.Button>
       <MT.Button size="sm" color="blue" className="m-0.5 p-1">Save Team</MT.Button>
       <MT.Button size="sm" color="blue" className="m-0.5 p-1">Load Team</MT.Button>
-      <MT.Button size="sm" color="blue" className="m-0.5 p-1">Typing</MT.Button>
+      <MT.Button size="sm" color="blue" className="m-0.5 p-1">Type Coverage</MT.Button>
     </div>
   )
 
