@@ -8,13 +8,27 @@ import TypeBadge from "../../accessory/TypeBadge";
 
 function TeamSlot(props) {
 
-  const [editLevel, setEditLevel] = useState(false);
-  const [editNickname, setEditNickname] = useState(false);
+  const [editForm, setEditForm] = useState(false);
 
   const teamState = useSelector(state => state.team)
   const pokeState = useSelector(state => state.pokemon)
   const dispatch = useDispatch();
   const { addToTeam, setFocus } = teamSlice.actions;
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setEditForm(true)
+    let temp = JSON.parse(JSON.stringify(teamState.team[teamState.focus]));
+
+    temp.nickname = e.target.nickname.value;
+    temp.level = Number(e.target.level.value) || temp.level;
+
+    dispatch(addToTeam({
+      pokemon: temp,
+      position: teamState.focus
+    }))
+
+  }
 
   return (
     <>
@@ -29,32 +43,28 @@ function TeamSlot(props) {
 
                 <div key={`team-slot-${props.position}-header`} className="w-full h-1/5 flex items-center justify-between">
 
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    console.log('submit form')
-                    setEditLevel(true)
-                  }}>
+                  <form onSubmit={(e) => handleFormSubmit(e)}>
 
-                    <p className="flex hover:cursor-pointer hover:bg-white/50 rounded-md" onClick={() => { setEditLevel(false) }}>
+                    <p className="flex hover:cursor-pointer hover:bg-white/50 rounded-md" onClick={() => { setEditForm(false) }}>
 
                       {
-                        <span className="flex font-bold mr-2">Lv. {!editLevel ?
-                          <input className="text-black w-8 rounded-md text-center" type="number" placeholder="100" onChange={(e) => limitNumber(e, 'LVL')} />
+                        <span className="flex font-bold mr-2">Lv. {!editForm ?
+                          <input className="text-black w-8 rounded-md text-center" type="number" placeholder="100" id='level' onChange={(e) => limitNumber(e, 'LVL')} />
                           :
                           teamState.team[props.position].level}
                         </span>
                       }
 
                       {
-                        !editLevel ? 
-                        <input className="text-black w-28 px-1 rounded-md" placeholder="Nickname" maxLength={12} />
+                        !editForm ? 
+                        <input className="text-black w-28 px-1 rounded-md" placeholder="Nickname" id='nickname' maxLength={12} />
                         :
-                        capitalizeWord(teamState.team[props.position].name)
+                        teamState.team[teamState.focus].nickname ? teamState.team[props.position].nickname : capitalizeWord(teamState.team[props.position].name)
                       }
 
                       {
                         // without this 'invisible' submit button, pressing enter won't work to submit the form 
-                        !editLevel ?
+                        !editForm ?
                         <button type="submit"></button>
                         :
                         null
