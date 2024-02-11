@@ -32,34 +32,28 @@ function TeamBuilder(props) {
 
   return (
     <>
-      <div id='right-body-team-builder' className="flex flex-col justify-between min-h-0 lg:h-full m-2">
+      <div id='right-body-team-builder-container' className="border flex flex-col justify-between min-h-0 lg:h-full m-2">
 
-        <div id='right-body-top-team-builder' className="h-1/5 w-full flex justify-between border p-0.5">
-          <div id='team-name-and-gen-select' className="flex flex-col justify-center h-full border w-2/3 p-1">
+        <div id='right-body-team-builder-header' className="h-[10%] w-full flex justify-between items-center space-x-2 p-0.5 bg-black/50 border-b">
 
-            <div className="relative h-1/2 top-5">
-              <div className="w-full before:absolute before:content-['Team_Name'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <input id='team-name' onChange={(e) => updateTeamName(e)} placeholder="Team Name" value={teamState.teamName} className="rounded-b-md rounded-tr-md text-black w-full px-1 " />
-              </div>
+          <div className="relative h-1/2 w-2/3 top-2">
+            <div className="w-full before:absolute before:content-['Team_Name'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+              <input id='team-name' onChange={(e) => updateTeamName(e)} placeholder="Team Name" value={teamState.teamName} className="rounded-b-md rounded-tr-md text-black w-full px-1 " />
             </div>
+          </div>
 
-            <div className="relative h-1/2 top-5">
+          <div className="relative h-1/2 w-1/3 top-2">
             <div className="w-full before:absolute before:content-['Game_Version'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
               <select className="rounded-b-md rounded-tr-md text-black w-full px-1 ">
                 <option>Gen I</option>
               </select>
-              </div>
             </div>
-
           </div>
 
-          <div className="w-1/3 h-full min-h-0">
-            <TeamOptions />
-          </div>
         </div>
 
-        <div id='right-body-bot-team-builder' className="border flex justify-between min-h-0 h-full">
-          <div id='team-member-container' className="flex-col lg:flex bg-black/25 rounded-md min-h-fit justify-evenly items-center  w-2/3">
+        <div id='right-body-team-builder-main' className="flex justify-between min-h-0 h-full bg-black/25 border-b">
+          <div id='team-member-container' className="flex-col lg:flex min-h-fit justify-evenly items-center w-2/3 border-r">
             <div className="min-h-0 w-full flex flex-col justify-evenly items-center p-0.5">
               <TeamSlot handleDialog={handleDialog} position={0} />
               <TeamSlot handleDialog={handleDialog} position={1} />
@@ -71,13 +65,14 @@ function TeamBuilder(props) {
           </div>
 
           <div id="right-body-right-team-builder" className="flex flex-col min-h-0 w-1/3">
-            <div id='info-panel-container' className="flex flex-col justify-between w-full h-full lg:w-full px-1 bg-black/50">
+            <div id='info-panel-container' className="flex flex-col justify-between w-full h-full lg:w-full px-1">
               <InfoPanel />
             </div>
-            {/* <div id='abilities-and-base-stats-container' className="flex flex-col justify-between mx-2 h-1/4 w-full border"> */}
-
-            {/* </div> */}
           </div>
+        </div>
+
+        <div id='right-body-team-builder-footer'>
+          <TeamOptions />
         </div>
 
       </div>

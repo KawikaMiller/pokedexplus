@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import MT from "@/app/lib/clientmaterialtailwind";
 import teamSlice from "@/app/reduxStore/teamSlice";
@@ -7,6 +7,9 @@ import { capitalizeWord } from "@/app/lib/helpers";
 import TypeBadge from "../../accessory/TypeBadge";
 
 function TeamSlot(props) {
+
+  const [editLevel, setEditLevel] = useState(false);
+  const [editNickname, setEditNickname] = useState(false);
 
   const teamState = useSelector(state => state.team)
   const pokeState = useSelector(state => state.pokemon)
@@ -26,7 +29,13 @@ function TeamSlot(props) {
 
                 <div key={`team-slot-${props.position}-header`} className="w-full h-1/5 flex items-center justify-between">
                   <p>
-                    <span className="font-bold">Lv. {teamState.team[props.position].level} </span>
+                    {
+                      editLevel ? 
+                      <span onClick={() => console.log('yo')} className="font-bold hover:cursor-pointer">Lv. {teamState.team[props.position].level}</span>
+                      :
+                      <input className="text-black" onSubmit={() => console.log('submit')} type="number"/>
+                    }
+
                     {capitalizeWord(teamState.team[props.position].name)}
                   </p>
 

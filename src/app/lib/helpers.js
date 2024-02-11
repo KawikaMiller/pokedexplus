@@ -69,12 +69,12 @@ export const natureModifiers = [
   {
     name: 'Adamant',
     buff: 'ATK',
-    debuff: 'SP.ATK',  
+    debuff: 'SPATK',  
   },
   {
     name: 'Naughty',
     buff: 'ATK',
-    debuff: 'SP.DEF',  
+    debuff: 'SPDEF',  
   },
   {
     name: 'Brave',
@@ -89,12 +89,12 @@ export const natureModifiers = [
   {
     name: 'Impish',
     buff: 'DEF',
-    debuff: 'SP.ATK',  
+    debuff: 'SPATK',  
   },
   {
     name: 'Lax',
     buff: 'DEF',
-    debuff: 'SP.DEF',  
+    debuff: 'SPDEF',  
   },
   {
     name: 'Relaxed',
@@ -103,42 +103,42 @@ export const natureModifiers = [
   },
   {
     name: 'Modest',
-    buff: 'SP.ATK',
+    buff: 'SPATK',
     debuff: 'ATK',  
   },
   {
     name: 'Mild',
-    buff: 'SP.ATK',
+    buff: 'SPATK',
     debuff: 'DEF',  
   },
   {
     name: 'Rash',
-    buff: 'SP.ATK',
-    debuff: 'SP.DEF',  
+    buff: 'SPATK',
+    debuff: 'SPDEF',  
   },
   {
     name: 'Quiet',
-    buff: 'SP.ATK',
+    buff: 'SPATK',
     debuff: 'SPD',  
   },
   {
     name: 'Calm',
-    buff: 'SP.DEF',
+    buff: 'SPDEF',
     debuff: 'ATK',  
   },
   {
     name: 'Gentle',
-    buff: 'SP.DEF',
+    buff: 'SPDEF',
     debuff: 'DEF',  
   },
   {
     name: 'Careful',
-    buff: 'SP.DEF',
-    debuff: 'SP.ATK',  
+    buff: 'SPDEF',
+    debuff: 'SPATK',  
   },
   {
     name: 'Sassy',
-    buff: 'SP.DEF',
+    buff: 'SPDEF',
     debuff: 'SPD',  
   },
   {
@@ -154,12 +154,12 @@ export const natureModifiers = [
   {
     name: 'Jolly',
     buff: 'SPD',
-    debuff: 'SP.ATK',  
+    debuff: 'SPATK',  
   },
   {
     name: 'Naive',
     buff: 'SPD',
-    debuff: 'SP.DEF',  
+    debuff: 'SPDEF',  
   }
 ]
 
