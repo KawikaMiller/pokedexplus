@@ -47,9 +47,6 @@ function TeamSlot(props) {
                   </div>
                 </div>
 
-                {/* <div key={`team-slot-${props.position}-footer`} className="w-full flex items-center justify-evenly h-1/5">
-
-                </div> */}
               </div>
               :
               <div key='team-slot-placeholder' className="flex w-full h-full justify-between">

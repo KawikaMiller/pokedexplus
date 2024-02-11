@@ -50,13 +50,13 @@ function InfoPanel() {
 
     let evTotal = Number(e.target.form.hpEv.value) + Number(e.target.form.atkEv.value) + Number(e.target.form.defEv.value) + Number(e.target.form.spatkEv.value) + Number(e.target.form.spdefEv.value) + Number(e.target.form.spdEv.value);
 
-
-
     if (evTotal > 510) {
+      // if EVs exceed 510, display error popup
       setShowAlert(true)
       e.target.value = ''
       setTimeout(() => setShowAlert(false), 3500)
     } else {
+      // otherwise, update team member in state
       setShowAlert(false)
       let temp = JSON.parse(JSON.stringify(teamState.team[teamState.focus]));
       temp.stats[0].ev = Number(e.target.form.hpEv.value) || 0
@@ -78,6 +78,13 @@ function InfoPanel() {
       temp.stats[5].iv = Number(e.target.form.spdIv.value)
 
       temp.nature = e.target.form.nature.value;
+
+      temp.battle.moves = [
+        temp.moves.find(move => move.name === e.target.form['battle-move-1'].value),
+        temp.moves.find(move => move.name === e.target.form['battle-move-2'].value),
+        temp.moves.find(move => move.name === e.target.form['battle-move-3'].value),
+        temp.moves.find(move => move.name === e.target.form['battle-move-4'].value),
+      ]
 
       dispatch(addToTeam({
         pokemon: temp,
@@ -181,7 +188,7 @@ function InfoPanel() {
             {/* ABILITIES */}
             <div className="flex relative">
               <div className="w-full text-white rounded-bl-md text-center before:content-['Ability'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                <select id='battle-ability' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                   {
                     teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
                   }
@@ -192,7 +199,7 @@ function InfoPanel() {
             {/* HELD ITEM */}
             <div className="flex relative">
               <div className="w-full text-white rounded-bl-md text-center before:content-['Held_Item'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                <select id='held-item' className={`w-full h-6 text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                   <option>TBA</option>
                 </select>
               </div>
@@ -201,9 +208,9 @@ function InfoPanel() {
             {/* MOVE 1 */}
             <div className="flex relative">
               <div className="w-full text-white rounded-bl-md text-center before:content-['Move_1'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                <select id='battle-move-1' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                   {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
                   }
                 </select>
               </div>
@@ -212,9 +219,9 @@ function InfoPanel() {
             {/* MOVE 2 */}
             <div className="flex relative">
               <div className="w-full text-white rounded-bl-md text-center before:content-['Move_2'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                <select id='battle-move-2' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                   {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
                   }
                 </select>
               </div>
@@ -223,9 +230,9 @@ function InfoPanel() {
             {/* MOVE 3 */}
             <div className="flex relative">
               <div className="w-full text-white rounded-bl-md text-center before:content-['Move_3'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                <select id='battle-move-3' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                   {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
                   }
                 </select>
               </div>
@@ -234,9 +241,9 @@ function InfoPanel() {
             {/* MOVE 4 */}
             <div className="flex relative">
               <div className="w-full text-white rounded-bl-md text-center before:content-['Move_4'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                <select className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                <select id='battle-move-4' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                   {
-                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="">{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
                   }
                 </select>
               </div>

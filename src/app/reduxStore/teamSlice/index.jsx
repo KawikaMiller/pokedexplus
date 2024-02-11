@@ -16,7 +16,7 @@ const teamSlice = createSlice({
     setFocus(state, action){
       state.focus = action.payload
     },
-    setTeamsName(state, action) {
+    setTeamName(state, action) {
       state.teamName = action.payload
     },
     addToTeam(state, action) {
