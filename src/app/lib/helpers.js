@@ -191,3 +191,22 @@ export const calculateStatTotal = (stat, level, nature) => {
     return Math.floor(((Math.floor(((2 * stat.base_stat + stat.iv + Math.floor(stat.ev / 4)) * level) / 100)) + 5) * natureModifier);
   }
 }
+
+export const limitNumber = (e, key) => {
+  if (key.toUpperCase() === 'EV') {
+    e.target.value.length > 3 ?
+      e.target.value = e.target.value.substring(0, 3)
+      :
+      e.target.value == 0 ? e.target.value = '' :
+        e.target.value > 255 ? e.target.value = 255 : null
+  } else if (key.toUpperCase() === 'IV') {
+    e.target.value.length > 2 ?
+      e.target.value = e.target.value.substring(0, 2)
+      :
+      e.target.value == 0 ? e.target.value = '' : e.target.value > 31 ? e.target.value = 31 : null
+  } else if (key.toUpperCase() === 'LVL') {
+    e.target.value > 100 ? e.target.value = 100 :
+      !e.target.value ? e.target.value = '' : null
+  }
+  return e.target.value;
+}

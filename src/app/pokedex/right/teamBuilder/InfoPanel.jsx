@@ -4,7 +4,7 @@ import MT from "@/app/lib/clientmaterialtailwind";
 
 import teamSlice from "@/app/reduxStore/teamSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { calculateStatTotal, capitalizeWord, natureModifiers, removeHyphen } from "@/app/lib/helpers";
+import { calculateStatTotal, capitalizeWord, natureModifiers, removeHyphen, limitNumber } from "@/app/lib/helpers";
 import TypeBadge from "../../accessory/TypeBadge";
 
 function InfoPanel() {
@@ -29,26 +29,6 @@ function InfoPanel() {
       setBodyIdx(bodyIdx + value)
     }
   }
-
-  const limitNumber = (e, key) => {
-    if (key.toUpperCase() === 'EV') {
-      e.target.value.length > 3 ?
-        e.target.value = e.target.value.substring(0, 3)
-        :
-        e.target.value == 0 ? e.target.value = '' :
-          e.target.value > 255 ? e.target.value = 255 : null
-    } else if (key.toUpperCase() === 'IV') {
-      e.target.value.length > 2 ?
-        e.target.value = e.target.value.substring(0, 2)
-        :
-        e.target.value == 0 ? e.target.value = '' : e.target.value > 31 ? e.target.value = 31 : null
-    } else if (key.toUpperCase() === 'LVL') {
-      e.target.value > 100 ? e.target.value = 100 :
-        !e.target.value ? e.target.value = '' : null
-    }
-    return e.target.value;
-  }
-
 
   const handleChangeForm = (e) => {
 
@@ -111,28 +91,23 @@ function InfoPanel() {
             // BATTLE INFORMATION
             <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly">
 
-              <div className="flex justify-between">
-                {/* LEVEL */}
-                <div className="flex relative w-1/4">
-                  <div className="w-full text-white rounded-bl-md text-center before:content-['Lvl'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                    <input onChange={(e) => limitNumber(e, 'LVL')} id='level' type="number" value={teamState.team[teamState.focus].level || ''} placeholder="LVL" className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`} />
-                  </div>
-                </div>
-
-                {/* NICKNAME*/}
-                <div className="flex relative w-[71%]">
-                  <div className="w-full text-white rounded-bl-md text-center before:content-['Nickname'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                    <input id='nickname' maxLength={12} value={teamState.team[teamState.focus].nickname || ''} placeholder="Nickname" className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`} />
-                  </div>
-                </div>
-              </div>
-
               {/* NATURE */}
               <div className="flex relative">
                 <div className="w-full text-white rounded-bl-md text-center before:content-['Nature'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
                   <select id='nature' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                     {
                       natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
+                    }
+                  </select>
+                </div>
+              </div>
+
+              {/* ABILITIES */}
+              <div className="flex relative">
+                <div className="w-full text-white rounded-bl-md text-center before:content-['Ability'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <select id='battle-ability' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                    {
+                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
                     }
                   </select>
                 </div>
@@ -166,17 +141,6 @@ function InfoPanel() {
                   </div>
                 )) || null
               }
-
-              {/* ABILITIES */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Ability'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='battle-ability' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    {
-                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
-                    }
-                  </select>
-                </div>
-              </div>
 
               {/* HELD ITEM */}
               <div className="flex relative">

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MT from "@/app/lib/clientmaterialtailwind";
 import teamSlice from "@/app/reduxStore/teamSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { capitalizeWord } from "@/app/lib/helpers";
+import { capitalizeWord, limitNumber } from "@/app/lib/helpers";
 import TypeBadge from "../../accessory/TypeBadge";
 
 function TeamSlot(props) {
@@ -19,7 +19,7 @@ function TeamSlot(props) {
   return (
     <>
       <MT.Card className={`m-1 lg:m-1 lg:w-full lg:h-[32%] bg-black/50 min-h-0 ${teamState.focus == props.position ? 'border' : null}`}>
-        <MT.CardBody 
+        <MT.CardBody
           className="p-2 items-center h-full w-auto text-white"
           onClick={() => dispatch(setFocus(props.position))}
         >
@@ -28,16 +28,45 @@ function TeamSlot(props) {
               <div key={`team-slot-${props.position}`} className="flex flex-col h-full">
 
                 <div key={`team-slot-${props.position}-header`} className="w-full h-1/5 flex items-center justify-between">
-                  <p>
-                    {
-                      editLevel ? 
-                      <span onClick={() => console.log('yo')} className="font-bold hover:cursor-pointer">Lv. {teamState.team[props.position].level}</span>
-                      :
-                      <input className="text-black" onSubmit={() => console.log('submit')} type="number"/>
-                    }
 
-                    {capitalizeWord(teamState.team[props.position].name)}
-                  </p>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    console.log('submit form')
+                    setEditLevel(true)
+                  }}>
+
+                    <p className="flex hover:cursor-pointer hover:bg-white/50 rounded-md" onClick={() => { setEditLevel(false) }}>
+
+                      {
+                        <span className="flex font-bold mr-2">Lv. {!editLevel ?
+                          <input className="text-black w-8 rounded-md text-center" type="number" placeholder="100" onChange={(e) => limitNumber(e, 'LVL')} />
+                          :
+                          teamState.team[props.position].level}
+                        </span>
+                      }
+
+                      {
+                        !editLevel ? 
+                        <input className="text-black w-28 px-1 rounded-md" placeholder="Nickname" maxLength={12} />
+                        :
+                        capitalizeWord(teamState.team[props.position].name)
+                      }
+
+                      {
+                        // without this 'invisible' submit button, pressing enter won't work to submit the form 
+                        !editLevel ?
+                        <button type="submit"></button>
+                        :
+                        null
+                      }
+
+                    </p>
+
+                  </form>
+
+
+
+
 
                   <div className="flex justify-between w-14">
                     {
@@ -51,8 +80,8 @@ function TeamSlot(props) {
                     <img className="rounded-[50%] max-h-full" src={teamState.team[props.position].sprite.front_default} />
                   </div>
                   <div className="flex justify-evenly items-center w-2/3">
-                  <MT.Button size="sm" color="blue" className="max-w-1/3">Edit</MT.Button>
-                  <MT.Button size='sm' color="red" className="max-w-1/3">Remove</MT.Button>
+                    <MT.Button size="sm" color="blue" className="max-w-1/3">Edit</MT.Button>
+                    <MT.Button size='sm' color="red" className="max-w-1/3">Remove</MT.Button>
                   </div>
                 </div>
 
