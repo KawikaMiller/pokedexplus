@@ -13,22 +13,7 @@ function InfoPanel() {
   const dispatch = useDispatch();
   const { setFocus, addToTeam } = teamSlice.actions
 
-  const [bodyIdx, setBodyIdx] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
-
-  const statLabelStyle = `before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs`
-
-  const handleArrowClick = (value) => {
-    let newIdx = bodyIdx + value;
-
-    if (newIdx >= 3) {
-      setBodyIdx(0)
-    } else if (newIdx < 0) {
-      setBodyIdx(1)
-    } else {
-      setBodyIdx(bodyIdx + value)
-    }
-  }
 
   const handleChangeForm = (e) => {
 
@@ -91,120 +76,93 @@ function InfoPanel() {
             // BATTLE INFORMATION
             <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly">
 
-              {/* NATURE */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Nature'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='nature' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    {
-                      natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
-                    }
-                  </select>
-                </div>
-              </div>
-
-              {/* ABILITIES */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Ability'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='battle-ability' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    {
-                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
-                    }
-                  </select>
-                </div>
-              </div>
-
+              {/* STAT VALUES */}
               {
                 teamState.team[teamState.focus].stats?.map((stat, idx) => (
-                  <div className="flex justify-center items-center">
-                    <div className="bg-blue-500 w-2/5 text-white rounded-bl-md px-1 text-center relative">
-                      <p
-                        className={
-                          `before:content-['${stat.name}'] ${statLabelStyle}`
-                        }
-                      >
+                  <div>
+                    <p className="text-white w-fit bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+                      {stat.name}
+                    </p>
+                    <div className="flex justify-center items-center">
+                      <p className="bg-blue-500 w-2/5 text-white rounded-bl-md px-1 text-center relative">
                         {teamState.team[teamState.focus].stats ? calculateStatTotal(teamState.team[teamState.focus].stats[idx], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature) : '---'}
                       </p>
+
+                      <input
+                        id={`${stat.name.toLowerCase()}Iv`} placeholder="IV" type="number"
+                        className="w-[30%] text-center border-r border-black/50"
+                        onChange={(e) => limitNumber(e, 'IV')}
+                        value={teamState.team[teamState.focus].stats[idx].iv || null}
+                      />
+
+                      <input
+                        id={`${stat.name.toLowerCase()}Ev`} placeholder="EV" type="number"
+                        className="w-[30%] rounded-r-md text-center"
+                        onChange={(e) => limitNumber(e, 'EV')}
+                        value={teamState.team[teamState.focus].stats[idx].ev || null} />
                     </div>
-
-                    <input
-                      id={`${stat.name.toLowerCase()}Iv`} placeholder="IV" type="number"
-                      className="w-[30%] text-center border-r border-black/50"
-                      onChange={(e) => limitNumber(e, 'IV')}
-                      value={teamState.team[teamState.focus].stats[idx].iv || null}
-                    />
-
-                    <input
-                      id={`${stat.name.toLowerCase()}Ev`} placeholder="EV" type="number"
-                      className="w-[30%] rounded-r-md text-center"
-                      onChange={(e) => limitNumber(e, 'EV')}
-                      value={teamState.team[teamState.focus].stats[idx].ev || null} />
                   </div>
                 )) || null
               }
 
-              {/* HELD ITEM */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Held_Item'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='held-item' className={`w-full h-6 text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    <option>TBA</option>
-                  </select>
-                </div>
+              {/* NATURE */}
+              <div className="flex flex-col relative">
+                <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+                  Nature
+                </p>
+                <select id='nature' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                  {
+                    natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
+                  }
+                </select>
               </div>
 
-              {/* MOVE 1 */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_1'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+              {/* ABILITIES */}
+              <div className="flex flex-col relative">
+                <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+                  Ability
+                </p>
+                <select id='battle-ability' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                  {
+                    teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
+                  }
+                </select>
+              </div>
+
+              {/* HELD ITEM */}
+              <div className="flex flex-col relative">
+                <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+                  Held Item
+                </p>
+                <select id='held-item' className={`w-full h-6 text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
+                  <option>TBA</option>
+                </select>
+              </div>
+
+
+              {/* MOVES */}
+
+              {
+                teamState.team[teamState.focus].battle.moves.map((el, idx) => (
+                  <div className="flex flex-col relative">
+                  <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+                    {`Move ${idx + 1}`}
+                  </p>
                   <select id='battle-move-1' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
                     {
                       teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
                     }
                   </select>
                 </div>
-              </div>
+                ))
+              }
 
-              {/* MOVE 2 */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_2'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='battle-move-2' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    {
-                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
-                    }
-                  </select>
-                </div>
-              </div>
 
-              {/* MOVE 3 */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_3'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='battle-move-3' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    {
-                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
-                    }
-                  </select>
-                </div>
-              </div>
-
-              {/* MOVE 4 */}
-              <div className="flex relative">
-                <div className="w-full text-white rounded-bl-md text-center before:content-['Move_4'] before:absolute before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <select id='battle-move-4' className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                    {
-                      teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
-                    }
-                  </select>
-                </div>
-              </div>
             </form>
             :
             null
         }
       </div>
-
-      {/* <div key='info-panel-body-right-arrow' onClick={() => handleArrowClick(1)} >
-          <MT.Button className="h-full p-2">{`>`}</MT.Button>
-        </div> */}
-
-      {/* </div> */}
 
       <div className="fixed w-full m-auto left-0 bot-1/4 flex justify-center">
         <MT.Alert id='ev-alert' color="red" open={showAlert} className="border rounded-md w-1/4 flex justify-center">

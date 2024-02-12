@@ -17,7 +17,7 @@ function TeamSlot(props) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setEditForm(true)
+    setEditForm(!editForm)
     let temp = JSON.parse(JSON.stringify(teamState.team[teamState.focus]));
 
     temp.nickname = e.target.nickname.value;
@@ -45,10 +45,10 @@ function TeamSlot(props) {
 
                   <form onSubmit={(e) => handleFormSubmit(e)}>
 
-                    <p className="flex hover:cursor-pointer hover:bg-white/50 rounded-md" onClick={() => { setEditForm(false) }}>
+                    <p className="flex hover:cursor-pointer hover:bg-white/50 rounded-md" onClick={() => { setEditForm(true) }}>
 
                       {
-                        <span className="flex font-bold mr-2">Lv. {!editForm ?
+                        <span className="flex font-bold mr-2">Lv. {editForm ?
                           <input className="text-black w-8 rounded-md text-center" type="number" placeholder="100" id='level' onChange={(e) => limitNumber(e, 'LVL')} />
                           :
                           teamState.team[props.position].level}
@@ -56,7 +56,7 @@ function TeamSlot(props) {
                       }
 
                       {
-                        !editForm ? 
+                        editForm ? 
                         <input className="text-black w-28 px-1 rounded-md" placeholder="Nickname" id='nickname' maxLength={12} />
                         :
                         teamState.team[teamState.focus].nickname ? teamState.team[props.position].nickname : capitalizeWord(teamState.team[props.position].name)
@@ -64,7 +64,7 @@ function TeamSlot(props) {
 
                       {
                         // without this 'invisible' submit button, pressing enter won't work to submit the form 
-                        !editForm ?
+                        editForm ?
                         <button type="submit"></button>
                         :
                         null

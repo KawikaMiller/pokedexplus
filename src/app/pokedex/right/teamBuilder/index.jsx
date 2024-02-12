@@ -16,10 +16,13 @@ import TeamOptions from "./TeamOptions";
 function TeamBuilder(props) {
 
   const dispatch = useDispatch();
-  const [showDialog, setShowDialog] = useState(false)
-  const pokeState = useSelector(state => state.pokemon)
-  const teamState = useSelector(state => state.team)
+  const pokeState = useSelector(state => state.pokemon);
+  const teamState = useSelector(state => state.team);
+
   const { setTeamName } = teamSlice.actions;
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [editTeamName, setEditTeamName] = useState(false);
 
   const updateTeamName = (e) => {
     dispatch(setTeamName(e.target.value))
@@ -34,17 +37,37 @@ function TeamBuilder(props) {
     <>
       <div id='right-body-team-builder-container' className="border flex flex-col justify-between min-h-0 lg:h-full m-2">
 
-        <div id='right-body-team-builder-header' className="h-[10%] w-full flex justify-between items-center space-x-2 p-0.5 bg-black/50 border-b">
+        <div id='right-body-team-builder-header' className="h-16 lg:h-[10%] w-full flex flex-col justify-center lg:flex-row lg:justify-between lg:items-center lg:space-x-2 p-0.5 bg-black/50 border-b">
 
-          <div className="relative h-1/2 w-2/3 top-2">
-            <div className="w-full before:absolute before:content-['Team_Name'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-              <input id='team-name' onChange={(e) => updateTeamName(e)} placeholder="Team Name" value={teamState.teamName} className="rounded-b-md rounded-tr-md text-black w-full px-1 " />
-            </div>
-          </div>
+          {
+            editTeamName ?
+              <div className="relative w-full lg:w-2/3 lg:top-2">
+                <div className="w-full before:absolute before:content-['Team_Name'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!e.target['team-name'].value){
+                      dispatch(setTeamName('missingTeamName'))
+                    }
+                    setEditTeamName(false)
+                  }}
+                    className="flex"
+                  >
+                    <input id='team-name' onChange={(e) => updateTeamName(e)} placeholder="Team Name" value={teamState.teamName} autoFocus={true} className="rounded-b-md rounded-tr-md text-black w-full px-1 text-2xl lg:text-md" />
+                    <MT.Button type="submit" color="blue" className="rounded-none rounded-r-md">Save</MT.Button>
+                  </form>
+                </div>
+              </div>
+              :
+              <p className="hover:bg-white/50 text-2xl text-center" onClick={() => {
+                setEditTeamName(true);
+              }}>
+                {teamState.teamName}
+              </p>
+          }
 
-          <div className="relative h-1/2 w-1/3 top-2">
+          <div className="relative h-1/2 w-1/3 top-4 lg:top-2">
             <div className="w-full before:absolute before:content-['Game_Version'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-              <select className="rounded-b-md rounded-tr-md text-black w-full px-1 ">
+              <select className="rounded-b-md rounded-tr-md text-black w-full lg:px-1">
                 <option>Gen I</option>
               </select>
             </div>
@@ -65,13 +88,13 @@ function TeamBuilder(props) {
           </div>
 
           <div id="right-body-right-team-builder" className="flex flex-col min-h-0 w-1/3">
-            <div id='info-panel-container' className="flex flex-col justify-between w-full h-full lg:w-full px-1">
+            <div id='info-panel-container' className="flex flex-col justify-between w-full h-full lg:w-full p-1">
               <InfoPanel />
             </div>
           </div>
         </div>
 
-        <div id='right-body-team-builder-footer'>
+        <div id='right-body-team-builder-footer' className="py-2">
           <TeamOptions />
         </div>
 
