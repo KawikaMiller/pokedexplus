@@ -25,7 +25,9 @@ const teamSlice = createSlice({
       state.team = newTeam;
     },
     removeFromTeam(state, action) {
-      state.team = state.team.filter((pokemon, idx) => idx !== action.payload);
+      let temp = [...state.team];
+      temp[action.payload] = {};
+      state.team = temp
     },
     clearTeam(state, action) {
       state.team = [];
