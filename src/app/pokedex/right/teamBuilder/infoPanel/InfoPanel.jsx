@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Children } from "react";
 
 import MT from "@/app/lib/clientmaterialtailwind";
 
 import teamSlice from "@/app/reduxStore/teamSlice";
 import { useSelector, useDispatch } from "react-redux";
 import TypeBadge from "../../../accessory/TypeBadge";
+
+import { limitNumber } from "@/app/lib/helpers";
+
 import InfoPanelStats from "./InfoPanelStats";
+import InfoPanelInput from "./InfoPanelInput";
 
-import InfoPanelNatureAndAbility from "./InfoPanelNatureAndAbility";
-import InfoPanelMoves from "./InfoPanelMoves";
-import InfoPanelLevelAndName from "./InfoPanelLevelAndName";
-
+function InputContainer({ children }) {
+  return (
+    <div className="flex flex-wrap justify-between">
+      {children}
+    </div>
+  )
+}
 
 function InfoPanel() {
 
@@ -82,26 +89,67 @@ function InfoPanel() {
             <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly space-y-2 lg:space-y-0">
 
               {/* LEVEL AND HELD ITEM */}
-              <InfoPanelLevelAndName />
+              <InputContainer>
+                <InfoPanelInput
+                  id='level'
+                  label='LVL'
+                  type='number'
+                  value={teamState.team[teamState.focus].level}
+                  onChange={(e) => limitNumber(e, 'LVL')}
+                  classes='w-1/4'
+                />
+
+                <InfoPanelInput
+                  id='nickname'
+                  label='Nickname'
+                  type='text'
+                  value={teamState.team[teamState.focus].nickname}
+                  classes='w-2/3'
+                />
+              </InputContainer>
 
               {/* NATURE AND ABILITY */}
-              <InfoPanelNatureAndAbility />
+              <InputContainer>
+                <InfoPanelInput
+                  htmlTag='select'
+                  id='nature'
+                  label='Nature'
+                  classes='w-[48%]'
+                />
+
+                <InfoPanelInput
+                  htmlTag='select'
+                  id='battle-ability'
+                  label='Ability'
+                  classes='w-[48%]'
+                />
+              </InputContainer>
 
               {/* STAT VALUES */}
               <InfoPanelStats />
 
-
-              <div className="flex flex-col relative w-full">
-                <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
-                  Held Item
-                </p>
-                <select id='held-item' className={`w-full h-6 text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
-                  <option>TBA</option>
-                </select>
-              </div>
+              {/* HELD ITEM */}
+              <InfoPanelInput 
+                htmlTag='select'
+                id='held-item'
+                label='Held Item'
+                classes='w-full'
+              />
 
               {/* MOVES */}
-              <InfoPanelMoves />
+              <InputContainer>
+                {
+                  teamState.team[teamState.focus].battle.moves.map((el, idx) => (
+                    <InfoPanelInput
+                      htmlTag='select' 
+                      id={`battle-move-${idx + 1}`}
+                      label={`Move ${idx + 1}`}
+                      classes='w-[48%] mb-2'
+                    />
+                  ))
+                }
+              </InputContainer>
+              {/* <InfoPanelMoves /> */}
 
 
             </form>
