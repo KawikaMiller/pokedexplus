@@ -4,12 +4,12 @@ import MT from "@/app/lib/clientmaterialtailwind";
 
 import teamSlice from "@/app/reduxStore/teamSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { calculateStatTotal, capitalizeWord, natureModifiers, removeHyphen, limitNumber } from "@/app/lib/helpers";
 import TypeBadge from "../../../accessory/TypeBadge";
 import InfoPanelStats from "./InfoPanelStats";
-import InfoPanelBasic from "./InfoPanelBasic";
+
 import InfoPanelNatureAndAbility from "./InfoPanelNatureAndAbility";
-import { InfoPanelMoves } from "./InfoPanelMoves";
+import InfoPanelMoves from "./InfoPanelMoves";
+import InfoPanelLevelAndName from "./InfoPanelLevelAndName";
 
 
 function InfoPanel() {
@@ -81,8 +81,8 @@ function InfoPanel() {
             // BATTLE INFORMATION
             <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly space-y-2 lg:space-y-0">
 
-              {/* LEVEL AND NICKNAME */}
-              <InfoPanelBasic />
+              {/* LEVEL AND HELD ITEM */}
+              <InfoPanelLevelAndName />
 
               {/* NATURE AND ABILITY */}
               <InfoPanelNatureAndAbility />
@@ -91,8 +91,7 @@ function InfoPanel() {
               <InfoPanelStats />
 
 
-              {/* HELD ITEM */}
-              <div className="flex flex-col relative">
+              <div className="flex flex-col relative w-full">
                 <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
                   Held Item
                 </p>
@@ -100,7 +99,6 @@ function InfoPanel() {
                   <option>TBA</option>
                 </select>
               </div>
-
 
               {/* MOVES */}
               <InfoPanelMoves />

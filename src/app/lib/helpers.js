@@ -62,24 +62,14 @@ export function determineTypeEffectiveness(typeInfo){
 // all natures & their affected stats
 export const natureModifiers = [
   {
-    name: 'Lonely',
-    buff: 'ATK',
-    debuff: 'DEF',  
-  },
-  {
     name: 'Adamant',
     buff: 'ATK',
     debuff: 'SPATK',  
   },
   {
-    name: 'Naughty',
-    buff: 'ATK',
-    debuff: 'SPDEF',  
-  },
-  {
-    name: 'Brave',
-    buff: 'ATK',
-    debuff: 'SPD',  
+    name: 'Bashful',
+    buff: null,
+    debuff: null
   },
   {
     name: 'Bold',
@@ -87,38 +77,8 @@ export const natureModifiers = [
     debuff: 'ATK',  
   },
   {
-    name: 'Impish',
-    buff: 'DEF',
-    debuff: 'SPATK',  
-  },
-  {
-    name: 'Lax',
-    buff: 'DEF',
-    debuff: 'SPDEF',  
-  },
-  {
-    name: 'Relaxed',
-    buff: 'DEF',
-    debuff: 'SPD',  
-  },
-  {
-    name: 'Modest',
-    buff: 'SPATK',
-    debuff: 'ATK',  
-  },
-  {
-    name: 'Mild',
-    buff: 'SPATK',
-    debuff: 'DEF',  
-  },
-  {
-    name: 'Rash',
-    buff: 'SPATK',
-    debuff: 'SPDEF',  
-  },
-  {
-    name: 'Quiet',
-    buff: 'SPATK',
+    name: 'Brave',
+    buff: 'ATK',
     debuff: 'SPD',  
   },
   {
@@ -127,24 +87,24 @@ export const natureModifiers = [
     debuff: 'ATK',  
   },
   {
-    name: 'Gentle',
-    buff: 'SPDEF',
-    debuff: 'DEF',  
-  },
-  {
     name: 'Careful',
     buff: 'SPDEF',
     debuff: 'SPATK',  
   },
   {
-    name: 'Sassy',
-    buff: 'SPDEF',
-    debuff: 'SPD',  
+    name: 'Docile',
+    buff: null,
+    debuff: null
   },
   {
-    name: 'Timid',
-    buff: 'SPD',
-    debuff: 'ATK',  
+    name: 'Gentle',
+    buff: 'SPDEF',
+    debuff: 'DEF',  
+  },
+  {
+    name: 'Hardy',
+    buff: null,
+    debuff: null
   },
   {
     name: 'Hasty',
@@ -152,15 +112,80 @@ export const natureModifiers = [
     debuff: 'DEF',  
   },
   {
+    name: 'Impish',
+    buff: 'DEF',
+    debuff: 'SPATK',  
+  },
+  {
     name: 'Jolly',
     buff: 'SPD',
     debuff: 'SPATK',  
   },
   {
+    name: 'Lax',
+    buff: 'DEF',
+    debuff: 'SPDEF',  
+  },
+  {
+    name: 'Lonely',
+    buff: 'ATK',
+    debuff: 'DEF',  
+  },
+  {
+    name: 'Mild',
+    buff: 'SPATK',
+    debuff: 'DEF',  
+  },
+  {
+    name: 'Modest',
+    buff: 'SPATK',
+    debuff: 'ATK',  
+  },
+  {
     name: 'Naive',
     buff: 'SPD',
     debuff: 'SPDEF',  
-  }
+  },
+  {
+    name: 'Naughty',
+    buff: 'ATK',
+    debuff: 'SPDEF',  
+  },
+  {
+    name: 'Quiet',
+    buff: 'SPATK',
+    debuff: 'SPD',  
+  },
+  {
+    name: 'Quirky',
+    buff: null,
+    debuff: null
+  },
+  {
+    name: 'Rash',
+    buff: 'SPATK',
+    debuff: 'SPDEF',  
+  },
+  {
+    name: 'Relaxed',
+    buff: 'DEF',
+    debuff: 'SPD',  
+  },
+  {
+    name: 'Sassy',
+    buff: 'SPDEF',
+    debuff: 'SPD',  
+  },
+  {
+    name: 'Serious',
+    buff: null,
+    debuff: null
+  },
+  {
+    name: 'Timid',
+    buff: 'SPD',
+    debuff: 'ATK',  
+  },
 ]
 
 // determines how nature affects stats

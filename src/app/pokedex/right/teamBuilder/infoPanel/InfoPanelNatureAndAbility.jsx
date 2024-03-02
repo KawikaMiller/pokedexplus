@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-
-import MT from "@/app/lib/clientmaterialtailwind";
-
-import teamSlice from "@/app/reduxStore/teamSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { calculateStatTotal, capitalizeWord, natureModifiers, removeHyphen, limitNumber } from "@/app/lib/helpers";
+import React from "react";
+import { useSelector } from "react-redux";
+import { capitalizeWord, natureModifiers, removeHyphen } from "@/app/lib/helpers";
 
 function InfoPanelNatureAndAbility() {
 

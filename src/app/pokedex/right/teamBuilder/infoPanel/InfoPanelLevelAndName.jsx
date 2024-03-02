@@ -2,12 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { limitNumber } from "@/app/lib/helpers";
 
-function InfoPanelBasic() {
+function InfoPanelLevelAndName() {
 
   const teamState = useSelector(state => state.team);
 
   return (
-    <div className="flex justify-between w-full">
+    <div className="flex flex-wrap justify-between">
       <div className="flex flex-col relative w-1/4">
         <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
           Lvl
@@ -21,7 +21,7 @@ function InfoPanelBasic() {
           className={`h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`} />
       </div>
 
-      <div className="flex flex-col relative">
+      <div className="flex flex-col relative w-2/3">
         <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
           Nickname
         </p>
@@ -33,8 +33,11 @@ function InfoPanelBasic() {
           className={`w-full h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`}>
         </input>
       </div>
+
+      
+
     </div>
   )
 }
 
-export default InfoPanelBasic;
+export default InfoPanelLevelAndName;

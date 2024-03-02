@@ -1,22 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import {  capitalizeWord, removeHyphen } from "@/app/lib/helpers";
 
-import MT from "@/app/lib/clientmaterialtailwind";
-
-import teamSlice from "@/app/reduxStore/teamSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { calculateStatTotal, capitalizeWord, natureModifiers, removeHyphen, limitNumber } from "@/app/lib/helpers";
-import TypeBadge from "../../../accessory/TypeBadge";
-import InfoPanelStats from "./InfoPanelStats";
-import InfoPanelBasic from "./InfoPanelBasic";
-import InfoPanelNatureAndAbility from "./InfoPanelNatureAndAbility";
-
-export function InfoPanelMoves() {
+function InfoPanelMoves() {
 
   const teamState = useSelector(state => state.team);
-  const dispatch = useDispatch();
-  const { setFocus, addToTeam } = teamSlice.actions
-
-  const [showAlert, setShowAlert] = useState(false);
 
   return (
     <div className="flex flex-wrap justify-between">
@@ -38,3 +26,5 @@ export function InfoPanelMoves() {
   )
 
 }
+
+export default InfoPanelMoves
