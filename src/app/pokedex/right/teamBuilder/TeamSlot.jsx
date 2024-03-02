@@ -5,10 +5,12 @@ import teamSlice from "@/app/reduxStore/teamSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { capitalizeWord, limitNumber } from "@/app/lib/helpers";
 import TypeBadge from "../../accessory/TypeBadge";
+import InfoPanel from "./infoPanel/InfoPanel";
 
 function TeamSlot(props) {
 
   const [editForm, setEditForm] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const teamState = useSelector(state => state.team)
   const pokeState = useSelector(state => state.pokemon)
@@ -43,7 +45,7 @@ function TeamSlot(props) {
 
                 <div key={`team-slot-${props.position}-header`} className="w-full h-1/5 flex items-center justify-between">
 
-                  <form onSubmit={(e) => handleFormSubmit(e)}>
+                  {/* <form onSubmit={(e) => handleFormSubmit(e)}>
 
                     <p className="flex hover:cursor-pointer hover:bg-white/50 rounded-md" onClick={() => { setEditForm(true) }}>
 
@@ -72,11 +74,7 @@ function TeamSlot(props) {
 
                     </p>
 
-                  </form>
-
-
-
-
+                  </form> */}
 
                   <div className="flex justify-between w-14">
                     {
@@ -89,8 +87,8 @@ function TeamSlot(props) {
                   <div className="flex flex-col justify-center items-center mr-1 min-h-0 w-auto grow">
                     <img className="rounded-[50%] max-h-full" src={teamState.team[props.position].sprite.front_default} />
                   </div>
-                  <div className="flex justify-evenly items-center w-2/3">
-                    <MT.Button size="sm" color="blue" className="max-w-1/3">Edit</MT.Button>
+                  <div className="flex justify-evenly items-center w-2/3 md:hidden">
+                    <MT.Button size="sm" color="blue" className="max-w-1/3" onClick={() => props.handleDialog()}>Edit</MT.Button>
                     <MT.Button size='sm' color="red" className="max-w-1/3">Remove</MT.Button>
                   </div>
                 </div>
@@ -107,7 +105,7 @@ function TeamSlot(props) {
                     :
                     null
                 }
-                <div onClick={() => props.handleDialog()} className={`${pokeState.pokemon ? 'w-1/2' : 'w-full'} h-full ml-1 bg-blue-500 rounded-md hover:cursor-pointer hover:border flex justify-center items-center`}>
+                <div className={`${pokeState.pokemon ? 'w-1/2' : 'w-full'} h-full ml-1 bg-blue-500 rounded-md hover:cursor-pointer hover:border flex justify-center items-center`}>
                   <p className="text-center">Search</p>
                 </div>
               </div>

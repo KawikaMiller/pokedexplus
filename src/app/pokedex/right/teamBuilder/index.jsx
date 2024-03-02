@@ -10,7 +10,7 @@ import TypeBadge from "../../accessory/TypeBadge";
 import TeamSlot from "./TeamSlot";
 import TypeMatchup from "../../left/TypeMatchup";
 import BaseStats from "../../left/BaseStats";
-import InfoPanel from "./InfoPanel";
+import InfoPanel from "./infoPanel/InfoPanel";
 import TeamOptions from "./TeamOptions";
 
 function TeamBuilder(props) {
@@ -76,7 +76,7 @@ function TeamBuilder(props) {
         </div>
 
         <div id='right-body-team-builder-main' className="flex justify-between min-h-0 h-full bg-black/25 border-b">
-          <div id='team-member-container' className="flex-col lg:flex min-h-fit justify-evenly items-center w-2/3 border-r">
+          <div id='team-member-container' className="flex-col lg:flex min-h-fit justify-evenly items-center w-full lg:w-1/2 border-r">
             <div className="min-h-0 w-full flex flex-col justify-evenly items-center p-0.5">
               <TeamSlot handleDialog={handleDialog} position={0} />
               <TeamSlot handleDialog={handleDialog} position={1} />
@@ -87,7 +87,7 @@ function TeamBuilder(props) {
             </div>
           </div>
 
-          <div id="right-body-right-team-builder" className="flex flex-col min-h-0 w-1/3">
+          <div id="right-body-right-team-builder" className="hidden lg:flex flex-col min-h-0 w-1/2">
             <div id='info-panel-container' className="flex flex-col justify-between w-full h-full lg:w-full p-1">
               <InfoPanel />
             </div>
@@ -100,7 +100,7 @@ function TeamBuilder(props) {
 
       </div>
 
-      <MT.Dialog open={showDialog} handler={handleDialog}>
+      {/* <MT.Dialog open={showDialog} handler={handleDialog}>
         <MT.DialogHeader className="flex justify-between">
           <div>Choose Your Pokemon</div>
           <MT.Button color="red" onClick={handleDialog}>X</MT.Button>
@@ -109,6 +109,19 @@ function TeamBuilder(props) {
 
         </MT.DialogBody>
         <MT.DialogFooter></MT.DialogFooter>
+      </MT.Dialog> */}
+
+      <MT.Dialog key='edit-pokemon-dialog' id='edit-pokemon-dialog' open={showDialog} handler={handleDialog}>
+        <MT.DialogHeader className="bg-pkRed rounded-t-md text-white border-b-4 border-black flex justify-between">
+          <p>Edit Pokemon</p>
+          <MT.Button variant="outlined" color="white" size="sm" onClick={handleDialog}>X</MT.Button>
+        </MT.DialogHeader>
+        <MT.DialogBody className="bg-blue-gray-600">
+          <InfoPanel />
+        </MT.DialogBody>
+        <MT.DialogFooter className="border-t-4 border-black">
+          Footer
+        </MT.DialogFooter>
       </MT.Dialog>
     </>
   )

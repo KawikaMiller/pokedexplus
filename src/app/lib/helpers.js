@@ -205,8 +205,10 @@ export const limitNumber = (e, key) => {
       :
       e.target.value == 0 ? e.target.value = '' : e.target.value > 31 ? e.target.value = 31 : null
   } else if (key.toUpperCase() === 'LVL') {
-    e.target.value > 100 ? e.target.value = 100 :
-      !e.target.value ? e.target.value = '' : null
+    e.target.value.substring(0, 1) === '0' ? e.target.value = 1 :
+      e.target.value.substring(0, 3) >= 100 ? e.target.value = 100 :
+        e.target.value > 100 ? e.target.value = e.target.value.substring(0, 2) :
+          e.target.value == '' ? e.target.value = '' : null
   }
   return e.target.value;
 }
