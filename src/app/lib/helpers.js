@@ -13,9 +13,13 @@ export function editPokemonName(word){
   return `(${word})`
 }
 
+export const types = ['normal', 'fire', 'water', 'grass', 'electric', 'flying', 'bug', 'rock', 'ground', 'fighting', 'steel', 'poison', 'ice', 'dragon', 'ghost', 'psychic', 'dark', 'fairy']
+
 export function determineTypeEffectiveness(typeInfo){
-  
-  let types = ['normal', 'fire', 'water', 'grass', 'electric', 'flying', 'bug', 'rock', 'ground', 'fighting', 'steel', 'poison', 'ice', 'dragon', 'ghost', 'psychic', 'dark', 'fairy'];
+
+  if(!typeInfo){
+    return
+  }
 
   let typeEffectiveness = types.map(type => {
     return {
@@ -53,8 +57,6 @@ export function determineTypeEffectiveness(typeInfo){
       })
     })
   })
-
-  console.log(typeEffectiveness)
 
   return typeEffectiveness;
 }

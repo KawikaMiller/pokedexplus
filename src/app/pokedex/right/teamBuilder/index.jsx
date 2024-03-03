@@ -109,6 +109,7 @@ function TeamBuilder(props) {
         <MT.DialogFooter></MT.DialogFooter>
       </MT.Dialog> */}
 
+      {/* Dialog popup used for smaller screens/breakpoints */}
       <MT.Dialog key='edit-pokemon-dialog' id='edit-pokemon-dialog' open={showDialog} handler={handleDialog}>
         <MT.DialogHeader className="bg-pkRed rounded-t-md text-white border-b-4 border-black flex justify-between">
           <p>Edit Pokemon</p>
