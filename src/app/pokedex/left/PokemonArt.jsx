@@ -63,7 +63,7 @@ function PokemonArt(props) {
         :
         null
       } */}
-      <div className="absolute bottom-1 left-1">
+      <div className="absolute top-1 right-1">
         <PokemonFormsAndCry />
       </div>
     </div>

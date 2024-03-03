@@ -19,7 +19,7 @@ function PokemonFormsAndCry(props) {
   const playAudio = () => {
     if (pokeState.pokemon?.name){
       let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${pokeState.pokemon.name.toLowerCase()}.mp3`);
-      audio.volume = 0.3;
+      audio.volume = 0.25;
       audio.play();      
     } else {
       // pleaseSearchAlert();
@@ -60,11 +60,31 @@ function PokemonFormsAndCry(props) {
   }
 
   return (
-    <div id='pokemon-image-toggles' className="flex justify-around items-center">
-      <MT.Button color="blue" className="w-1/4 p-2 hover:bg-cyan-300 mx-0.5" onClick={playAudio}>Cry</MT.Button>
-      <MT.Button color="blue" className="w-1/4 p-2 hover:bg-cyan-300 mx-0.5" onClick={handleToggleShiny}>Shiny</MT.Button>
-      <MT.Button color="blue" className="w-1/4 p-2 hover:bg-cyan-300 mx-0.5" onClick={handleToggleForm}>Mega</MT.Button>
-      <MT.Button color="blue" className="w-1/4 p-2 hover:bg-cyan-300 mx-0.5">Dyna</MT.Button>
+    <div id='pokemon-image-toggles' className="flex flex-col justify-around items-center">
+      <MT.Button
+        color="blue" 
+        className="w-8 h-8 p-2 rounded-full hover:bg-cyan-300 m-0.5 fa-solid fa-volume-high" 
+        onClick={playAudio}
+      />
+
+      <MT.Button
+        color="blue" 
+        className="w-8 h-8 p-2 rounded-full hover:bg-cyan-300 m-0.5 fa-solid fa-star" 
+        onClick={handleToggleShiny}
+      >
+        
+      </MT.Button>
+
+      <MT.Button 
+        color="blue" 
+        className="w-8 h-8 p-2 hover:bg-cyan-300 m-0.5 rounded-full text-white" 
+        onClick={handleToggleForm}
+        disabled={pokeState.pokemon.forms.length > 1 ? false : true}
+      >
+          <img src={`/mega.svg`} alt="mega evolution form change button"/>
+      </MT.Button>
+
+      <MT.Button color="blue" className="w-1/4 p-2 hover:bg-cyan-300 m-0.5">D</MT.Button>
     </div>
   )
 
