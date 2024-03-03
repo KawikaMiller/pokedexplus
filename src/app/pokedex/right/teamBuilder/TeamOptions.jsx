@@ -16,14 +16,15 @@ function TeamOptions() {
     </div>
 
     <MT.Dialog size="md" open={showDialog} handler={() => setShowDialog(false)}>
-      <MT.DialogHeader className="bg-pkRed rounded-t-md border-b-4 border-black text-white">
-        Type Coverage
+      <MT.DialogHeader className="bg-pkRed rounded-t-md border-b-8 border-black text-white flex justify-between h-16">
+        <p>Type Coverage</p>
+        <MT.Button variant="outlined" color="white" onClick={() => setShowDialog(false)}>X</MT.Button>
       </MT.DialogHeader>
       <MT.DialogBody className="bg-gray-600">
         <TeamTypeChart />
       </MT.DialogBody>
-      <MT.DialogFooter className="border-t-4 border-black">
-        Footer
+      <MT.DialogFooter className="border-t-8 border-black h-16">
+        
       </MT.DialogFooter>
     </MT.Dialog>
     </>

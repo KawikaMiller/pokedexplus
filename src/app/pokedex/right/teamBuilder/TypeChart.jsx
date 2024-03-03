@@ -35,7 +35,6 @@ function TypeChartRow(props) {
 function TeamTypeChart() {
 
   const teamState = useSelector(state => state.team)
-  const dispatch = useDispatch()
 
   return (
 
