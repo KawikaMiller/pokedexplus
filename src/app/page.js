@@ -5,7 +5,6 @@ import Header from './pokedex/header';
 import Footer from './pokedex/footer';
 
 import MT from './lib/clientmaterialtailwind'
-// import { ThemeProvider } from '@material-tailwind/react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
