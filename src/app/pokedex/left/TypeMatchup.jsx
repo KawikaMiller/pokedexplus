@@ -33,18 +33,16 @@ function TypeMatchup() {
           </div>
         </section>
 
-        <section id='type-resistance' className="flex h-1/3 my-1">
+        <section id='type-resistance' className="flex h-1/3 border-y">
           <h4 className="min-w-[4.5rem] grow self-center pl-2">Resist</h4>
           <div className="bg-transparent/50 w-full p-1 flex items-center overflow-x-auto">
-            <div className="flex overflow-x-auto">
-              {
-                typeEffectiveness.map(element => {
-                  if (element.effectiveness < 1 && element.effectiveness > 0) {
-                    return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
-                  } else return null;
-                })
-              }
-            </div>
+            {
+              typeEffectiveness.map(element => {
+                if (element.effectiveness < 1 && element.effectiveness > 0) {
+                  return <div className="mr-3" key={`${element.type}`}><TypeBadge type={element.type} effectiveness={element.effectiveness} /></div>
+                } else return null;
+              })
+            }
           </div>
         </section>
 

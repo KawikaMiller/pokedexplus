@@ -3,17 +3,16 @@ import React from "react";
 function TypeBadge(props){
 
   return(
-    <div className={`bg-${props.type} flex justify-center items-center ${props.size ? `w-${props.size} h-${props.size}` : `w-6 h-6 sm:w-10 sm:h-10`}  mx-0.25 p-0.5 lg:p-1 rounded-3xl relative`}>
-      <img src={`/${props.type}.svg`} className={'w-3 h-3 sm:w-5 sm:h-5'}/>
-      <p style={{display: props.effectiveness ? 'block' : 'none'}} className="absolute bottom-2 left-6 text-sm">
-        {
-          props.effectiveness === 0.25 ? `¼`
-          :
-          props.effectiveness === 0.5 ? `½`
-          :
-          props.effectiveness
-        }
-      </p>
+    <div 
+      className={`bg-${props.type} 
+      flex justify-center items-center 
+      ${props.size ? `w-${props.size} h-${props.size}` : `w-8 h-8`} 
+      mx-0.5 p-0.5 lg:p-1 rounded-full relative text-white`}
+    >
+      <img src={`/${props.type}.svg`} className={'w-3/4 h-3/4'}/>
+      <div style={{display: props.effectiveness ? 'block' : 'none'}} className="absolute bottom-4 left-8 text-sm">
+        <div className={props.effectiveness === 4 ? `fa-solid fa-angles-down` : props.effectiveness === 2 ? 'fa-solid fa-angle-down' : props.effectiveness === 0.25 ? 'fa-solid fa-angle-up' : 'fa-solid fa-angles-up'}></div>
+      </div>
     </div>
   )
 
