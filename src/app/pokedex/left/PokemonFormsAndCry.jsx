@@ -17,74 +17,96 @@ function PokemonFormsAndCry(props) {
   }
 
   const playAudio = () => {
-    if (pokeState.pokemon?.name){
+    if (pokeState.pokemon?.name) {
       let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${pokeState.pokemon.name.toLowerCase()}.mp3`);
       audio.volume = 0.25;
-      audio.play();      
+      audio.play();
     } else {
       // pleaseSearchAlert();
     }
   }
 
   const handleToggleShiny = () => {
-    if(pokeState.pokemon?.name){
-      dispatch(toggleShiny(!pokeState.showShiny))      
+    if (pokeState.pokemon?.name) {
+      dispatch(toggleShiny(!pokeState.showShiny))
     } else {
       pleaseSearchAlert();
     }
   }
 
   const handleToggleForm = async () => {
-    if(pokeState.pokemon?.name && pokeState.pokemon.forms.length > 1){
+    if (pokeState.pokemon?.name) {
       console.log('toggle form')
       let newApiIdx = pokeState.formIdx + 1;
       if (newApiIdx >= pokeState.pokemon.forms.length) {
         newApiIdx = 0;
       }
 
-      try{
+      try {
         dispatch(toggleIsLoading(true));
         let foundPokemon = await axios(`${process.env.NEXT_PUBLIC_SERVER}/pokemon/form/${pokeState.pokemon.forms[newApiIdx].name}`);
         dispatch(changeFormIdx(newApiIdx));
         dispatch(setPokemon(foundPokemon.data.pokemon))
         dispatch(toggleIsLoading(false));
       }
-      catch(e){
+      catch (e) {
         console.error(e)
         dispatch(toggleIsLoading(false));
       }
-     
+
     } else {
       pleaseSearchAlert();
     }
   }
 
-  return (
-    <div id='pokemon-image-toggles' className="flex flex-col justify-around items-center">
-      <MT.Button
-        color="blue" 
-        className="w-8 h-8 p-2 rounded-full hover:bg-cyan-300 m-0.5 fa-solid fa-volume-high" 
-        onClick={playAudio}
-      />
+  const handleAltForms = () => {
 
-      <MT.Button
-        color="blue" 
-        className="w-8 h-8 p-2 rounded-full hover:bg-cyan-300 m-0.5 fa-solid fa-star" 
+  }
+
+  function Button({ children, onClick, disabled }) {
+    return (
+      <button
+        className="w-8 h-8 p-1.5 bg-blue-500 rounded-full hover:bg-cyan-300 m-1 flex justify-center items-center disabled:opacity-50 disabled:hover:bg-blue-500"
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {children}
+      </button>
+    )
+  }
+ 
+  return (
+    <div id='pokemon-image-toggles' className="flex justify-around items-center">
+      <Button
+        onClick={playAudio}
+      >
+        <div className="fa-solid fa-volume-high" />
+      </Button>
+
+      <Button
         onClick={handleToggleShiny}
       >
-        
-      </MT.Button>
+        <div className="fa-solid fa-star"></div>
+      </Button>
 
-      <MT.Button 
-        color="blue" 
-        className="w-8 h-8 p-2 hover:bg-cyan-300 m-0.5 rounded-full text-white" 
+      <Button
         onClick={handleToggleForm}
-        disabled={pokeState.pokemon.forms.length > 1 ? false : true}
+        disabled={pokeState.pokemon?.forms?.length > 1 ? false : true}
       >
-          <img src={`/mega.svg`} alt="mega evolution form change button"/>
-      </MT.Button>
+        <img src={`/mega.svg`} alt="mega evolution form change button" />
+      </Button>
 
-      <MT.Button color="blue" className="w-1/4 p-2 hover:bg-cyan-300 m-0.5">D</MT.Button>
+      <Button>
+        <img src={`/gmax.svg`} alt="gigantamax form change button" className="w-40"/>
+      </Button>
+
+      <Button
+        onClick={props.changeSpriteIdx}
+        disabled={props.missingSprites ? false : true}
+      >
+        <div className="fa-solid fa-earth-americas"></div>
+      </Button>
+
     </div>
   )
 

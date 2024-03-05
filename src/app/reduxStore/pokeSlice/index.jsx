@@ -25,6 +25,7 @@ const pokeSlice = createSlice({
       state.showShiny = action.payload;
     },
     changeFormIdx(state, action){
+      console.log('new form idx = ', action.payload)
       state.formIdx = action.payload;
     },
     modifyProperty(state, action){
