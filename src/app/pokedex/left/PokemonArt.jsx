@@ -13,15 +13,15 @@ function PokemonArt(props) {
   const [missingSprites, setMissingSprites] = useState(null);
   const [spriteIdx, setSpriteIdx] = useState(0);
 
-  const getMissingSprites = () => {
-    if (pokeState.pokemon?.name) {
-      if (sprites[pokeState.pokemon.name]) {
-        setMissingSprites(sprites[pokeState.pokemon.name])
-      } else {
-        setMissingSprites(null)
-      }
-    }
-  }
+  // const getMissingSprites = () => {
+  //   if (pokeState.pokemon?.name) {
+  //     if (sprites[pokeState.pokemon.name]) {
+  //       setMissingSprites(sprites[pokeState.pokemon.name])
+  //     } else {
+  //       setMissingSprites(null)
+  //     }
+  //   }
+  // }
 
   const changeSpriteIdx = () => {
     // if new sprite idx is greater than the length of our missing sprites array, reset back to 0
@@ -35,7 +35,7 @@ function PokemonArt(props) {
   }
 
   useEffect(() => {
-    getMissingSprites();
+    // getMissingSprites();
     setSpriteIdx(0)
   },
     // eslint-disable-next-line
@@ -48,7 +48,6 @@ function PokemonArt(props) {
     // did we need to get extra sprites that the pokeAPI did not have?
     missingSprites ?
       // set our img src using our missingSprites
-
       spriteIdx === 0 ?
 
         src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.id}.png`
@@ -57,7 +56,7 @@ function PokemonArt(props) {
 
       :
       
-      src = 'https://placehold.co/475x475/22d3ee/22d3ee?text=\n'
+      src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.id}.png`
 
       :
     //   pokeState.formIdx === 0 ?
