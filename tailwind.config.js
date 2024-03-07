@@ -8,9 +8,6 @@ module.exports = withMT({
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   safelist: [
-    {
-      pattern: /https:\/\/archives.bulbagarden.net\/+/
-    },
     `bg-bug`,
     `bg-dark`,
     `bg-dragon`,

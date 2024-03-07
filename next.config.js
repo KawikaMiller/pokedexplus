@@ -16,6 +16,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'archives.bulbagarden.net',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'pokeapi.co',
+        port: ''
       }
     ]
   }

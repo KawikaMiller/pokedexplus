@@ -84,25 +84,28 @@ function PokemonFormsAndCry(props) {
       </Button>
 
       <Button
-        onClick={handleToggleShiny}
+        onClick={props.handleIsShiny}
       >
         <div className="fa-solid fa-star"></div>
       </Button>
 
       <Button
-        onClick={handleToggleForm}
-        disabled={pokeState.pokemon?.forms?.length > 1 ? false : true}
+        onClick={() => props.changeImgSrc('mega')}
+        disabled={pokeState.pokemon?.forms.mega.length > 0 ? false : true}
       >
         <img src={`/mega.svg`} alt="mega evolution form change button" />
       </Button>
 
-      <Button>
+      <Button
+        onClick={() => props.changeImgSrc('gmax')}
+        disabled={pokeState.pokemon?.forms.gmax.length > 0 ? false : true}
+      >
         <img src={`/gmax.svg`} alt="gigantamax form change button" className="w-40"/>
       </Button>
 
       <Button
-        onClick={props.changeSpriteIdx}
-        disabled={props.missingSprites ? false : true}
+        onClick={() => props.changeImgSrc('world')}
+        disabled={pokeState.pokemon?.forms.world.length > 0 ? false : true}
       >
         <div className="fa-solid fa-earth-americas"></div>
       </Button>
