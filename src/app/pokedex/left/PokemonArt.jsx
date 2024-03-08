@@ -39,19 +39,50 @@ function PokemonArt(props) {
     }
   }
 
-  useEffect(() => {
+  const checkImgUrl = async () => {
     // if the property 'apiId' exists in the current sprite object, then we can use a string template and insert the apiId into the imgSrc
     if(pokeState.pokemon?.forms[spriteType][spriteIdx].apiId){
-      isShiny ?
-      setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
-      : 
-      setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+      if(isShiny){
+        try {
+          // check if there is a valid url for a shiny version of the pokemon
+          let res = await fetch(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+          // if its valid, set the url as the shiny url
+          if (res.status !== 200){
+            throw new Error('404')
+          } else {
+            setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+          }
+        }
+        // otherwise, set the img url to the non-shiny version
+        catch(e){
+          console.log('BRUH: ', e)
+          setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+        }
+      } 
+      // if isShiny is falsy, then set img url to non-shiny art
+      else {
+        setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+      }
     } 
     // otherwise, we get the url directly from the sprite object
     // this case is most likely because the sprite/artwork is missing from pokeAPI and needed to be fetched from a third party source
     else {
       setImgSrc(pokeState.pokemon?.forms[spriteType][spriteIdx].url)
     }
+  }
+  useEffect(() => {
+    checkImgUrl();
+
+    // if(pokeState.pokemon?.forms[spriteType][spriteIdx].apiId){
+    //   isShiny ?
+    //   setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+    //   : 
+    //   setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon.forms[spriteType][spriteIdx].apiId}.png`)
+    // } 
+
+    // else {
+    //   setImgSrc(pokeState.pokemon?.forms[spriteType][spriteIdx].url)
+    // }
 
   }, [isShiny, spriteIdx, spriteType])
 
@@ -67,7 +98,7 @@ function PokemonArt(props) {
 
     <div id='pokemon-image-container' className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative lg:h-4/5">
       
-      <Image id='pokemon-image' src={imgSrc} style={{visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt={`official artwork of ${pokeState.pokemon?.name || null}`} className={`max-w-auto max-h-full`} height={450} width={450}/>
+      <Image id='pokemon-image' src={imgSrc || `https://placehold.co/475x475/22d3ee/22d3ee?text=\n`} style={{visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt={`official artwork of ${pokeState.pokemon?.name || null}`} className={`max-w-auto max-h-full`} height={450} width={450}/>
       {/* {dexState.isLoading ?
         <div className="z-10 absolute flex w-full justify-evenly">
           <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
