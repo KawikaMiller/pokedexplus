@@ -5,8 +5,9 @@ const pokeSlice = createSlice({
   initialState: {
     searchInput: '',
     pokemon: undefined,
-    showShiny: false,
-    formIdx: 0,
+    isShiny: false,
+    spriteIdx: 0,
+    spriteType: 'world',
   },
   reducers: {
     handleSearchInputChange(state, action){
@@ -22,14 +23,13 @@ const pokeSlice = createSlice({
       state.pokemon = action.payload
     },
     toggleShiny(state, action){
-      state.showShiny = action.payload;
+      state.isShiny = !state.isShiny;
     },
-    changeFormIdx(state, action){
-      console.log('new form idx = ', action.payload)
-      state.formIdx = action.payload;
+    setSpriteIdx(state, action){
+      state.spriteIdx = action.payload
     },
-    modifyProperty(state, action){
-      state.pokemon[action.payload.property] = action.payload.value;
+    setSpriteType(state, action){
+      state.spriteType = action.payload
     }
   }
 })

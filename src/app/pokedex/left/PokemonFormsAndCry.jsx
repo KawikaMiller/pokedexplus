@@ -9,12 +9,9 @@ import dexSlice from "@/app/reduxStore/dexSlice";
 function PokemonFormsAndCry(props) {
   const dispatch = useDispatch();
   const pokeState = useSelector(state => state.pokemon);
-  const { toggleShiny, changeFormIdx, setPokemon } = pokeSlice.actions
+  const { } = pokeSlice.actions
   const { toggleIsLoading } = dexSlice.actions;
 
-  const pleaseSearchAlert = () => {
-    alert('Please search for a pokemon first')
-  }
 
   const playAudio = () => {
     if (pokeState.pokemon?.name) {
@@ -24,43 +21,6 @@ function PokemonFormsAndCry(props) {
     } else {
       // pleaseSearchAlert();
     }
-  }
-
-  const handleToggleShiny = () => {
-    if (pokeState.pokemon?.name) {
-      dispatch(toggleShiny(!pokeState.showShiny))
-    } else {
-      pleaseSearchAlert();
-    }
-  }
-
-  const handleToggleForm = async () => {
-    if (pokeState.pokemon?.name) {
-      console.log('toggle form')
-      let newApiIdx = pokeState.formIdx + 1;
-      if (newApiIdx >= pokeState.pokemon.forms.length) {
-        newApiIdx = 0;
-      }
-
-      try {
-        dispatch(toggleIsLoading(true));
-        let foundPokemon = await axios(`${process.env.NEXT_PUBLIC_SERVER}/pokemon/form/${pokeState.pokemon.forms[newApiIdx].name}`);
-        dispatch(changeFormIdx(newApiIdx));
-        dispatch(setPokemon(foundPokemon.data.pokemon))
-        dispatch(toggleIsLoading(false));
-      }
-      catch (e) {
-        console.error(e)
-        dispatch(toggleIsLoading(false));
-      }
-
-    } else {
-      pleaseSearchAlert();
-    }
-  }
-
-  const handleAltForms = () => {
-
   }
 
   function Button({ children, onClick, disabled }) {
