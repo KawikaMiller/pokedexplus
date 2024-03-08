@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
@@ -15,13 +16,9 @@ function PokemonArt(props) {
 
   const { toggleShiny, setSpriteIdx, setSpriteType } = pokeSlice.actions
 
-  // const [spriteIdx, setSpriteIdx] = useState(0);
-  // const [spriteType, setSpriteType] = useState('world')
-  const [isShiny, setIsShiny] = useState(false)
   const [imgSrc, setImgSrc] = useState('https://placehold.co/475x475/22d3ee/22d3ee?text=\n')
 
   const handleIsShiny = () => {
-    // setIsShiny(!isShiny)
     dispatch(toggleShiny())
   }
 

@@ -9,7 +9,7 @@ import dexSlice from "@/app/reduxStore/dexSlice";
 function PokemonFormsAndCry(props) {
   const dispatch = useDispatch();
   const pokeState = useSelector(state => state.pokemon);
-  const { } = pokeSlice.actions
+  const { setPokemon } = pokeSlice.actions
   const { toggleIsLoading } = dexSlice.actions;
 
 
@@ -22,6 +22,17 @@ function PokemonFormsAndCry(props) {
       // pleaseSearchAlert();
     }
   }
+
+  // const handleFormChange = async (propFunc) => {
+  //   try{
+  //     console.log(pokeState.spriteType, pokeState.spriteIdx) 
+  //     axios.get(pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].url)
+  //     .then(res => console.log(res))
+  //   }
+  //    catch(e){
+  //     console.log(e)
+  //   }
+  // }
 
   function Button({ children, onClick, disabled }) {
     return (
