@@ -1,31 +1,11 @@
-import React, { useState, useEffect } from "react";
-
-import MoveRow from "./moves/MoveRow";
-import MoveRowSort from "./moves/MoveRowSort";
-import MoveTabs from "./moves/MoveTabs";
-import MoveDetails from "./moves/MoveDetails";
-
-import { useDispatch, useSelector } from "react-redux";
-import pokeSlice from "@/app/reduxStore/pokeSlice";
-import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { cardStyle } from "../styles/tailwindClasses";
-import MT from "@/app/lib/clientmaterialtailwind";
 import Moves from "./moves/index.jsx";
 import TeamBuilder from "./teamBuilder";
 
 function RightSide(props) {
-  const [levelMoves, setLevelMoves] = useState([]);
-  const [tmMoves, setTmMoves] = useState([]);
-  const [tutorMoves, setTutorMoves] = useState([]);
-  const [eggMoves, setEggMoves] = useState([]);
-  const [activeMoves, setActiveMoves] = useState(undefined);
-  const [generationMoves, setGenerationMoves] = useState({});
-  const [isAscending, setIsAscending] = useState(true)
-  const [showMoveModal, setShowMoveModal] = useState(false)
-  const [moveModalData, setMoveModalData] = useState(undefined)
 
-  const [movesKey, setMovesKey] = useState('level');
-  const [activeVersion, setActiveVersion] = useState('black-2-white-2');
   const [activeTab, setActiveTab] = useState(0);
 
   const pokeState = useSelector(state => state.pokemon);
@@ -76,25 +56,6 @@ function RightSide(props) {
       </div>
 
       <div id="right-body" className={`${cardStyle.body.container}`}>
-        {/* <div id='right-body-top'>
-          <div id='move-tabs-container' className="mx-2 mt-2 border">
-            <MoveTabs generationMoves={generationMoves} setActiveVersion={setActiveVersion} setMovesKey={setMovesKey} />
-          </div>
-        </div>
-
-        <div className=" overflow-y-auto min-h-0 h-full bg-black/50  border mx-2">
-          <div className="sticky top-0 z-[100] bg-black">
-            <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
-          </div>
-          {
-            activeMoves?.length ?
-              activeMoves.map((move, idx) => {
-                return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
-              })
-              :
-              <div className="text-center">missingMoveData</div>
-          }
-        </div> */}
 
         {
           activeTab === 0 ?

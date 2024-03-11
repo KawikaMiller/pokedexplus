@@ -17,6 +17,8 @@ export const types = ['normal', 'fire', 'water', 'grass', 'electric', 'flying', 
 
 export function determineTypeEffectiveness(typeInfo){
 
+  console.log("TYPEINFO: ", typeInfo)
+
   if(!typeInfo){
     return
   }

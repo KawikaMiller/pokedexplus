@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import MoveTabs from "./MoveTabs";
 import MoveRowSort from "./MoveRowSort";
 import MoveRow from "./MoveRow";
-
-import { useDispatch, useSelector } from "react-redux";
-import pokeSlice from "@/app/reduxStore/pokeSlice";
-import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
-import { cardStyle } from "../../styles/tailwindClasses";
 import MT from "@/app/lib/clientmaterialtailwind";
+
+import { useSelector } from "react-redux";
+import { capitalizeWord, removeHyphen } from "@/app/lib/helpers";
+import { modalStyle } from "../../styles/tailwindClasses";
+import TypeBadge from "../../accessory/TypeBadge";
+import DamageBadge from "../../accessory/DamageBadge";
 
 function Moves(props) {
   const [levelMoves, setLevelMoves] = useState([]);
@@ -18,8 +19,8 @@ function Moves(props) {
   const [activeMoves, setActiveMoves] = useState(undefined);
   const [generationMoves, setGenerationMoves] = useState({});
   const [isAscending, setIsAscending] = useState(true)
-  const [showMoveModal, setShowMoveModal] = useState(false)
-  const [moveModalData, setMoveModalData] = useState(undefined)
+  const [showDialog, setShowDialog] = useState(false)
+  const [dialogMove, setDialogMove] = useState(undefined)
 
   const [movesKey, setMovesKey] = useState('level');
   const [activeVersion, setActiveVersion] = useState('red-blue');
@@ -122,7 +123,6 @@ function Moves(props) {
   }
 
   const sortMoves = (property) => {
-    console.log('sort moves hit', activeMoves)
     if (activeMoves?.length) {
       let temp = [...activeMoves];
       !isAscending ?
@@ -137,6 +137,12 @@ function Moves(props) {
       setIsAscending(!isAscending)
       setActiveMoves(temp)
     }
+  }
+
+  const handleMoveClick = (move) => {
+    setDialogMove(move);
+    setShowDialog(!showDialog);
+
   }
 
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
@@ -161,6 +167,7 @@ function Moves(props) {
     updateActiveMoves();
   }, [movesKey]) //eslint-disable-line
 
+
   useEffect(() => { console.log(activeVersion) }, [activeVersion])
 
   return (
@@ -178,12 +185,76 @@ function Moves(props) {
         {
           activeMoves?.length ?
             activeMoves.map((move, idx) => {
-              return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} toggleDetails={() => setShowMoveModal(!showMoveModal)} setMoveModalData={setMoveModalData} />
+              return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} handleClick={() => handleMoveClick(move)} />
             })
             :
             <div className="text-center">missingMoveData</div>
         }
       </div>
+
+      <MT.Dialog open={showDialog} handler={() => setShowDialog(false)}>
+        <MT.DialogHeader className={modalStyle.header}>
+          {capitalizeWord(removeHyphen(dialogMove?.name || 'move-name'))}
+          <MT.Button onClick={() => setShowDialog(false)} variant="outlined" color="white">X</MT.Button>
+        </MT.DialogHeader>
+        <MT.DialogBody className={modalStyle.body}>
+          <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
+            <section className="flex flex-col items-center justify-center">
+              <p className="font-bold">Power</p>
+              {dialogMove.power}
+            </section>
+            <section className="flex flex-col items-center justify-center">
+              <p className="font-bold">Accuracy</p>
+              {dialogMove.accuracy}
+            </section>
+            <section className="flex flex-col items-center justify-center">
+              <p className="font-bold">PP</p>
+              {dialogMove.pp}
+            </section>
+            <section className="flex flex-col items-center justify-center">
+              <p className="font-bold">Damage</p>
+              <DamageBadge dmgClass={dialogMove.dmgClass} />
+            </section>
+            <section className="flex flex-col items-center justify-center">
+              <p className="font-bold">Type</p>
+              <TypeBadge type={dialogMove.type} />
+            </section>
+          </div>
+          <div className="w-full flex">
+            <div className="border border-red-500 w-1/3 h-24">
+              x2.0:
+              <br />
+              x0.5:
+              <br />
+              x0.0
+            </div>
+            <div className="border border-blue-500 w-2/3 h-24">
+              {
+                <>
+                  {console.log(dialogMove)}
+                  <p>{dialogMove?.description || '--'}</p>
+                  <p>{dialogMove ? dialogMove.flavorTextEntries[0].flavorText : '--'}</p>
+                </>
+              }
+            </div>
+          </div>
+          <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
+            {
+              Object.keys(dialogMove.meta).map(key => (
+                dialogMove.meta[key] ?
+                  <section className="flex flex-col items-center justify-center">
+                    <p className="font-bold">{key}</p>
+                    {dialogMove.meta[key]}
+                  </section>
+                  :
+                  null
+              ))
+            }
+          </div>
+
+        </MT.DialogBody>
+        <MT.DialogFooter className={modalStyle.footer}></MT.DialogFooter>
+      </MT.Dialog>
     </>
   )
 

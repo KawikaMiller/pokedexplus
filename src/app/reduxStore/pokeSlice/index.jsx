@@ -16,7 +16,7 @@ const pokeSlice = createSlice({
     setPokemon(state, action){
       const temp = action.payload.name.split('-')
       //retains move data from initial search since pokeapi does not return that information with mega or gmax forms
-      if(state.pokemon?.moves && (temp[1] === 'mega' || temp[1] === 'gmax')){
+      if(state.pokemon?.moves && (temp[1] === 'gmax')){
         action.payload.moves = state.pokemon.moves;
       }
       console.log('setting pokemon in state!')
