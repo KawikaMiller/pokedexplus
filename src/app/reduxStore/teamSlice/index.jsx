@@ -5,7 +5,7 @@ const teamSlice = createSlice({
   initialState: {
     team: [{}, {}, {}, {}, {}, {}],
     teamName: 'My Team',
-    focusedMember: {},
+    focus: 0,
     id: undefined,
     fetchedTeams: [],
     showTypeChart: false,
@@ -13,10 +13,10 @@ const teamSlice = createSlice({
     showSaveTeam: false,
   },
   reducers: {
-    setFocusedMember(state, action){
-      state.focusedMember = action.payload
+    setFocus(state, action){
+      state.focus = action.payload
     },
-    setTeamsName(state, action) {
+    setTeamName(state, action) {
       state.teamName = action.payload
     },
     addToTeam(state, action) {
@@ -25,7 +25,9 @@ const teamSlice = createSlice({
       state.team = newTeam;
     },
     removeFromTeam(state, action) {
-      state.team = state.team.filter((pokemon, idx) => idx !== action.payload);
+      let temp = [...state.team];
+      temp[action.payload] = {};
+      state.team = temp
     },
     clearTeam(state, action) {
       state.team = [];

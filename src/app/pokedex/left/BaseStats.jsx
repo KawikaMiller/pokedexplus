@@ -8,42 +8,27 @@ function BaseStats() {
   const statNames = ['HP', 'ATK', 'DEF', 'SPATK', 'SPDEF', 'SPD']
 
   return (
-    <div id='pokemon-base-stats-container' className="h-full">
-      {/* <h4 className="text-lg">Base Stats</h4> */}
+    <div id='pokemon-base-stats-container' >
       <div id='pokemon-base-stats' className="bg-transparent/50 flex flex-col justify-between h-full" >
         {
-
-          pokeState.pokemon?.stats ?
-
-            pokeState.pokemon?.stats.map((stat, idx) => (
-              <>
-                <section className="flex justify-center items-center">
-                  <h4 className="w-5/6 lg:w-1/3 text-center">{stat.name}</h4>
-                  <p className="text-center bg-transparent/25 w-2/3">{stat.base_stat}</p>
-                </section>
-                {
-                  idx !== 5 ? <hr className="w-full"></hr> : null
-                }
-              </>
-            ))
-
-            :
-
+          statNames.map((stat, idx) => (
             <>
+              <section className="flex justify-center items-center">
+                <b className="bg-blue-500 w-2/3 lg:w-1/3 text-center">{`${stat}`}</b>
+                <p className="text-center bg-transparent/25 w-1/3">
+                  {
+                    pokeState.pokemon?.stats ?
+                      pokeState.pokemon.stats[idx].base_stat
+                      :
+                      '000'
+                  }
+                </p>
+              </section>
               {
-                statNames.map((stat, idx) => (
-                  <>
-                    <section className="flex justify-center items-center">
-                      <h4 className="w-1/3 lg:w-1/3 text-center">{`${stat}`}</h4>
-                      <p className="text-center bg-transparent/25 w-2/3">---</p>
-                    </section>
-                    {
-                      idx !== 5 ? <hr className="w-full"></hr> : null
-                    }
-                  </>
-                ))
+                idx !== 5 ? <hr className="w-full"></hr> : null
               }
             </>
+          ))
         }
       </div>
     </div>

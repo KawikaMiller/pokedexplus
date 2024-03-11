@@ -5,8 +5,9 @@ const pokeSlice = createSlice({
   initialState: {
     searchInput: '',
     pokemon: undefined,
-    showShiny: false,
-    formIdx: 0,
+    isShiny: false,
+    spriteIdx: 0,
+    spriteType: 'world',
   },
   reducers: {
     handleSearchInputChange(state, action){
@@ -15,20 +16,20 @@ const pokeSlice = createSlice({
     setPokemon(state, action){
       const temp = action.payload.name.split('-')
       //retains move data from initial search since pokeapi does not return that information with mega or gmax forms
-      if(state.pokemon?.moves && (temp[1] === 'mega' || temp[1] === 'gmax')){
+      if(state.pokemon?.moves && (temp[1] === 'gmax')){
         action.payload.moves = state.pokemon.moves;
       }
       console.log('setting pokemon in state!')
       state.pokemon = action.payload
     },
     toggleShiny(state, action){
-      state.showShiny = action.payload;
+      state.isShiny = !state.isShiny;
     },
-    changeFormIdx(state, action){
-      state.formIdx = action.payload;
+    setSpriteIdx(state, action){
+      state.spriteIdx = action.payload
     },
-    modifyProperty(state, action){
-      state.pokemon[action.payload.property] = action.payload.value;
+    setSpriteType(state, action){
+      state.spriteType = action.payload
     }
   }
 })

@@ -15,7 +15,14 @@ function BasicInfo(props) {
     <div id='pokemon-basic-info' className="flex flex-col justify-end h-fit">
         {/* POKEMON NAME AND NUMBER */}
         <div id='basic-info-top' className="flex justify-between items-center lg:mt-0">
-          <h1 id='pokemon-name' className="font-bold text-4xl">{pokeState?.pokemon?.name ? capitalizeWord(pokeState.pokemon.name) : 'missingName'}</h1>
+          <h1 id='pokemon-name' className="font-bold text-4xl">
+            {capitalizeWord(pokeState.pokemon?.name) || 'missingName'}
+            <span className="text-sm">
+              {
+                `${pokeState.pokemon?.forms[pokeState.spriteType][pokeState.spriteIdx]?.name.split('-').slice(1).join(' ').toUpperCase()}`
+              }
+            </span>
+          </h1>
 
           <div id='pokemon-types' className="flex justify-end w-fit">
             {pokeState?.pokemon?.types.map((element) => {

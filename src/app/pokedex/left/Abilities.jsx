@@ -9,11 +9,11 @@ import { useSelector } from "react-redux";
 
 function Abilities(){
   const [selectedAbility, setSelectedAbility] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false)
   const pokeState = useSelector(state => state.pokemon);
 
   const handleClick = (ability) => {
-    setIsOpen(true);
+    setOpenDialog(true);
     setSelectedAbility(ability)
   }
 
@@ -23,7 +23,11 @@ function Abilities(){
       <div id='pokemon-abilities' className="flex flex-wrap justify-around bg-transparent/50 p-1">
         {
           pokeState.pokemon?.abilities ? 
-          pokeState.pokemon.abilities.map(ability => <p className="p-1" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}<span className="text-xs">{ability.is_hidden ? '(H)' : null}</span></p>)
+          pokeState.pokemon.abilities.map(ability => (
+            <p className="p-1 border hover:bg-green-300 rounded-md cursor-pointer" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}
+              <span className="text-xs">{ability.is_hidden ? '(H)' : null}</span>
+            </p>
+          ))
           :
           <>
           <p>Long Name</p>
@@ -34,17 +38,20 @@ function Abilities(){
         }
       </div>
 
-      {/* <MT.Dialog open={isOpen} handler={() => setIsOpen(false)} className={modalStyle.container}>
-        {console.log(selectedAbility)}
+      <MT.Dialog open={openDialog} handler={() => setOpenDialog(false)} className={modalStyle.container}>
         <MT.DialogHeader className={modalStyle.header}>
           {capitalizeWord(selectedAbility?.name || '--')}
-          <p className={(!selectedAbility?.is_hidden ? 'hidden' : null) + ' text-sm'}>Hidden Ability</p>
+          <p className={'text-sm'}>
+            {
+              selectedAbility?.is_hidden ? 'Hidden Ability' : 'Ability'
+            }
+          </p>
         </MT.DialogHeader>
         <MT.DialogBody className={modalStyle.body}>{selectedAbility?.description || '--'}</MT.DialogBody>
         <MT.DialogFooter className={modalStyle.footer}>
-          <MT.Button size='sm' variant="filled" color="red" className="text-white" onClick={() => setIsOpen(false)}>X</MT.Button>
+          <MT.Button size='sm' variant="filled" color="red" className="text-white" onClick={() => setOpenDialog(false)}>X</MT.Button>
         </MT.DialogFooter>
-      </MT.Dialog> */}
+      </MT.Dialog>
     </div>
   )
 }

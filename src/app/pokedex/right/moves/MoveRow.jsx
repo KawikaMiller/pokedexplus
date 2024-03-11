@@ -6,15 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import TypeBadge from "../../accessory/TypeBadge";
 
-function MoveRow ({css, move, alt, movesKey, toggleDetails, setMoveModalData, activeVersion}) {
+function MoveRow ({css, move, alt, movesKey, handleClick}) {
 
   // const [move, moveDetails] = (getActiveVersionDetails(activeVersion));
 
-  // onClick -> show modal w/ detailed information
-  const handleClick = () => {
-    setMoveModalData(move);
-    toggleDetails();
-  }
+
 
   const getActiveVersionDetails = (activeVersion) => {
     move.versionDetails.find(vDetails => vDetails.version === activeVersion)

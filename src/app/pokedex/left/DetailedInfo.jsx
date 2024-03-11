@@ -52,9 +52,9 @@ function DetailedInfo() {
               <p className="whitespace-pre-wrap" >
                 {
                   idx == 0 ?
-                    `${capitalizeWord(element)}& `
-                    :
                     `${capitalizeWord(element)}`
+                    :
+                    `& ${capitalizeWord(element)}`
                 }
               </p>
             )) : `--`}
