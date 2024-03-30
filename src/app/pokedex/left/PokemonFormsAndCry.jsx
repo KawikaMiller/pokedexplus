@@ -28,7 +28,6 @@ function PokemonFormsAndCry(props) {
 
   useEffect(() => {
     try {
-      // axios.get(pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].url)
       axios.get(`${server}/pokemon/${pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].apiId}`)
         .then(res => {
           console.log(res.data)

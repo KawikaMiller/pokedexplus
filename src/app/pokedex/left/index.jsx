@@ -2,17 +2,12 @@ import React from "react";
 import PokemonArt from "./PokemonArt";
 import BasicInfo from "./BasicInfo";
 import DetailedInfo from "./DetailedInfo";
-import Abilities from "./Abilities";
 import TypeMatchup from "./TypeMatchup";
 import BaseStats from "./BaseStats";
-import PokedexEntries from "./PokedexEntries";
 import SearchBar from "../SearchBar";
 
 import { cardStyle } from "../styles/tailwindClasses";
 
-import { useDispatch, useSelector } from "react-redux";
-import pokeSlice from "@/app/reduxStore/pokeSlice";
-import PokemonFormsAndCry from "./PokemonFormsAndCry";
 
 const leftSideStyle = 'rounded-t-md lg:rounded-l-md lg:rounded-tr-none'
 
@@ -52,7 +47,7 @@ function LeftSide(props) {
           <div id='type-matchup-container' className="flex flex-col m-2 justify-between min-w-0 w-2/3 lg:w-2/3 lg:min-w-0 border">
             <TypeMatchup />
           </div>
-          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between m-2  w-1/3 lg:w-1/3 border">
+          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between m-2 w-1/3 lg:w-1/3 border">
             <BaseStats />
           </div>
         </div>

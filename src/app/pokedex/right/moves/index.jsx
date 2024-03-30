@@ -166,6 +166,23 @@ function Moves(props) {
     updateActiveMoves();
   }, [movesKey]) //eslint-disable-line
 
+  // custom hook to detect changes in screen width
+  // const useScreenWidth = () => {
+  //   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  // }
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWidthChange = () => {
+      setScreenWidth(window.innerWidth)
+    };
+
+    window.addEventListener('resize', handleWidthChange);
+
+    return () => {
+      window.removeEventListener('resize', handleWidthChange)
+    }
+  }, [])
 
   // useEffect(() => { console.log(activeVersion) }, [activeVersion])
 
@@ -197,25 +214,19 @@ function Moves(props) {
           <MT.Button onClick={() => setShowDialog(false)} variant="outlined" color="white">X</MT.Button>
         </MT.DialogHeader>
         <MT.DialogBody className={modalStyle.body}>
-          <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
-            <section className="flex flex-col items-center justify-center">
-              <p className="font-bold">Power</p>
-              {dialogMove.power || '--'}
-            </section>
-            <section className="flex flex-col items-center justify-center">
-              <p className="font-bold">Accuracy</p>
-              {dialogMove.accuracy || '--'}
-            </section>
-            <section className="flex flex-col items-center justify-center">
+          <div className="w-full border border-green-500 bg-black/20 flex-col justify-around items-center">
+            <section id='modal-move-main-labels' className="flex justify-between items-center bg-black/50 p-2 text-white">
+              <p className="font-bold">{screenWidth < 500 ? 'Pow' : 'Power'}</p>
+              <p className="font-bold">{screenWidth < 500 ? 'Acc' : 'Accuracy'}</p>
               <p className="font-bold">PP</p>
-              {dialogMove.pp || '--'}
-            </section>
-            <section className="flex flex-col items-center justify-center">
-              <p className="font-bold">Damage</p>
-              <DamageBadge dmgClass={dialogMove.dmgClass || '--'} />
-            </section>
-            <section className="flex flex-col items-center justify-center">
+              <p className="font-bold">{screenWidth < 500 ? 'Dmg' : 'Damage'}</p>
               <p className="font-bold">Type</p>
+            </section>
+            <section className="flex items-center justify-between">
+              <p>{dialogMove.power || '--'}</p>
+              <p>{dialogMove.accuracy || '--'}</p>
+              <p>{dialogMove.pp || '--'}</p>
+              <DamageBadge dmgClass={dialogMove.dmgClass || '--'} />
               <TypeBadge type={dialogMove.type || '--'} />
             </section>
           </div>
@@ -248,13 +259,15 @@ function Moves(props) {
                     :
                     null
                 ))
-              :
-              null
+                :
+                null
             }
           </div>
 
         </MT.DialogBody>
-        <MT.DialogFooter className={modalStyle.footer}></MT.DialogFooter>
+        <MT.DialogFooter className={modalStyle.footer}>
+          <p>modal footer</p>
+        </MT.DialogFooter>
       </MT.Dialog>
     </>
   )

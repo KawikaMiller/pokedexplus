@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import pokeSlice from "@/app/reduxStore/pokeSlice";
 import teamSlice from "@/app/reduxStore/teamSlice";
 
 import MT from "@/app/lib/clientmaterialtailwind";
-import { capitalizeWord } from "@/app/lib/helpers";
-import TypeBadge from "../../accessory/TypeBadge";
 import TeamSlot from "./TeamSlot";
-import TypeMatchup from "../../left/TypeMatchup";
-import BaseStats from "../../left/BaseStats";
 import InfoPanel from "./infoPanel/InfoPanel";
 import TeamOptions from "./TeamOptions";
 

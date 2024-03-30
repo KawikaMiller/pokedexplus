@@ -83,10 +83,9 @@ function PokemonArt(props) {
 
   // resets sprite idx to 0 and displays default pokemon artwork when a new pokemon is set in state
   useEffect(() => {
-    console.log('stupid')
     dispatch(setSpriteIdx(0))
     dispatch(setSpriteType('world'))
-    setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon?.forms.world[0].apiId}.png` || undefined)
+    setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon?.forms.world[0].apiId}.png` || `https://placehold.co/475x475/22d3ee/22d3ee?text=\n`)
   },
     // eslint-disable-next-line
     [pokeState.pokemon?.species.name])
@@ -96,7 +95,7 @@ function PokemonArt(props) {
 
     <div id='pokemon-image-container' className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative lg:h-4/5">
 
-      <Image id='pokemon-image' src={imgSrc || `https://placehold.co/475x475/22d3ee/22d3ee?text=\n`} style={{ visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt={`official artwork of ${pokeState.pokemon?.name || null}`} className={`max-w-auto max-h-full`} height={450} width={450} />
+      <Image id='pokemon-image' src={imgSrc} style={{ visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt={`official artwork of ${pokeState.pokemon?.name || null}`} className={`max-w-auto max-h-full`} height={450} width={450} />
       {/* {dexState.isLoading ?
         <div className="z-10 absolute flex w-full justify-evenly">
           <div className="bg-white w-10 h-10 rounded-[50%] animate-ping"/>
