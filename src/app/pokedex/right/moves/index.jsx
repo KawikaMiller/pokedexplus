@@ -149,7 +149,6 @@ function Moves(props) {
   useEffect(() => {
     parseMovesByGeneration(activeVersion);
     setGenerationMoves(gensWithMoves);
-    console.log('GENS WITH MOVES: ', gensWithMoves)
   }, [pokeState.pokemon, activeVersion]) //eslint-disable-line
 
   // allows moves to initially render after moves have been parsed for the first time

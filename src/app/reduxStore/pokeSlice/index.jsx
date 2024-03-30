@@ -23,6 +23,9 @@ const pokeSlice = createSlice({
       state.pokemon = action.payload
     },
     handleFormChange(state, action){
+      state.pokemon.baseExpYield = action.payload.baseExpYield
+      state.pokemon.height = action.payload.height;
+      state.pokemon.weight = action.payload.weight;
       state.pokemon.stats = action.payload.stats;
       state.pokemon.cry = action.payload.cry
       state.pokemon.abilities = action.payload.abilities

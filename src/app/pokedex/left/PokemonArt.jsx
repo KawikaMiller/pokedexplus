@@ -89,7 +89,7 @@ function PokemonArt(props) {
     setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon?.forms.world[0].apiId}.png` || undefined)
   },
     // eslint-disable-next-line
-    [pokeState.pokemon?.id])
+    [pokeState.pokemon?.species.name])
 
 
   return (
