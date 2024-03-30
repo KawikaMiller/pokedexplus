@@ -34,7 +34,7 @@ function MoveTabs(props) {
         <select onChange={(e) => props.setActiveVersion(e.target.value)} className='w-1/3 rounded-md h-[36px] bg-blue-700 text-white ml-1 border border-white'>
           {Object.keys(props.generationMoves).map(key => (
             props.generationMoves[key] ? 
-            <option value={key}>{capitalizeWord(removeHyphen(key))}</option> 
+            <option key={`gen-${key}`} value={key}>{capitalizeWord(removeHyphen(key))}</option> 
             : 
             null
           ))}

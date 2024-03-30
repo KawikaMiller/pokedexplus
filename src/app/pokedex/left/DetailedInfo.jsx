@@ -49,7 +49,7 @@ function DetailedInfo() {
           <hr className="w-5/6"></hr>
           <div className="flex justify-between">
             {pokeState.pokemon?.eggGroups ? pokeState.pokemon.eggGroups.map((element, idx) => (
-              <p className="whitespace-pre-wrap" >
+              <p key={`pokemon-egg-group-${idx}`} className="whitespace-pre-wrap" >
                 {
                   idx == 0 ?
                     `${capitalizeWord(element)}`

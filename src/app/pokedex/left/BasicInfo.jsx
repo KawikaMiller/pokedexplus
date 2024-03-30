@@ -25,9 +25,9 @@ function BasicInfo(props) {
           </h1>
 
           <div id='pokemon-types' className="flex justify-end w-fit">
-            {pokeState?.pokemon?.types.map((element) => {
+            {pokeState?.pokemon?.types.map((element, idx) => {
               return (
-                <div id={`type${element.slot}`} className="w-10 h-10 ml-2 flex justify-center items-center">
+                <div key={`pokemon-type-${idx}`} id={`type${element.slot}`} className="w-10 h-10 ml-2 flex justify-center items-center">
                   <TypeBadge type={element.type.name} />
                 </div>
               )
