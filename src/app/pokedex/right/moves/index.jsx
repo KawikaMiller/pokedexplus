@@ -20,7 +20,7 @@ function Moves(props) {
   const [generationMoves, setGenerationMoves] = useState({});
   const [isAscending, setIsAscending] = useState(true)
   const [showDialog, setShowDialog] = useState(false)
-  const [dialogMove, setDialogMove] = useState(undefined)
+  const [dialogMove, setDialogMove] = useState({})
 
   const [movesKey, setMovesKey] = useState('level');
   const [activeVersion, setActiveVersion] = useState('red-blue');
@@ -168,7 +168,7 @@ function Moves(props) {
   }, [movesKey]) //eslint-disable-line
 
 
-  useEffect(() => { console.log(activeVersion) }, [activeVersion])
+  // useEffect(() => { console.log(activeVersion) }, [activeVersion])
 
   return (
     <>
@@ -201,23 +201,23 @@ function Moves(props) {
           <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
             <section className="flex flex-col items-center justify-center">
               <p className="font-bold">Power</p>
-              {dialogMove.power}
+              {dialogMove.power || '--'}
             </section>
             <section className="flex flex-col items-center justify-center">
               <p className="font-bold">Accuracy</p>
-              {dialogMove.accuracy}
+              {dialogMove.accuracy || '--'}
             </section>
             <section className="flex flex-col items-center justify-center">
               <p className="font-bold">PP</p>
-              {dialogMove.pp}
+              {dialogMove.pp || '--'}
             </section>
             <section className="flex flex-col items-center justify-center">
               <p className="font-bold">Damage</p>
-              <DamageBadge dmgClass={dialogMove.dmgClass} />
+              <DamageBadge dmgClass={dialogMove.dmgClass || '--'} />
             </section>
             <section className="flex flex-col items-center justify-center">
               <p className="font-bold">Type</p>
-              <TypeBadge type={dialogMove.type} />
+              <TypeBadge type={dialogMove.type || '--'} />
             </section>
           </div>
           <div className="w-full flex">
@@ -231,24 +231,26 @@ function Moves(props) {
             <div className="border border-blue-500 w-2/3 h-24">
               {
                 <>
-                  {console.log(dialogMove)}
                   <p>{dialogMove?.description || '--'}</p>
-                  <p>{dialogMove ? dialogMove.flavorTextEntries[0].flavorText : '--'}</p>
+                  <p>{dialogMove.flavorTextEntries ? dialogMove.flavorTextEntries[0].flavorText : '--'}</p>
                 </>
               }
             </div>
           </div>
           <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
             {
-              Object.keys(dialogMove.meta).map(key => (
-                dialogMove.meta[key] ?
-                  <section className="flex flex-col items-center justify-center">
-                    <p className="font-bold">{key}</p>
-                    {dialogMove.meta[key]}
-                  </section>
-                  :
-                  null
-              ))
+              dialogMove.meta ?
+                Object.keys(dialogMove.meta).map(key => (
+                  dialogMove.meta[key] ?
+                    <section className="flex flex-col items-center justify-center">
+                      <p className="font-bold">{key}</p>
+                      {dialogMove.meta[key]}
+                    </section>
+                    :
+                    null
+                ))
+              :
+              null
             }
           </div>
 

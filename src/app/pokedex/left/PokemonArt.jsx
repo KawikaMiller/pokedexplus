@@ -83,12 +83,13 @@ function PokemonArt(props) {
 
   // resets sprite idx to 0 and displays default pokemon artwork when a new pokemon is set in state
   useEffect(() => {
+    console.log('stupid')
     dispatch(setSpriteIdx(0))
     dispatch(setSpriteType('world'))
     setImgSrc(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeState.pokemon?.forms.world[0].apiId}.png` || undefined)
   },
     // eslint-disable-next-line
-    [pokeState.pokemon])
+    [pokeState.pokemon?.id])
 
 
   return (

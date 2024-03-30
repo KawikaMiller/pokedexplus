@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import MT from "@/app/lib/clientmaterialtailwind";
 
@@ -6,16 +6,18 @@ import { useSelector, useDispatch } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
 import dexSlice from "@/app/reduxStore/dexSlice";
 
+const server = process.env.NEXT_PUBLIC_SERVER;
+
 function PokemonFormsAndCry(props) {
   const dispatch = useDispatch();
   const pokeState = useSelector(state => state.pokemon);
-  const { setPokemon } = pokeSlice.actions
+  const { setPokemon, handleFormChange } = pokeSlice.actions
   const { toggleIsLoading } = dexSlice.actions;
 
 
   const playAudio = () => {
     if (pokeState.pokemon?.name) {
-      let audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${pokeState.pokemon.name.toLowerCase()}.mp3`);
+      let audio = new Audio(pokeState.pokemon.cry);
       audio.volume = 0.25;
       audio.play();
     } else {
@@ -23,16 +25,20 @@ function PokemonFormsAndCry(props) {
     }
   }
 
-  // const handleFormChange = async (propFunc) => {
-  //   try{
-  //     console.log(pokeState.spriteType, pokeState.spriteIdx) 
-  //     axios.get(pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].url)
-  //     .then(res => console.log(res))
-  //   }
-  //    catch(e){
-  //     console.log(e)
-  //   }
-  // }
+
+  useEffect(() => {
+    try {
+      // axios.get(pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].url)
+      axios.get(`${server}/pokemon/form/${pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].apiId}`)
+        .then(res => {
+          console.log(res.data)
+          dispatch(handleFormChange(res.data.pokemon))
+        })
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }, [pokeState.spriteType])
 
   function Button({ children, onClick, disabled }) {
     return (
@@ -45,7 +51,7 @@ function PokemonFormsAndCry(props) {
       </button>
     )
   }
- 
+
   return (
     <div id='pokemon-image-toggles' className="flex justify-around items-center">
       <Button
@@ -61,7 +67,10 @@ function PokemonFormsAndCry(props) {
       </Button>
 
       <Button
-        onClick={() => props.changeImgSrc('mega')}
+        onClick={() => {
+          props.changeImgSrc('mega')
+          // handleFormChange(() => props.changeImgSrc('mega'))
+        }}
         disabled={pokeState.pokemon?.forms.mega.length > 0 ? false : true}
       >
         <img src={`/mega.svg`} alt="mega evolution form change button" />
@@ -71,7 +80,7 @@ function PokemonFormsAndCry(props) {
         onClick={() => props.changeImgSrc('gmax')}
         disabled={pokeState.pokemon?.forms.gmax.length > 0 ? false : true}
       >
-        <img src={`/gmax.svg`} alt="gigantamax form change button" className="w-40"/>
+        <img src={`/gmax.svg`} alt="gigantamax form change button" className="w-40" />
       </Button>
 
       <Button
