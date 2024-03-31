@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 import MoveTabs from "./MoveTabs";
 import MoveRowSort from "./MoveRowSort";
 import MoveRow from "./MoveRow";
@@ -18,10 +18,14 @@ function Moves(props) {
   const [eggMoves, setEggMoves] = useState([]);
   const [activeMoves, setActiveMoves] = useState(undefined);
   const [generationMoves, setGenerationMoves] = useState({});
-  const [isAscending, setIsAscending] = useState(true)
+
+  // dialog
   const [showDialog, setShowDialog] = useState(false)
   const [dialogMove, setDialogMove] = useState({})
+  const [dialogMoveTyping, setDialogMoveTyping] = useState({})
 
+  // sort by 
+  const [isAscending, setIsAscending] = useState(true)
   const [movesKey, setMovesKey] = useState('level');
   const [activeVersion, setActiveVersion] = useState('red-blue');
 
@@ -139,10 +143,10 @@ function Moves(props) {
     }
   }
 
-  const handleMoveClick = (move) => {
+  const handleMoveClick = async (move) => {
+    await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/type/${move.type}`).then(res => setDialogMoveTyping(res.data))
     setDialogMove(move);
     setShowDialog(!showDialog);
-
   }
 
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
@@ -215,30 +219,56 @@ function Moves(props) {
         </MT.DialogHeader>
         <MT.DialogBody className={modalStyle.body}>
           <div className="w-full border border-green-500 bg-black/20 flex-col justify-around items-center">
-            <section id='modal-move-main-labels' className="flex justify-between items-center bg-black/50 p-2 text-white">
+            <section id='modal-move-main-labels' className="flex justify-between items-center bg-black/50 p-2 text-white [&>*]:w-1/5 [&>*]:text-center">
               <p className="font-bold">{screenWidth < 500 ? 'Pow' : 'Power'}</p>
               <p className="font-bold">{screenWidth < 500 ? 'Acc' : 'Accuracy'}</p>
               <p className="font-bold">PP</p>
               <p className="font-bold">{screenWidth < 500 ? 'Dmg' : 'Damage'}</p>
               <p className="font-bold">Type</p>
             </section>
-            <section className="flex items-center justify-between">
+            <section className="flex items-center justify-between p-2 [&>*]:w-1/5 [&>*]:text-center">
               <p>{dialogMove.power || '--'}</p>
               <p>{dialogMove.accuracy || '--'}</p>
               <p>{dialogMove.pp || '--'}</p>
-              <DamageBadge dmgClass={dialogMove.dmgClass || '--'} />
-              <TypeBadge type={dialogMove.type || '--'} />
+              <div className="flex justify-center items-center">
+                <DamageBadge dmgClass={dialogMove.dmgClass || '--'} />
+              </div>
+              <div className="flex justify-center items-center">
+                <TypeBadge type={dialogMove.type || '--'} />
+              </div>
             </section>
           </div>
-          <div className="w-full flex">
-            <div className="border border-red-500 w-1/3 h-24">
-              x2.0:
-              <br />
-              x0.5:
-              <br />
-              x0.0
-            </div>
-            <div className="border border-blue-500 w-2/3 h-24">
+          <div className="w-full flex-col md:flex-row">
+              {
+                dialogMove.dmgClass !== 'status' ?
+                  <div className="border border-red-500 w-full md:w-1/3 text-white">
+
+                    <div className="flex min-h-1/3 items-center p-1 bg-black/25">
+                      <b className="w-1/5 h-full flex-col-grow font-bold">x2</b>
+                        {
+                          dialogMoveTyping?.doubleDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        }
+                    </div>
+
+                    <div className="flex min-h-1/3 items-center p-1 bg-black/50">
+                    <b className="w-1/5 h-full flex-col-grow font-bold">x0.5</b>
+                        {
+                          dialogMoveTyping?.halfDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        }
+                    </div>
+
+                    <div className="flex min-h-1/3 items-center p-1 bg-black/25">
+                    <b className="w-1/5 h-full flex-col-grow font-bold">x0</b>
+                        {
+                          dialogMoveTyping?.noDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        }
+                    </div>
+
+                  </div>
+                  :
+                  null
+              }
+            <div className="border border-blue-500 w-full md:w-2/3 h-24">
               {
                 <>
                   <p>{dialogMove?.description || '--'}</p>
