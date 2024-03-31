@@ -174,19 +174,21 @@ function Moves(props) {
   // const useScreenWidth = () => {
   //   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   // }
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleWidthChange = () => {
-      setScreenWidth(window.innerWidth)
-    };
+  // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(400);
 
-    window.addEventListener('resize', handleWidthChange);
+  // useEffect(() => {
+  //   const handleWidthChange = () => {
+  //     setScreenWidth(window.innerWidth)
+  //   };
 
-    return () => {
-      window.removeEventListener('resize', handleWidthChange)
-    }
-  }, [])
+  //   window.addEventListener('resize', handleWidthChange);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleWidthChange)
+  //   }
+  // }, [])
 
   // useEffect(() => { console.log(activeVersion) }, [activeVersion])
 
@@ -218,7 +220,8 @@ function Moves(props) {
           <MT.Button onClick={() => setShowDialog(false)} variant="outlined" color="white">X</MT.Button>
         </MT.DialogHeader>
         <MT.DialogBody className={modalStyle.body}>
-          <div className="w-full border border-green-500 bg-black/20 flex-col justify-around items-center">
+          {/* basic move info */}
+          <div className="w-full bg-black/20 flex-col justify-around items-center">
             <section id='modal-move-main-labels' className="flex justify-between items-center bg-black/50 p-2 text-white [&>*]:w-1/5 [&>*]:text-center">
               <p className="font-bold">{screenWidth < 500 ? 'Pow' : 'Power'}</p>
               <p className="font-bold">{screenWidth < 500 ? 'Acc' : 'Accuracy'}</p>
@@ -238,37 +241,12 @@ function Moves(props) {
               </div>
             </section>
           </div>
-          <div className="w-full flex-col md:flex-row">
-              {
-                dialogMove.dmgClass !== 'status' ?
-                  <div className="border border-red-500 w-full md:w-1/3 text-white">
 
-                    <div className="flex min-h-1/3 items-center p-1 bg-black/25">
-                      <b className="w-1/5 h-full flex-col-grow font-bold">x2</b>
-                        {
-                          dialogMoveTyping?.doubleDamageTo?.map(el => <TypeBadge type={el.name} />)
-                        }
-                    </div>
+          {/* type effectiveness and description */}
+          <div className="w-full flex-col justify-center md:flex-row my-2">
 
-                    <div className="flex min-h-1/3 items-center p-1 bg-black/50">
-                    <b className="w-1/5 h-full flex-col-grow font-bold">x0.5</b>
-                        {
-                          dialogMoveTyping?.halfDamageTo?.map(el => <TypeBadge type={el.name} />)
-                        }
-                    </div>
-
-                    <div className="flex min-h-1/3 items-center p-1 bg-black/25">
-                    <b className="w-1/5 h-full flex-col-grow font-bold">x0</b>
-                        {
-                          dialogMoveTyping?.noDamageTo?.map(el => <TypeBadge type={el.name} />)
-                        }
-                    </div>
-
-                  </div>
-                  :
-                  null
-              }
-            <div className="border border-blue-500 w-full md:w-2/3 h-24">
+            {/* move description */}
+            <div className="flex flex-col justify-center items-center w-full md:w-2/3 h-24 text-center font-bold border mb-2">
               {
                 <>
                   <p>{dialogMove?.description || '--'}</p>
@@ -276,8 +254,50 @@ function Moves(props) {
                 </>
               }
             </div>
+
+            {/* move type effectiveness */}
+            <div>
+              {
+                dialogMove.dmgClass !== 'status' ?
+                  <div id='move-type-effectiveness' className="w-full md:w-1/3 text-white">
+
+                    <div className="flex min-h-1/3 items-stretch bg-black/25 min-h-10 h-10">
+                      <b className="w-1/6 font-bold bg-black/50 flex justify-center items-center">x2</b>
+                      <div className="p-1 flex">
+                        {
+                          dialogMoveTyping?.doubleDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        }
+                      </div>
+                    </div>
+
+                    <div className="flex min-h-1/3 items-stretch bg-black/50 min-h-10 h-10">
+                      <b className="w-1/6 font-bold bg-black/50 flex justify-center items-center">x0.5</b>
+                      <div className="p-1 flex">
+                        {
+                          dialogMoveTyping?.halfDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        }
+                      </div>
+                    </div>
+
+                    <div className="flex min-h-1/3 items-stretch bg-black/25 min-h-10 h-10">
+                      <b className="w-1/6 font-bold bg-black/50 flex justify-center items-center">x0</b>
+                      <div className="p-1 flex">
+                        {
+                          dialogMoveTyping?.noDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        }
+                      </div>
+                    </div>
+
+                  </div>
+                  :
+                  null
+              }
+            </div>
           </div>
+
+          {/* detailed move info */}
           <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
+            {/* renders meta move data if the value is truthy */}
             {
               dialogMove.meta ?
                 Object.keys(dialogMove.meta).map(key => (
