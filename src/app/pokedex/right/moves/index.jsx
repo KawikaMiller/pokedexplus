@@ -10,6 +10,7 @@ import { capitalizeWord, removeHyphen } from "@/app/lib/helpers";
 import { modalStyle } from "../../styles/tailwindClasses";
 import TypeBadge from "../../accessory/TypeBadge";
 import DamageBadge from "../../accessory/DamageBadge";
+import MoveDetails from "./MoveDetails";
 
 function Moves(props) {
   const [levelMoves, setLevelMoves] = useState([]);
@@ -146,7 +147,8 @@ function Moves(props) {
   const handleMoveClick = async (move) => {
     await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/type/${move.type}`).then(res => setDialogMoveTyping(res.data))
     setDialogMove(move);
-    setShowDialog(!showDialog);
+    setShowDialog(true);
+    console.log('bruh')
   }
 
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
@@ -169,26 +171,6 @@ function Moves(props) {
   useEffect(() => {
     updateActiveMoves();
   }, [movesKey]) //eslint-disable-line
-
-  // custom hook to detect changes in screen width
-  // const useScreenWidth = () => {
-  //   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  // }
-
-  // const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [screenWidth, setScreenWidth] = useState(400);
-
-  // useEffect(() => {
-  //   const handleWidthChange = () => {
-  //     setScreenWidth(window.innerWidth)
-  //   };
-
-  //   window.addEventListener('resize', handleWidthChange);
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleWidthChange)
-  //   }
-  // }, [])
 
   // useEffect(() => { console.log(activeVersion) }, [activeVersion])
 
@@ -214,111 +196,8 @@ function Moves(props) {
         }
       </div>
 
-      <MT.Dialog open={showDialog} handler={() => setShowDialog(false)}>
-        <MT.DialogHeader className={modalStyle.header}>
-          {capitalizeWord(removeHyphen(dialogMove?.name || 'move-name'))}
-          <MT.Button onClick={() => setShowDialog(false)} variant="outlined" color="white">X</MT.Button>
-        </MT.DialogHeader>
-        <MT.DialogBody className={modalStyle.body}>
-          {/* basic move info */}
-          <div className="w-full bg-black/20 flex-col justify-around items-center">
-            <section id='modal-move-main-labels' className="flex justify-between items-center bg-black/50 p-2 text-white [&>*]:w-1/5 [&>*]:text-center">
-              <p className="font-bold">{screenWidth < 500 ? 'Pow' : 'Power'}</p>
-              <p className="font-bold">{screenWidth < 500 ? 'Acc' : 'Accuracy'}</p>
-              <p className="font-bold">PP</p>
-              <p className="font-bold">{screenWidth < 500 ? 'Dmg' : 'Damage'}</p>
-              <p className="font-bold">Type</p>
-            </section>
-            <section className="flex items-center justify-between p-2 [&>*]:w-1/5 [&>*]:text-center">
-              <p>{dialogMove.power || '--'}</p>
-              <p>{dialogMove.accuracy || '--'}</p>
-              <p>{dialogMove.pp || '--'}</p>
-              <div className="flex justify-center items-center">
-                <DamageBadge dmgClass={dialogMove.dmgClass || '--'} />
-              </div>
-              <div className="flex justify-center items-center">
-                <TypeBadge type={dialogMove.type || '--'} />
-              </div>
-            </section>
-          </div>
+      <MoveDetails dialogMove={dialogMove} dialogMoveTyping={dialogMoveTyping} showDialog={showDialog} setShowDialog={setShowDialog} />
 
-          {/* type effectiveness and description */}
-          <div className="w-full flex-col justify-center md:flex-row my-2">
-
-            {/* move description */}
-            <div className="flex flex-col justify-center items-center w-full md:w-2/3 h-24 text-center font-bold border mb-2">
-              {
-                <>
-                  <p>{dialogMove?.description || '--'}</p>
-                  <p>{dialogMove.flavorTextEntries ? dialogMove.flavorTextEntries[0].flavorText : '--'}</p>
-                </>
-              }
-            </div>
-
-            {/* move type effectiveness */}
-            <div>
-              {
-                dialogMove.dmgClass !== 'status' ?
-                  <div id='move-type-effectiveness' className="w-full md:w-1/3 text-white">
-
-                    <div className="flex min-h-1/3 items-stretch bg-black/25 min-h-10 h-10">
-                      <b className="w-1/6 font-bold bg-black/50 flex justify-center items-center">x2</b>
-                      <div className="p-1 flex">
-                        {
-                          dialogMoveTyping?.doubleDamageTo?.map(el => <TypeBadge type={el.name} />)
-                        }
-                      </div>
-                    </div>
-
-                    <div className="flex min-h-1/3 items-stretch bg-black/50 min-h-10 h-10">
-                      <b className="w-1/6 font-bold bg-black/50 flex justify-center items-center">x0.5</b>
-                      <div className="p-1 flex">
-                        {
-                          dialogMoveTyping?.halfDamageTo?.map(el => <TypeBadge type={el.name} />)
-                        }
-                      </div>
-                    </div>
-
-                    <div className="flex min-h-1/3 items-stretch bg-black/25 min-h-10 h-10">
-                      <b className="w-1/6 font-bold bg-black/50 flex justify-center items-center">x0</b>
-                      <div className="p-1 flex">
-                        {
-                          dialogMoveTyping?.noDamageTo?.map(el => <TypeBadge type={el.name} />)
-                        }
-                      </div>
-                    </div>
-
-                  </div>
-                  :
-                  null
-              }
-            </div>
-          </div>
-
-          {/* detailed move info */}
-          <div className="w-full border border-green-500 bg-black/20 flex justify-around items-center p-2">
-            {/* renders meta move data if the value is truthy */}
-            {
-              dialogMove.meta ?
-                Object.keys(dialogMove.meta).map(key => (
-                  dialogMove.meta[key] ?
-                    <section className="flex flex-col items-center justify-center">
-                      <p className="font-bold">{key}</p>
-                      {dialogMove.meta[key]}
-                    </section>
-                    :
-                    null
-                ))
-                :
-                null
-            }
-          </div>
-
-        </MT.DialogBody>
-        <MT.DialogFooter className={modalStyle.footer}>
-          <p>modal footer</p>
-        </MT.DialogFooter>
-      </MT.Dialog>
     </>
   )
 
