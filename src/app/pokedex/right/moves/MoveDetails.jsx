@@ -36,11 +36,11 @@ function MoveDetails(props) {
       :
       null;
 
-      if(Object.values(props.dialogMove.meta || {}).every(value => !value) == false){
-        setNeedsMargin(true)
-      } else {
-        setNeedsMargin(false)
-      }
+    if (Object.values(props.dialogMove.meta || {}).every(value => !value) == false) {
+      setNeedsMargin(true)
+    } else {
+      setNeedsMargin(false)
+    }
   }, [props.dialogMove])
 
 
@@ -90,23 +90,26 @@ function MoveDetails(props) {
             {/* move type effectiveness */}
             {
               props.dialogMove.dmgClass !== 'status' ?
-                <div id='move-type-effectiveness' className={`grow max-w-2/3 text-white ${needsMargin ? 'mr-2' : null}`}>
+                <div id='move-type-effectiveness' className={`grow w-2/3 text-white ${needsMargin ? 'mr-2' : null}`}>
 
                   <div className="flex min-h-1/3 items-stretch bg-black/25 min-h-10 h-10">
                     <b className="min-w-[3rem] font-bold bg-black/50 flex justify-center items-center ">x2</b>
                     <div className="p-1 flex overflow-x-auto">
                       {
-                        props.dialogMoveTyping?.doubleDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        props.dialogMoveTyping?.doubleDamageTo?.map(el => <div><TypeBadge type={el.name} /></div>)
                       }
                     </div>
                   </div>
 
                   <div className="flex min-h-1/3 items-stretch bg-black/50 min-h-10 h-10">
                     <b className="min-w-[3rem] font-bold bg-black/50 flex justify-center items-center ">x0.5</b>
-                    <div className="p-1 flex overflow-x-auto">
+                    <div className="p-1 flex w-full overflow-x-auto">
+
                       {
                         props.dialogMoveTyping?.halfDamageTo?.map(el =>
-                          <TypeBadge type={el.name} />
+                          <div className="">
+                            <TypeBadge type={el.name} />
+                          </div>
                         )
                       }
                     </div>
@@ -116,7 +119,7 @@ function MoveDetails(props) {
                     <b className="min-w-[3rem] font-bold bg-black/50 flex justify-center items-center ">x0</b>
                     <div className="p-1 flex overflow-x-auto">
                       {
-                        props.dialogMoveTyping?.noDamageTo?.map(el => <TypeBadge type={el.name} />)
+                        props.dialogMoveTyping?.noDamageTo?.map(el => <div><TypeBadge type={el.name} /></div>)
                       }
                     </div>
                   </div>
@@ -135,9 +138,9 @@ function MoveDetails(props) {
                     keys.current.map((key) => {
                       if (props.dialogMove.meta[key]) {
                         return (
-                          <div className="flex items-center justify-center">
+                          <div className="flex items-stretc justify-center">
                             <p className="w-2/3 text-center font-bold">{capitalizeWord(key.replace(/([a-z0-9])([A-Z])/g, '$1 $2'))}</p>
-                            <p className="w-1/3 text-center">{props.dialogMove.meta[key] || '--'}</p>
+                            <p className="w-1/3 flex justify-center items-center">{props.dialogMove.meta[key] || '--'}</p>
                           </div>
                         )
                       }
