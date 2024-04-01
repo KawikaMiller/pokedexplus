@@ -14,13 +14,23 @@ const pokeSlice = createSlice({
       state.searchInput = action.payload
     },
     setPokemon(state, action){
-      const temp = action.payload.name.split('-')
+      const nameFromPokeApi = action.payload.name.split('-')
       //retains move data from initial search since pokeapi does not return that information with mega or gmax forms
-      if(state.pokemon?.moves && (temp[1] === 'gmax')){
+      if(state.pokemon?.moves && (nameFromPokeApi[1] === 'gmax')){
         action.payload.moves = state.pokemon.moves;
       }
       console.log('setting pokemon in state!')
       state.pokemon = action.payload
+    },
+    handleFormChange(state, action){
+      state.pokemon.baseExpYield = action.payload.baseExpYield
+      state.pokemon.height = action.payload.height;
+      state.pokemon.weight = action.payload.weight;
+      state.pokemon.stats = action.payload.stats;
+      state.pokemon.cry = action.payload.cry
+      state.pokemon.abilities = action.payload.abilities
+      action.payload.moves.length ? 
+        state.pokemon.moves = action.payload.moves : null
     },
     toggleShiny(state, action){
       state.isShiny = !state.isShiny;

@@ -49,7 +49,7 @@ function RightSide(props) {
         <div id='right-header-tabs-container' className='flex w-full justify-stretch'>
           {
             headerTabs.map((tab, idx) => (
-              <div className={(idx === 0 ? tabStyle.first : idx === headerTabs.length - 1 ? tabStyle.last : tabStyle.middle) + ' right-header-tab'} onClick={(e) => handleActiveTab(e, idx)} >{tab.label}</div>
+              <div key={tab.label} className={(idx === 0 ? tabStyle.first : idx === headerTabs.length - 1 ? tabStyle.last : tabStyle.middle) + ' right-header-tab'} onClick={(e) => handleActiveTab(e, idx)} >{tab.label}</div>
             ))
           }
         </div>

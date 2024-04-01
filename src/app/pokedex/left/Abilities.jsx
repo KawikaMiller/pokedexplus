@@ -24,7 +24,7 @@ function Abilities(){
         {
           pokeState.pokemon?.abilities ? 
           pokeState.pokemon.abilities.map(ability => (
-            <p className="p-1 border hover:bg-green-300 rounded-md cursor-pointer" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}
+            <p key={`pokemon-ability-${ability.name}`} className="p-1 border hover:bg-green-300 rounded-md cursor-pointer" onClick={() => {handleClick(ability)}}>{capitalizeWord(removeHyphen(ability.name))}
               <span className="text-xs">{ability.is_hidden ? '(H)' : null}</span>
             </p>
           ))

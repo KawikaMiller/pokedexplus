@@ -2,7 +2,7 @@ import React from "react";
 import TypeBadge from "../accessory/TypeBadge";
 import Abilities from "./Abilities";
 
-import { capitalizeWord } from "@/app/lib/helpers";
+import { capitalizeWord, removeHyphen } from "@/app/lib/helpers";
 
 import { useDispatch, useSelector } from "react-redux";
 import pokeSlice from "@/app/reduxStore/pokeSlice";
@@ -16,7 +16,7 @@ function BasicInfo(props) {
         {/* POKEMON NAME AND NUMBER */}
         <div id='basic-info-top' className="flex justify-between items-center lg:mt-0">
           <h1 id='pokemon-name' className="font-bold text-4xl">
-            {capitalizeWord(pokeState.pokemon?.name) || 'missingName'}
+            {capitalizeWord(pokeState?.pokemon?.name.split('-')[0] || '') || 'missingName'}
             <span className="text-sm">
               {
                 `${pokeState.pokemon?.forms[pokeState.spriteType][pokeState.spriteIdx]?.name.split('-').slice(1).join(' ').toUpperCase()}`
@@ -25,9 +25,9 @@ function BasicInfo(props) {
           </h1>
 
           <div id='pokemon-types' className="flex justify-end w-fit">
-            {pokeState?.pokemon?.types.map((element) => {
+            {pokeState?.pokemon?.types.map((element, idx) => {
               return (
-                <div id={`type${element.slot}`} className="w-10 h-10 ml-2 flex justify-center items-center">
+                <div key={`pokemon-type-${idx}`} id={`type${element.slot}`} className="w-10 h-10 ml-2 flex justify-center items-center">
                   <TypeBadge type={element.type.name} />
                 </div>
               )
