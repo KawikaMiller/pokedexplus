@@ -25,8 +25,8 @@ function MoveRow ({css, move, alt, movesKey, handleClick}) {
       }</div>
       <div className={css.str}>{capitalizeWord(removeHyphen(move.name))}</div>
       <div className={`${css.numAndImg} `}>{move.power || `--`}</div>
-      <div className={`${css.numAndImg}  hidden sm:visible`}>{move.accuracy || `--`}</div>
-      <div className={`${css.numAndImg}  hidden sm:visible`}>{move.pp}</div>
+      <div className={`${css.numAndImg}  hidden sm:block`}>{move.accuracy || `--`}</div>
+      <div className={`${css.numAndImg}  hidden sm:block`}>{move.pp}</div>
       <div className={`${css.numAndImg} flex justify-center`}>{<DamageBadge dmgClass={move.dmgClass} /> }</div>
       <div className={`${css.numAndImg} flex justify-center`}>{<TypeBadge type={move.type} />}</div>
     </div>

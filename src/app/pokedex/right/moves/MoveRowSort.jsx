@@ -45,7 +45,7 @@ function MoveRowSort({ css, sortMoves, sortMovesBy, isAscending }) {
           }
         </button>
       </div>
-      <div className={`${css.numAndImg}  hidden sm:visible`} onClick={() => sortMoves('accuracy')}>
+      <div className={`${css.numAndImg}  hidden sm:block`} onClick={() => sortMoves('accuracy')}>
         <button className={css.button + ` ${sortMovesBy === 'accuracy' ? 'bg-red-500' : null}`}>
           {
             sortMovesBy === 'accuracy' ?
@@ -58,7 +58,7 @@ function MoveRowSort({ css, sortMoves, sortMovesBy, isAscending }) {
           }
         </button>
       </div>
-      <div className={`${css.numAndImg} hidden sm:visible`} onClick={() => sortMoves('pp')}>
+      <div className={`${css.numAndImg} hidden sm:block`} onClick={() => sortMoves('pp')}>
         <button className={css.button + ` ${sortMovesBy === 'pp' ? 'bg-red-500' : null}`}>
           {
             sortMovesBy === 'pp' ?

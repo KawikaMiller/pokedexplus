@@ -35,8 +35,8 @@ function Moves(props) {
 
   const button = 'h-full w-full rounded-md bg-blue-500 px-0.5';
   const row = "text-center align-middle py-1 px-0 overflow-x-hidden flex items-center justify-between"
-  const numAndImg = 'max-w-[17%] md:max-w-[10%] grow-[0.5] mx-0.5'
-  const str = 'max-w-[22%] md:max-w-[40%] grow-[1] mx-0.5'
+  const numAndImg = 'max-w-[17%] sm:max-w-[10%] grow-[0.5] mx-0.5 border'
+  const str = 'max-w-[25%] sm:max-w-[30%] grow-[1] mx-0.5 border'
 
   let gensWithMoves = {
     'red-blue': false,
