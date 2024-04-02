@@ -7,7 +7,7 @@ function MoveTabs(props) {
   const moveTabs = [
     {
       label: 'Level',
-      value: 'level'
+      value: 'levelLearned'
     },
     {
       label: 'Machine',
@@ -25,7 +25,7 @@ function MoveTabs(props) {
 
   return (
     <div id='moves-header' className="w-full flex justify-between items-center py-1">
-      <MT.Tabs value='level' className='grow w-full mr-1'>
+      <MT.Tabs value='levelLearned' className='grow w-full mr-1'>
         <MT.TabsHeader className="bg-blue-800/100" indicatorProps={{ className: 'bg-blue-500' }}>
           {moveTabs.map(({ label, value }) => <MT.Tab onClick={() => props.setMovesKey(value)} className="text-sm text-white" key={value} value={value}>{label}</MT.Tab>)}
         </MT.TabsHeader>

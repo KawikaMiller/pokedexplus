@@ -27,15 +27,16 @@ function Moves(props) {
 
   // sort by 
   const [isAscending, setIsAscending] = useState(true)
-  const [movesKey, setMovesKey] = useState('level');
+  const [sortMovesBy, setSortMovesBy] = useState('levelLearned');
+  const [movesKey, setMovesKey] = useState('levelLearned');
   const [activeVersion, setActiveVersion] = useState('red-blue');
 
   const pokeState = useSelector(state => state.pokemon);
 
-  const button = 'h-full w-full rounded-md bg-blue-500 mx-[0.125rem]';
+  const button = 'h-full w-full rounded-md bg-blue-500 px-0.5';
   const row = "text-center align-middle py-1 px-0 overflow-x-hidden flex items-center justify-between"
-  const numAndImg = 'max-w-[13%] md:max-w-[10%] grow-[0.5]'
-  const str = 'max-w-[22%] md:max-w-[40%] grow-[1]'
+  const numAndImg = 'max-w-[17%] md:max-w-[10%] grow-[0.5] mx-0.5'
+  const str = 'max-w-[22%] md:max-w-[40%] grow-[1] mx-0.5'
 
   let gensWithMoves = {
     'red-blue': false,
@@ -110,7 +111,7 @@ function Moves(props) {
 
   const updateActiveMoves = () => {
     switch (movesKey) {
-      case 'level':
+      case 'levelLearned':
         setActiveMoves(levelMoves);
         break;
       case 'machine':
@@ -128,6 +129,7 @@ function Moves(props) {
   }
 
   const sortMoves = (property) => {
+    console.log(property, typeof property)
     if (activeMoves?.length) {
       let temp = [...activeMoves];
       !isAscending ?
@@ -138,7 +140,8 @@ function Moves(props) {
         temp = temp.sort((a, b) => (
           a[property] === b[property] ? 0 : a[property] < b[property] ? 1 : -1
         ))
-
+      
+      setSortMovesBy(property)
       setIsAscending(!isAscending)
       setActiveMoves(temp)
     }
@@ -164,7 +167,8 @@ function Moves(props) {
       a.levelLearned === b.levelLearned ? 0 : a.levelLearned < b.levelLearned ? -1 : 1
     ))
     setActiveMoves(temp);
-    setMovesKey('level');
+    setSortMovesBy('levelLearned');
+    setMovesKey('levelLearned')
   }, [levelMoves])
 
   // updates rendered moves whenever a move tab is clicked (i.e. level, machine, egg, tutor)
@@ -184,12 +188,12 @@ function Moves(props) {
 
       <div className=" overflow-y-auto min-h-0 h-full bg-black/50  border mx-2">
         <div className="sticky top-0 z-[100] bg-black">
-          <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} isAscending={isAscending} />
+          <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} sortMovesBy={sortMovesBy} isAscending={isAscending} movesKey={movesKey}/>
         </div>
         {
           activeMoves?.length ?
             activeMoves.map((move, idx) => {
-              return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} key={move.name + move.levelLearned} activeVersion={activeVersion} handleClick={() => handleMoveClick(move)} />
+              return <MoveRow css={{ button, row, numAndImg, str }} move={move} alt={idx % 2 ? `bg-black/25` : `bg-black/40`} movesKey={movesKey} sortMovesBy={sortMovesBy} key={move.name + move.levelLearned} activeVersion={activeVersion} handleClick={() => handleMoveClick(move)} />
             })
             :
             <div className="text-center">missingMoveData</div>
