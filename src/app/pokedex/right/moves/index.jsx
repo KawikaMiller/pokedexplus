@@ -64,21 +64,25 @@ function Moves(props) {
     'scarlet-violet': false,
   }
 
-  // this runs all four previous parse methods
+  // gets all of the moves that a pokemon has in any given version/generation of the pokemon games
   const parseMovesByGeneration = (version) => {
     let levelArr = [];
     let tmArr = [];
     let tutorArr = [];
     let eggArr = [];
 
+    // iterate through all of current pokemons moves
     pokeState.pokemon?.moves.forEach(move => {
+      // check each move's `versionDetails` which is an array of objects, each object lets us know info about that move in the various generations the pokemon was in
+      // e.g. "in red/blue/yellow the move is learned at level 10 but in crystal it's learned at level 13" OR "in crystal it was learned by leveling up but in black/white it can only be learned by TM", etc
       move.versionDetails.forEach(details => {
-
+        // details.version lets us know which exact version of the pokemon games this move exists in, therefore we know that the pokemon exists within that generation/version
+        // if the corresponding value in `gensWithMoves` is false, we need to set it to true so that we know which generations/versions to include when we allow the user to filter moves by generation/version (e.g. if the user is playing Pokemon HeartGold/SoulSilver then they need to ONLY see the moves that the pokemon can learn in HGSS)
         if (!gensWithMoves[details.version]) {
           gensWithMoves[details.version] = true;
         };
 
-
+        // here we are matching the moves with the version we are parsing for (e.g. get all the move data for HGSS) and separate them by their learn method
         if (details.version === version) {
           let nMove = { ...move };
           nMove.learnMethod = details.learnMethod;
@@ -103,12 +107,14 @@ function Moves(props) {
       })
     })
 
+    // we take the parsed moves and set them in state so that we can trigger a re-render and display the correct moves for the correct generation
     setLevelMoves(levelArr);
     setTmMoves(tmArr);
     setTutorMoves(tutorArr);
     setEggMoves(eggArr);
   }
 
+  // runs when the 'movesKey' state is changed. `movesKey` dictates what moves we render (e.g. 'level', 'machine', 'tutor', 'egg')
   const updateActiveMoves = () => {
     switch (movesKey) {
       case 'levelLearned':
@@ -128,6 +134,8 @@ function Moves(props) {
     };
   }
 
+  // sorts moves by any given property (e.g. sort by level learned, name, power, accuracy etc)
+  // can sort by ascending/descending
   const sortMoves = (property) => {
     console.log(property, typeof property)
     if (activeMoves?.length) {
@@ -147,18 +155,35 @@ function Moves(props) {
     }
   }
 
+  // gets type effectiveness of move when we click/tap on a move and display the MoveDetails dialog/modal
   const handleMoveClick = async (move) => {
     await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/type/${move.type}`).then(res => setDialogMoveTyping(res.data))
     setDialogMove(move);
     setShowDialog(true);
-    console.log('bruh')
   }
 
   // parses moves and sorts them by learn method depending on what generation of moves we want to see (e.g. will only show moves from gen 2 and separates the level, machine, egg, tutor moves for that generation)
   useEffect(() => {
     parseMovesByGeneration(activeVersion);
     setGenerationMoves(gensWithMoves);
-  }, [pokeState.pokemon, activeVersion]) //eslint-disable-line
+  }, [activeVersion]) 
+
+  // clean this up later so that the code is dry, currently this is reusing logic form 'parseMovesByGeneration()'
+  useEffect(() => {
+    pokeState.pokemon?.moves.forEach(move => {
+
+      move.versionDetails.forEach(details => {
+
+        if (!gensWithMoves[details.version]) {
+          gensWithMoves[details.version] = true;
+        };
+
+      })
+    })
+
+    let mostRecentGameAppearance = Object.keys(gensWithMoves).reverse().find(key => gensWithMoves[key] === true)
+    setActiveVersion(mostRecentGameAppearance)
+  }, [pokeState.pokemon]) 
 
   // allows moves to initially render after moves have been parsed for the first time
   useEffect(() => {
@@ -174,7 +199,7 @@ function Moves(props) {
   // updates rendered moves whenever a move tab is clicked (i.e. level, machine, egg, tutor)
   useEffect(() => {
     updateActiveMoves();
-  }, [movesKey]) //eslint-disable-line
+  }, [movesKey]) 
 
   // useEffect(() => { console.log(activeVersion) }, [activeVersion])
 
@@ -182,7 +207,7 @@ function Moves(props) {
     <>
       <div id='right-body-top'>
         <div id='move-tabs-container' className="mx-2 mt-2 border">
-          <MoveTabs generationMoves={generationMoves} setActiveVersion={setActiveVersion} setMovesKey={setMovesKey} />
+          <MoveTabs key={'move-tabs'} generationMoves={generationMoves} setActiveVersion={setActiveVersion} setMovesKey={setMovesKey} activeVersion={activeVersion}/>
         </div>
       </div>
 
