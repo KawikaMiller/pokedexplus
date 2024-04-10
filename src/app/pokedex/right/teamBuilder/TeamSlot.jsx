@@ -33,7 +33,7 @@ function TeamSlot(props) {
                   className="bg-red-500 h-[90%] w-1/2 rounded-md mx-1 flex flex-col justify-center items-center relative"
                   onClick={() => pokeState.pokemon ? dispatch(addToTeam({ pokemon: pokeState.pokemon, position: props.position })) : null}
                 >
-                  <img src={pokeState.pokemon.sprite.front_default} className="max-h-full object-cover" />
+                  <img src={pokeState.pokemon?.sprite.front_default || `https://placehold.co/100x100/?text=.`} className="max-h-full object-cover" />
                   <p className="absolute bottom-0">Add</p>
                 </div>
                 <div className="bg-blue-500 h-[90%] w-1/2 rounded-md mx-1 flex items-center justify-center">

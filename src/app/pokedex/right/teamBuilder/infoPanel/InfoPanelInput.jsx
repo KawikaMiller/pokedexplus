@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { limitNumber, natureModifiers, capitalizeWord, removeHyphen } from "@/app/lib/helpers";
+import { blueTagStyle } from "@/app/pokedex/styles/tailwindClasses";
 
 function InfoPanelInput(props) {
 
@@ -8,8 +9,8 @@ function InfoPanelInput(props) {
   const Tag = props.htmlTag || 'input'
 
   return (
-      <div className={`flex flex-col relative ${props.classes}`}>
-        <p className="w-fit text-white text-center bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+      <div className={`${blueTagStyle.container} ${props.classes}`}>
+        <p className={blueTagStyle.label}>
           {props.label}
         </p>
         <Tag

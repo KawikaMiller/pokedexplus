@@ -15,3 +15,8 @@ export const cardStyle = {
   },
 }
 
+export const blueTagStyle = {
+  container: 'flex flex-col relative',
+  label: 'w-fit text-white text-center bg-blue-500 rounded-t-md px-2 bottom-full left-0 text-sm'
+}
+

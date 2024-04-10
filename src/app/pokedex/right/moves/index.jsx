@@ -35,8 +35,8 @@ function Moves(props) {
 
   const button = 'h-full w-full rounded-md bg-blue-500 px-0.5';
   const row = "text-center align-middle py-1 px-0 overflow-x-hidden flex items-center justify-between"
-  const numAndImg = 'max-w-[17%] sm:max-w-[10%] grow-[0.5] mx-0.5 border'
-  const str = 'max-w-[25%] sm:max-w-[30%] grow-[1] mx-0.5 border'
+  const numAndImg = 'max-w-[17%] sm:max-w-[10%] grow-[0.5] mx-0.5'
+  const str = 'max-w-[25%] sm:max-w-[30%] grow-[1] mx-0.5'
 
   let gensWithMoves = {
     'red-blue': false,
@@ -206,13 +206,13 @@ function Moves(props) {
   return (
     <>
       <div id='right-body-top'>
-        <div id='move-tabs-container' className="mx-2 mt-2 border">
+        <div id='move-tabs-container' className="mx-2 mt-2 bg-blue-800 rounded-t-md">
           <MoveTabs key={'move-tabs'} generationMoves={generationMoves} setActiveVersion={setActiveVersion} setMovesKey={setMovesKey} activeVersion={activeVersion}/>
         </div>
       </div>
 
-      <div className=" overflow-y-auto min-h-0 h-full bg-black/50  border mx-2">
-        <div className="sticky top-0 z-[100] bg-black">
+      <div className=" overflow-y-auto min-h-0 h-full bg-black/50 mx-2">
+        <div className="sticky top-0 z-[100] bg-blue-800 border-t px-0.5 py-1">
           <MoveRowSort css={{ button, row, numAndImg, str }} sortMoves={sortMoves} sortMovesBy={sortMovesBy} isAscending={isAscending} movesKey={movesKey}/>
         </div>
         {
