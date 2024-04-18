@@ -33,7 +33,7 @@ function TeamBuilderHeader(props) {
       <>
         <div className={`${blueTagStyle.container} ${screenWidth < 1280 ? 'mb-4 w-1/2' : 'w-2/3'}`}>
           <p className={`${blueTagStyle.label} font-bold ${screenWidth < 1280 ? `!text-lg` : null}`}>Team Name</p>
-          <input id="team-name" placeholder="Team Name" onChange={(e) => updateTeamName(e)} value={teamState.teamName} autoFocus={true} className={`rounded-md rounded-tl-none text-black w-full px-1 text-lg`} ></input>
+          <input id="team-name" placeholder="Team Name" onChange={(e) => updateTeamName(e)} value={teamState.teamName} className={`rounded-md rounded-tl-none text-black w-full px-1 text-lg`} ></input>
         </div>
   
         <div className={`${blueTagStyle.container} ${screenWidth < 1280 ? 'mb-4 w-1/2' : 'w-1/3'}`}>
