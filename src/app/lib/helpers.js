@@ -1,3 +1,4 @@
+// this entire function can be replaced by using the "capitalize" tailwind class
 export function capitalizeWord(words){
   if(words){
     words = words.split(' ')
@@ -11,6 +12,32 @@ export function removeHyphen(word){
 
 export function editPokemonName(word){
   return `(${word})`
+}
+
+export const genLabels = {
+  // 'red-blue': false,
+  yellow: 'R/B/G/Y (Gen 1)',
+  // 'gold-silver': false,
+  crystal: 'G/S/C (Gen 2)',
+  // 'ruby-sapphire': false,
+  emerald: 'R/S/E (Gen 3)',
+  'firered-leafgreen': 'FR/LG (Gen 3)',
+  // colosseum: 'COL (Gen 3)',
+  // xd: 'XD (Gen 3)',
+  // 'diamond-pearl': false,
+  platinum: 'D/P/P (Gen 4)',
+  'heartgold-soulsilver': 'HG/SS (Gen 5)',
+  // 'black-white': false,
+  'black-2-white-2': 'B2/W2 (Gen 6)',
+  'x-y': 'X/Y (Gen 6)',
+  'omega-ruby-alpha-sapphire': 'OR/AS (Gen 6)',
+  // 'sun-moon': false,
+  'ultra-sun-ultra-moon': 'US/UM (Gen 7)',
+  'lets-go-pikachu-lets-go-eevee': 'LGP/LGE (Gen 7)',
+  'sword-shield': 'S/S (Gen 8)',
+  'brilliant-diamond-and-shining-pearl': 'BD/SP (Gen 8)',
+  'legends-arceus': 'LA (Gen 8)',
+  'scarlet-violet': 'S/V (Gen 9)',
 }
 
 export const types = ['normal', 'fire', 'water', 'grass', 'electric', 'flying', 'bug', 'rock', 'ground', 'fighting', 'steel', 'poison', 'ice', 'dragon', 'ghost', 'psychic', 'dark', 'fairy']

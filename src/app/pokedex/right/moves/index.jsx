@@ -29,7 +29,7 @@ function Moves(props) {
   const [isAscending, setIsAscending] = useState(true)
   const [sortMovesBy, setSortMovesBy] = useState('levelLearned');
   const [movesKey, setMovesKey] = useState('levelLearned');
-  const [activeVersion, setActiveVersion] = useState('red-blue');
+  const [activeVersion, setActiveVersion] = useState('yellow');
 
   const pokeState = useSelector(state => state.pokemon);
 
