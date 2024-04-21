@@ -6,7 +6,7 @@ export function capitalizeWord(words){
 }
 
 export function removeHyphen(word){
-  return word.replace(`-`, ` `)
+  return word.replace(/-/g, ` `)
 }
 
 export function editPokemonName(word){

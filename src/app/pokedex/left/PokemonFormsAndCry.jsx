@@ -27,15 +27,17 @@ function PokemonFormsAndCry(props) {
 
 
   useEffect(() => {
-    try {
-      axios.get(`${server}/pokemon/${pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].apiId}`)
+    if(pokeState.pokemon?.name){
+      try {
+        axios.get(`${server}/pokemon/${pokeState.pokemon.forms[pokeState.spriteType][pokeState.spriteIdx].apiId}`)
         .then(res => {
           console.log(res.data)
           dispatch(setPokemon(res.data.pokemon))
         })
-    }
-    catch (e) {
-      console.log(e)
+      }
+      catch (e) {
+        console.log(e)
+      }
     }
   }, [pokeState.spriteType])
 

@@ -7,6 +7,7 @@ import MT from "@/app/lib/clientmaterialtailwind";
 import TeamSlot from "./TeamSlot";
 import InfoPanel from "./infoPanel/InfoPanel";
 import TeamOptions from "./TeamOptions";
+import TeamBuilderHeader from "./TeamBuilderHeader";
 
 function TeamBuilder(props) {
 
@@ -30,45 +31,11 @@ function TeamBuilder(props) {
 
   return (
     <>
+      {/* Team Builder Container */}
       <div id='right-body-team-builder-container' className="border flex flex-col justify-between min-h-0 lg:h-full m-2">
 
-        <div id='right-body-team-builder-header' className="h-16 lg:h-[10%] w-full flex flex-col justify-center lg:flex-row lg:justify-between lg:items-center lg:space-x-2 p-0.5 bg-black/50 border-b">
-
-          {
-            editTeamName ?
-              <div className="relative w-full lg:w-2/3 lg:top-2">
-                <div className="w-full before:absolute before:content-['Team_Name'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    if (!e.target['team-name'].value){
-                      dispatch(setTeamName('missingTeamName'))
-                    }
-                    setEditTeamName(false)
-                  }}
-                    className="flex"
-                  >
-                    <input id='team-name' onChange={(e) => updateTeamName(e)} placeholder="Team Name" value={teamState.teamName} autoFocus={true} className="rounded-b-md rounded-tr-md text-black w-full px-1 text-2xl lg:text-md" />
-                    <MT.Button type="submit" color="blue" className="rounded-none rounded-r-md">Save</MT.Button>
-                  </form>
-                </div>
-              </div>
-              :
-              <p className="hover:bg-white/50 text-2xl text-center" onClick={() => {
-                setEditTeamName(true);
-              }}>
-                {teamState.teamName}
-              </p>
-          }
-
-          <div className="relative h-1/2 w-1/3 top-4 lg:top-2">
-            <div className="w-full before:absolute before:content-['Game_Version'] before:bg-blue-500 before:rounded-t-md before:px-1 before:bottom-full before:left-0 before before:text-xs">
-              <select className="rounded-b-md rounded-tr-md text-black w-full lg:px-1">
-                <option>Gen I</option>
-              </select>
-            </div>
-          </div>
-
-        </div>
+        {/* Team Builder Header */}
+        <TeamBuilderHeader />
 
         <div id='right-body-team-builder-main' className="flex justify-between min-h-0 h-full bg-black/25 border-b">
           <div id='team-member-container' className="flex-col lg:flex min-h-fit justify-evenly items-center w-full lg:w-1/2 border-r p-2">
