@@ -174,13 +174,13 @@ function Moves(props) {
 
       move.versionDetails.forEach(details => {
 
-        if (!gensWithMoves[details.version]) {
+        if (gensWithMoves[details.version] === false) {
           gensWithMoves[details.version] = true;
         };
 
       })
     })
-
+    console.log(gensWithMoves)
     let mostRecentGameAppearance = Object.keys(gensWithMoves).reverse().find(key => gensWithMoves[key] === true)
     setActiveVersion(mostRecentGameAppearance)
   }, [pokeState.pokemon]) 

@@ -52,7 +52,6 @@ function MoveTabs(props) {
               props.generationMoves[key] ?
                 <button className='bg-blue-500 w-2/5 rounded-md text-white font-bold' size='sm' key={`gen-${key}`} value={key}
                   onClick={(e) => {
-                    console.log('clicked')
                     props.setActiveVersion(e.target.value);
                     setOpenDialog(false)
                   }}
