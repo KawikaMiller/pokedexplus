@@ -17,9 +17,9 @@ function InfoPanelInput(props) {
           id={`${props.id.toLowerCase()}`}
           placeholder={`${props.label}`}
           type={`${props.type}` || null}
-          value={props.value || null}
+          defaultValue={props.value || null}
           onChange={props.onChange}
-          className={`h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`} >
+          className={`h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white capitalize`} >
             {
               props.id === 'nature' ?
                 natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
