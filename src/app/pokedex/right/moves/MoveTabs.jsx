@@ -67,7 +67,7 @@ function MoveTabs(props) {
       <MT.Dialog open={openDialog} handler={() => setOpenDialog(!openDialog)}>
         <MT.DialogHeader className={modalStyle.header}>
           Gen. Select
-          <MT.Button variant='outlined' color='white'>X</MT.Button>
+          <MT.Button variant='outlined' color='white' onClick={() => setOpenDialog(!openDialog)}>X</MT.Button>
         </MT.DialogHeader>
 
         <MT.DialogBody className={`max-h-[500px] overflow-y-scroll flex flex-wrap justify-evenly bg-blue-gray-200 text-black [&>*]:m-0.5 `}>
