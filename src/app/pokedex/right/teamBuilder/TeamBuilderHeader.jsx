@@ -43,7 +43,8 @@ function TeamBuilderHeader(props) {
         <div className={`${blueTagStyle.container} ${screenWidth < 1280 ? 'mb-4 w-1/2' : 'w-1/3'}`}>
           <p className={`${blueTagStyle.label} font-bold ${screenWidth < 1280 ? `!text-lg` : null}`}>Game</p>
           <select className={`rounded-md rounded-tl-none text-black text-lg w-full py-[3px] capitalize`} 
-            onChange={(e) => updateTeamGeneration(e.target.value)}
+            onChange={(e) => updateTeamGeneration(e)}
+            value={teamState.teamGeneration}
           >
             {
               Object.keys(genLabels).map(key => 
