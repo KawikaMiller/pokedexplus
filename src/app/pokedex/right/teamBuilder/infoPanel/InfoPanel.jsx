@@ -60,6 +60,7 @@ function InfoPanel() {
 
       temp.nickname = e.target.form.nickname.value;
       temp.nature = e.target.form.nature.value;
+      temp.battle.ability = e.target.form[`battle-ability`].value
 
       temp.battle.moves = [
         temp.moves.find(move => move.name === e.target.form['battle-move-1'].value),
@@ -79,16 +80,14 @@ function InfoPanel() {
 
   return (
     <>
-
       {/* INFO PANEL MAIN BODY */}
       <div id='info-panel-body' key='info-panel-body' className="h-full">
-
         {
           teamState.team[teamState.focus].stats ?
             // BATTLE INFORMATION
             <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly space-y-2 lg:space-y-0">
 
-              {/* LEVEL AND HELD ITEM */}
+              {/* LEVEL AND NICKNAME */}
               <InputContainer>
                 <InfoPanelInput
                   id='level'
@@ -115,6 +114,7 @@ function InfoPanel() {
                   id='nature'
                   label='Nature'
                   classes='w-[48%]'
+                  value={teamState.team[teamState.focus].nature}
                 />
 
                 <InfoPanelInput
@@ -122,6 +122,7 @@ function InfoPanel() {
                   id='battle-ability'
                   label='Ability'
                   classes='w-[48%]'
+                  value={teamState.team[teamState.focus].battle.ability}
                 />
               </InputContainer>
 
@@ -150,7 +151,6 @@ function InfoPanel() {
                 }
               </InputContainer>
               {/* <InfoPanelMoves /> */}
-
 
             </form>
             :

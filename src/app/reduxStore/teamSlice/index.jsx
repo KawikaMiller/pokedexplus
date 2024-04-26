@@ -5,6 +5,7 @@ const teamSlice = createSlice({
   initialState: {
     team: [{}, {}, {}, {}, {}, {}],
     teamName: 'My Team',
+    teamGeneration: 'Yellow',
     focus: 0,
     id: undefined,
     fetchedTeams: [],
@@ -18,6 +19,9 @@ const teamSlice = createSlice({
     },
     setTeamName(state, action) {
       state.teamName = action.payload
+    },
+    setTeamGeneration(state, action){
+      state.teamGeneration = action.payload
     },
     addToTeam(state, action) {
       let newTeam = [...state.team];

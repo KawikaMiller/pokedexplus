@@ -8,6 +8,7 @@ function InfoPanelStats() {
   
 
   useEffect(() => {
+    
     // find matching nature modifiers so we know which elements to manipulate (i.e. which elements to change background colors of so that we can visually represent which stats get the 10% buff and 10% debuff)
     let found;
     for(let i = 0; i < natureModifiers.length; i++){
@@ -53,6 +54,7 @@ function InfoPanelStats() {
       } 
       // otherwise we change the background colors of the referenced elements
       else {
+        console.log(buffLabel, debuffLabel, 'should be changing')
         buffLabel.classList.remove('bg-blue-500')
         buffLabel.classList.add('bg-green-500')
         buffValue.classList.remove('bg-blue-500')
@@ -68,16 +70,28 @@ function InfoPanelStats() {
     
   }, [teamState.team[teamState.focus].nature])
 
+  const testFunc = () => {
+    let statLabels = document.getElementsByClassName('stat-label')
+    let statValues = document.getElementsByClassName('stat-value')
+
+    // statLabels.forEach(label => {
+    //   label.classList.remove('bg-blue-500')
+    //   label.classList.add('bg-red-500');
+    // })
+
+    console.log(statLabels)
+  }
+
   return (
     <>
       {
         teamState.team[teamState.focus].stats?.map((stat, idx) => (
-          <div className={`w-full mb-2`}>
-            <p id={`${stat.name}-label`} className="stat-label text-white w-fit bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
+          <div className={`w-full mb-2`} onClick={testFunc}>
+            <p key={`${stat.name}-label`} id={`${stat.name}-label`} className="stat-label text-white w-fit bg-blue-500 rounded-t-md px-1 bottom-full left-0 before text-xs">
               {stat.name}
             </p>
             <div className="flex justify-center items-center">
-              <p id={`${stat.name}-value`} className="stat-value bg-blue-500 w-2/5 text-white rounded-bl-md px-1 text-center relative">
+              <p key={`${stat.name}-value`} id={`${stat.name}-value`} className="stat-value bg-blue-500 w-2/5 text-white rounded-bl-md px-1 text-center relative">
                 {teamState.team[teamState.focus].stats ? calculateStatTotal(teamState.team[teamState.focus].stats[idx], teamState.team[teamState.focus].level, teamState.team[teamState.focus].nature) : '---'}
               </p>
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import teamSlice from "@/app/reduxStore/teamSlice";
+import { useScreenWidth } from "../../hooks/useScreenWidth";
 
 import MT from "@/app/lib/clientmaterialtailwind";
 import TeamSlot from "./TeamSlot";
@@ -17,6 +18,7 @@ function TeamBuilder(props) {
 
   const { setTeamName } = teamSlice.actions;
 
+  const screenWidth = useScreenWidth()
   const [showDialog, setShowDialog] = useState(false);
   const [editTeamName, setEditTeamName] = useState(false);
 
@@ -47,11 +49,16 @@ function TeamBuilder(props) {
             <TeamSlot handleDialog={handleDialog} position={5} />
           </div>
 
-          <div id="right-body-right-team-builder" className="hidden lg:flex flex-col min-h-0 w-1/2">
-            <div id='info-panel-container' className="flex flex-col justify-between w-full h-full lg:w-full p-1">
-              <InfoPanel />
-            </div>
-          </div>
+          {
+            screenWidth < 1280 ?
+              null
+            :
+              <div id="right-body-right-team-builder" className="flex flex-col min-h-0 w-1/2">
+                <div id='info-panel-container' className="flex flex-col justify-between w-full h-full p-1">
+                  <InfoPanel />
+                </div>
+              </div>
+          }
         </div>
 
         <div id='right-body-team-builder-footer' className="py-2">

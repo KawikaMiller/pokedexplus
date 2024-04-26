@@ -17,18 +17,22 @@ function InfoPanelInput(props) {
           id={`${props.id.toLowerCase()}`}
           placeholder={`${props.label}`}
           type={`${props.type}` || null}
-          value={props.value || null}
+          defaultValue={props.value || null}
           onChange={props.onChange}
-          className={`h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white`} >
+          className={`h-fit text-center rounded-b-md rounded-tr-md text-black focus-visible:bg-light-blue-300 focus-visible:text-white capitalize`} >
             {
               props.id === 'nature' ?
                 natureModifiers.map(nature => <option className="rounded-md">{nature.name}</option>)
               :
               props.id == 'battle-ability' ?
-                teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{capitalizeWord(removeHyphen(ability.name))}</option>) : null
+                teamState.team[teamState.focus].name ? teamState.team[teamState.focus].abilities.map(ability => <option className="rounded-md">{removeHyphen(ability.name)}</option>) : null
               :
               props.label.split(' ')[0] == 'Move' ?
-                teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => <option className="rounded-md" value={move.name}>{capitalizeWord(removeHyphen(move.name))}</option>) : null
+                teamState.team[teamState.focus].name ? teamState.team[teamState.focus].moves.map(move => {
+                  if(move.versionDetails.some(vDetail => vDetail.version === teamState.teamGeneration)){
+                    return <option className="rounded-md capitalize" value={move.name}>{removeHyphen(move.name)}</option>
+                  }
+                }) : null
               :
               props.id === 'held-item' ?
                 <option>TBA</option>

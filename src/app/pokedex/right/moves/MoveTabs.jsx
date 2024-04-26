@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MT from '@/app/lib/clientmaterialtailwind';
 import { modalStyle } from '../../styles/tailwindClasses';
-import { removeHyphen, capitalizeWord } from '@/app/lib/helpers';
+import { removeHyphen, capitalizeWord, genLabels } from '@/app/lib/helpers';
 
 function MoveTabs(props) {
 
@@ -23,32 +23,6 @@ function MoveTabs(props) {
       value: 'tutor'
     }
   ]
-
-  const genLabels = {
-    // 'red-blue': false,
-    yellow: 'R/B/G/Y',
-    // 'gold-silver': false,
-    crystal: 'G/S/C',
-    // 'ruby-sapphire': false,
-    emerald: 'R/S/E',
-    'firered-leafgreen': 'FR/LG',
-    colosseum: 'COL',
-    xd: 'XD',
-    // 'diamond-pearl': false,
-    platinum: 'D/P/P',
-    'heartgold-soulsilver': 'HG/SS',
-    // 'black-white': false,
-    'black-2-white-2': 'B2/W2',
-    'x-y': 'X/Y',
-    'omega-ruby-alpha-sapphire': 'OR/AS',
-    // 'sun-moon': false,
-    'ultra-sun-ultra-moon': 'US/UM',
-    'lets-go-pikachu-lets-go-eevee': 'LGP/LGE',
-    'sword-shield': 'S/S',
-    'brilliant-diamond-and-shining-pearl': 'BD/SP',
-    'legends-arceus': 'LA',
-    'scarlet-violet': 'S/V',
-  }
 
   const [openDialog, setOpenDialog] = useState(false)
 
@@ -78,12 +52,10 @@ function MoveTabs(props) {
               props.generationMoves[key] ?
                 <button className='bg-blue-500 w-2/5 rounded-md text-white font-bold' size='sm' key={`gen-${key}`} value={key}
                   onClick={(e) => {
-                    console.log('clicked')
                     props.setActiveVersion(e.target.value);
                     setOpenDialog(false)
                   }}
                 > 
-                    {/* {capitalizeWord(removeHyphen(key))} */}
                     {genLabels[key]}
                 </button>
                 :

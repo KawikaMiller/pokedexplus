@@ -29,7 +29,7 @@ function Moves(props) {
   const [isAscending, setIsAscending] = useState(true)
   const [sortMovesBy, setSortMovesBy] = useState('levelLearned');
   const [movesKey, setMovesKey] = useState('levelLearned');
-  const [activeVersion, setActiveVersion] = useState('red-blue');
+  const [activeVersion, setActiveVersion] = useState('yellow');
 
   const pokeState = useSelector(state => state.pokemon);
 
@@ -174,13 +174,13 @@ function Moves(props) {
 
       move.versionDetails.forEach(details => {
 
-        if (!gensWithMoves[details.version]) {
+        if (gensWithMoves[details.version] === false) {
           gensWithMoves[details.version] = true;
         };
 
       })
     })
-
+    console.log(gensWithMoves)
     let mostRecentGameAppearance = Object.keys(gensWithMoves).reverse().find(key => gensWithMoves[key] === true)
     setActiveVersion(mostRecentGameAppearance)
   }, [pokeState.pokemon]) 
