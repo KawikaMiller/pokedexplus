@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
+import { pokedex } from "@/app/lib/pokedex";
 
 import MT from "@/app/lib/clientmaterialtailwind";
 
@@ -13,7 +14,7 @@ function SearchBar(props) {
 
   // const [showAlert, setShowAlert] = useState(false);
   // const [showModal, setShowModal] = useState(false);
-  // const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const pokeState = useSelector(state => state.pokemon);
   // const settingsState = useSelector(state => state.settings)
@@ -47,17 +48,42 @@ function SearchBar(props) {
   }
 
   return (
-    <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full flex rounded-md border-white border">
-      <input
-        onChange={handleChange}
-        id='query'
-        label="Search"
-        className="w-full bg-transparent pl-2"
-      />
-      <MT.Button color="blue" type="submit" className="rounded-md rounded-l-none max-h-full px-4">
-        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-      </MT.Button>
-    </form>
+    <div className="w-full relative">
+      <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full flex rounded-md border-white border">
+        <input
+          onFocus={() => {
+            console.log('focus')
+            setShowSuggestions(true)
+          }}
+          onBlur={() => {
+            console.log('blur')
+            setShowSuggestions(false)
+          }}
+          onChange={handleChange}
+          id='query'
+          label="Search"
+          className="w-full bg-transparent pl-2"
+        />
+        <MT.Button color="blue" type="submit" className="rounded-md rounded-l-none max-h-full px-4">
+          <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+        </MT.Button>
+      </form>
+      <div id='search-suggestions' className={`${showSuggestions ? 'block' : 'hidden'} h-fit max-h-40 overflow-y-scroll w-full bg-white/90 text-black absolute z-[100] rounded-b-md flex flex-col capitalize pl-1`}>
+        {
+          pokedex.map((pkmn, idx) => {
+
+            if(
+              pkmn.toLowerCase().startsWith(pokeState.searchInput.toLowerCase())
+              ||
+              (Number(pokeState.searchInput) !== NaN && Number(pokeState.searchInput) === idx + 1)
+            ){
+              return <p className="hover:bg-blue-500 hover:text-white">{pkmn}</p>
+            }
+
+          })
+        }
+      </div>
+    </div>
   )
 
 }
