@@ -9,7 +9,7 @@ import dexSlice from "@/app/reduxStore/dexSlice";
 
 const server = process.env.NEXT_PUBLIC_SERVER;
 
-function SearchBar(props){
+function SearchBar(props) {
 
   // const [showAlert, setShowAlert] = useState(false);
   // const [showModal, setShowModal] = useState(false);
@@ -29,10 +29,10 @@ function SearchBar(props){
     dispatch(handleSearchInputChange(event.target.value))
   }
 
-  const handleSearch = async(event, searchInput = pokeState.searchInput) => {
+  const handleSearch = async (event, searchInput = pokeState.searchInput) => {
     event.preventDefault();
     dispatch(toggleIsLoading(true))
-    try{
+    try {
       console.log(searchInput)
       console.log('Querying PokeAPI...');
       let foundPokemon = await axios(`${server}/pokemon/${searchInput}`);
@@ -40,16 +40,23 @@ function SearchBar(props){
       dispatch(setPokemon(foundPokemon.data.pokemon));
       dispatch(toggleIsLoading(false))
     }
-    catch(e){
-      // console.error(e)
-      dispatch(toggleAlert({status: !dexState.showAlert, message: 'Could not find pokemon. Please check your spelling'}))
+    catch (e) {
+      dispatch(toggleAlert({ status: !dexState.showAlert, message: 'Could not find pokemon. Please check your spelling' }))
       dispatch(toggleIsLoading(false))
     }
   }
 
-  return(
-    <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full">
-      <MT.Input onChange={handleChange} id='query' className="text-white w-full" label="Search for.." color="white"/>
+  return (
+    <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full flex rounded-md border-white border">
+      <input
+        onChange={handleChange}
+        id='query'
+        label="Search"
+        className="w-full bg-transparent pl-2"
+      />
+      <MT.Button color="blue" type="submit" className="rounded-md rounded-l-none max-h-full px-4">
+        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+      </MT.Button>
     </form>
   )
 
