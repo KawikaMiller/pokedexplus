@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import teamSlice from "@/app/reduxStore/teamSlice";
 import { useScreenWidth } from "../../hooks/useScreenWidth";
 
 import MT from "@/app/lib/clientmaterialtailwind";
@@ -16,15 +15,9 @@ function TeamBuilder(props) {
   const pokeState = useSelector(state => state.pokemon);
   const teamState = useSelector(state => state.team);
 
-  const { setTeamName } = teamSlice.actions;
-
   const screenWidth = useScreenWidth()
   const [showDialog, setShowDialog] = useState(false);
-  const [editTeamName, setEditTeamName] = useState(false);
 
-  const updateTeamName = (e) => {
-    dispatch(setTeamName(e.target.value))
-  }
 
   const handleDialog = () => {
     setShowDialog(!showDialog)

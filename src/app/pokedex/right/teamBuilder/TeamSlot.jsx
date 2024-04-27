@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import MT from "@/app/lib/clientmaterialtailwind";
 import { IconButton } from "@material-tailwind/react"
@@ -12,14 +12,25 @@ function TeamSlot(props) {
 
   const [editForm, setEditForm] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [isValid, setIsValid] = useState(true);
 
   const teamState = useSelector(state => state.team)
   const pokeState = useSelector(state => state.pokemon)
   const dispatch = useDispatch();
   const { addToTeam, setFocus, removeFromTeam } = teamSlice.actions;
 
+  useEffect(() => {
+    if(teamState.team[props.position].name){
+      const temp = teamState.team[props.position].moves.some(move => (
+        move.versionDetails.some(vDetail => vDetail.version === teamState.teamGeneration)
+      ))
+      console.log('isValid? ', temp)
+      setIsValid(temp)
+    }
+  }, [teamState.teamGeneration])
+
   return (
-    <MT.Card id={`team-slot-${props.position}`} className={`m-1 lg:m-1 lg:w-full lg:h-full rounded-md bg-black/50 min-h-0 border ${teamState.focus == props.position ? 'border-green-500' : null}`}>
+    <MT.Card id={`team-slot-${props.position}`} className={`m-1 lg:m-1 lg:w-full lg:h-full rounded-md bg-black/50 min-h-0 border ${teamState.focus == props.position ? 'border-green-500' : null} ${isValid ? null : '!mix-blend-luminosity'}`}>
       <MT.CardBody
         className="p-0 items-center h-full w-auto text-white"
         onClick={() => dispatch(setFocus(props.position))}
@@ -41,7 +52,7 @@ function TeamSlot(props) {
             </div>
             :
             // team member in slot
-            <div className={`h-full flex rounded-md bg-gradient-to-tr from-${teamState.team[props.position].types[0].type.name} to-${teamState.team[props.position].types.length > 1 ? teamState.team[props.position].types[1].type.name : teamState.team[props.position].types[0].type.name}`}>
+            <div className={`h-full flex rounded-md bg-gradient-to-tr from-${teamState.team[props.position].types[0].type.name} to-${teamState.team[props.position].types.length > 1 ? teamState.team[props.position].types[1].type.name : teamState.team[props.position].types[0].type.name} relative`}>
               <div className="flex justify-between items-center min-h-0 h-full max-h-full">
                 {/* pokemon sprite */}
                 <div className={`h-full flex justify-center items-center rounded-l-md p-1.5`}>
@@ -65,7 +76,10 @@ function TeamSlot(props) {
                   <MT.Button size='sm' color="red" className="max-w-1/3" onClick={() => dispatch(removeFromTeam(props.position))}>Remove</MT.Button>
                 </div>
               </div>
-
+              
+              <div className={`${isValid ? 'hidden' : 'block'} absolute bg-black/80 self-center uppercase w-full text-center font-bold`}>
+                  <p>DOES NOT APPEAR IN CURRENTLY SELECTED GAME</p>
+              </div>
 
             </div>
         }
