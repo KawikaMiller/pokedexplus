@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const pokeSlice = createSlice({
   name: 'pokemon',
   initialState: {
-    searchInput: 'missingName',
+    searchInput: '',
     pokemon: undefined,
     isShiny: false,
     spriteIdx: 0,

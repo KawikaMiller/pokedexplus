@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { pokedex } from "@/app/lib/pokedex";
 
@@ -35,7 +35,7 @@ function SearchBar(props) {
   }
 
   const handleSearch = async (event, searchInput = pokeState.searchInput) => {
-    event.preventDefault();
+    event?.preventDefault();
     dispatch(toggleIsLoading(true))
     try {
       console.log(searchInput)
@@ -51,12 +51,20 @@ function SearchBar(props) {
     }
   }
 
+  // searches for a pokemon when page loads for the first time
+  useEffect(() => {
+    // handleSearch(null, Math.floor(Math.random() * 1025) + 1)
+    handleSearch(null, 1)
+  }, [])
+
   return (
     <div className="w-full relative">
       <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full flex rounded-md border-white border">
         <input
           onFocus={() => setShowSuggestions(true)}
-          // onBlur={() => setShowSuggestions(false)}
+          onBlur={() => {
+            setTimeout(() => {setShowSuggestions(false)}, 100) //timeout needs to be set otherwise setShowSuggestions fires before we can click on a pokemon and trigger a search
+          }}
           onChange={handleChange}
           id='query'
           label="Search"

@@ -25,7 +25,7 @@ function Main(props) {
       <div id='pokedex-container' className="flex flex-col lg:flex-row justify-center p-2 py-10 lg:h-[97vh] place-content-center lg:w-[90%]">
         <LeftSide />
 
-        <div id="mid-spacer" className="w-20 bg-pkRed border-red-700 border-2">
+        <div id="mid-spacer" className="w-full lg:w-20 h-20 lg:h-full bg-pkRed border-red-700 border-2">
         </div>
 
         <RightSide />
