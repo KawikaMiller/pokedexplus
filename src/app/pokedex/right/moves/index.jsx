@@ -78,7 +78,7 @@ function Moves(props) {
       move.versionDetails.forEach(details => {
         // details.version lets us know which exact version of the pokemon games this move exists in, therefore we know that the pokemon exists within that generation/version
         // if the corresponding value in `gensWithMoves` is false, we need to set it to true so that we know which generations/versions to include when we allow the user to filter moves by generation/version (e.g. if the user is playing Pokemon HeartGold/SoulSilver then they need to ONLY see the moves that the pokemon can learn in HGSS)
-        if (!gensWithMoves[details.version]) {
+        if (details.version in gensWithMoves) {
           gensWithMoves[details.version] = true;
         };
 
@@ -166,9 +166,10 @@ function Moves(props) {
   useEffect(() => {
     parseMovesByGeneration(activeVersion);
     setGenerationMoves(gensWithMoves);
-  }, [activeVersion]) 
+  }, [activeVersion, pokeState.pokemon]) 
 
   // clean this up later so that the code is dry, currently this is reusing logic form 'parseMovesByGeneration()'
+  // finds the most recent version of pokemon that the searched pokemon has been featured in
   useEffect(() => {
     pokeState.pokemon?.moves.forEach(move => {
 

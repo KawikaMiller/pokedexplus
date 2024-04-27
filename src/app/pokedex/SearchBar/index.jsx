@@ -26,8 +26,12 @@ function SearchBar(props) {
   const { toggleAlert } = dexSlice.actions;
   const { toggleIsLoading } = dexSlice.actions;
 
+  const handleChoose = (value) => {
+    dispatch(handleSearchInputChange(value))
+  }
+
   const handleChange = (event) => {
-    dispatch(handleSearchInputChange(event.target.value))
+    handleChoose(event.target.value)
   }
 
   const handleSearch = async (event, searchInput = pokeState.searchInput) => {
@@ -51,24 +55,19 @@ function SearchBar(props) {
     <div className="w-full relative">
       <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full flex rounded-md border-white border">
         <input
-          onFocus={() => {
-            console.log('focus')
-            setShowSuggestions(true)
-          }}
-          onBlur={() => {
-            console.log('blur')
-            setShowSuggestions(false)
-          }}
+          onFocus={() => setShowSuggestions(true)}
+          // onBlur={() => setShowSuggestions(false)}
           onChange={handleChange}
           id='query'
           label="Search"
           className="w-full bg-transparent pl-2"
+          value={pokeState.searchInput}
         />
         <MT.Button color="blue" type="submit" className="rounded-md rounded-l-none max-h-full px-4">
           <i class="fa-solid fa-magnifying-glass fa-xl"></i>
         </MT.Button>
       </form>
-      <div id='search-suggestions' className={`${showSuggestions ? 'block' : 'hidden'} h-fit max-h-40 overflow-y-scroll w-full bg-white/90 text-black absolute z-[100] rounded-b-md flex flex-col capitalize pl-1`}>
+      <div id='search-suggestions' className={`${showSuggestions ? 'block' : 'hidden'} h-fit max-h-40 overflow-y-scroll w-full bg-white text-black absolute z-[100] rounded-b-md flex flex-col capitalize pl-1`}>
         {
           pokedex.map((pkmn, idx) => {
 
@@ -77,7 +76,7 @@ function SearchBar(props) {
               ||
               (Number(pokeState.searchInput) !== NaN && Number(pokeState.searchInput) === idx + 1)
             ){
-              return <p className="hover:bg-blue-500 hover:text-white">{pkmn}</p>
+              return <div onClick={(e) => {handleChoose(pkmn); handleSearch(e, pkmn); setShowSuggestions(false)}} className="hover:bg-blue-500 hover:text-white z-[101]">{pkmn}</div>
             }
 
           })
