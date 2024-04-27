@@ -60,8 +60,8 @@ function TeamSlot(props) {
                   </div>
                 </div>
 
-                <div className="flex justify-between md:justify-end px-1 space-x-4 items-center flex-grow">
-                  <MT.Button size="sm" color="blue" className="max-w-1/3" onClick={() => props.handleDialog()}>Edit</MT.Button>
+                <div className="flex justify-between md:justify-end lg:justify-center px-1 space-x-4 lg:space-x-0 items-center flex-grow">
+                  <MT.Button size="sm" color="blue" className="max-w-1/3 block lg:hidden" onClick={() => props.handleDialog()}>Edit</MT.Button>
                   <MT.Button size='sm' color="red" className="max-w-1/3" onClick={() => dispatch(removeFromTeam(props.position))}>Remove</MT.Button>
                 </div>
               </div>

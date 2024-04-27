@@ -60,7 +60,7 @@ function TeamBuilderHeader(props) {
   }
 
   return (
-    <div id='right-body-team-builder-header' className="h-16 lg:h-[12.5%] w-full flex justify-between items-center px-2 md:justify-center lg:flex-row lg:justify-between lg:items-center lg:space-x-2  bg-black/50 border-b">
+    <div id='right-body-team-builder-header' className="h-16 lg:h-[12.5%] w-full flex justify-between items-center px-2 md:justify-center lg:flex-row lg:justify-between lg:items-center lg:space-x-2 bg-red-500 border-black border-b-4">
 
       {
         screenWidth > 1280 ?

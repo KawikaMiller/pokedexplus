@@ -16,7 +16,7 @@ function LeftSide(props) {
   return (
     <div id='left-side' className={`${leftSideStyle} ${cardStyle.main}`}>
 
-      <div id='left-header' className="min-h-[3rem] w-full flex justify-between border-b-2 border-b-black/25 p-1">
+      <div id='left-header' className="min-h-[3rem] w-full flex justify-between p-1">
         <div className="w-fit flex justify-between">
           <div className="bg-cyan-400 w-10 h-10 rounded-[50%] mx-1 border-4"></div>
           <div className="bg-red-600 w-4 h-4 rounded-[50%] mx-1 border-2"></div>

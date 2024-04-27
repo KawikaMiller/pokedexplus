@@ -16,10 +16,10 @@ function RightSide(props) {
     let tabs = document.getElementsByClassName('right-header-tab');
 
     for(let i = 0; i < tabs.length; i++){
-      tabs[i].className = tabs[i].className.replace('bg-blue-500', 'bg-blue-800')
+      tabs[i].className = tabs[i].className.replace('bg-red-500', 'bg-black/25')
     }
 
-    e.target.className = e.target.className.replace('bg-blue-800', 'bg-blue-500')
+    e.target.className = e.target.className.replace('bg-black/25', 'bg-red-500')
     setActiveTab(idx)
   }
 
@@ -37,15 +37,15 @@ function RightSide(props) {
   ]
 
   const tabStyle = {
-    first: 'flex grow justify-center items-center bg-blue-500 border-blue-700 border-[1px] rounded-tl-md',
-    middle: 'flex grow justify-center items-center bg-blue-800 border-blue-700 border-[1px]',
-    last: 'flex grow justify-center items-center bg-blue-800 border-blue-700 border-[1px] rounded-tr-md',
+    first: 'flex grow justify-center items-center bg-red-500 rounded-tl-md',
+    middle: 'flex grow justify-center items-center bg-black/25',
+    last: 'flex grow justify-center items-center bg-black/25 rounded-tr-md',
   }
 
   return (
     <div id='right-side' className={`${rightSideStyle} ${cardStyle.main}`}>
 
-      <div id="right-header" className={`${cardStyle.header}`}>
+      <div id="right-header" className={`${cardStyle.header} bg-black/25 rounded-t-md !p-0 border-b border-red-200`}>
         <div id='right-header-tabs-container' className='flex w-full justify-stretch'>
           {
             headerTabs.map((tab, idx) => (
@@ -55,7 +55,7 @@ function RightSide(props) {
         </div>
       </div>
 
-      <div id="right-body" className={`${cardStyle.body.container}`}>
+      <div id="right-body" className={`${cardStyle.body.container} bg-black/25 rounded-b-md`}>
 
         {
           activeTab === 0 ?
