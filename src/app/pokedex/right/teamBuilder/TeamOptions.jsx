@@ -15,7 +15,7 @@ function TeamOptions() {
       <MT.Button size="sm" color="blue" className="m-0.5" onClick={() => setShowDialog(true)}>Type Coverage</MT.Button>
     </div>
 
-    <MT.Dialog size="md" open={showDialog} handler={() => setShowDialog(false)}>
+    <MT.Dialog size="lg" open={showDialog} handler={() => setShowDialog(false)}>
       <MT.DialogHeader className="bg-pkRed rounded-t-md border-b-8 border-black text-white flex justify-between h-16">
         <p>Type Coverage</p>
         <MT.Button variant="outlined" color="white" onClick={() => setShowDialog(false)}>X</MT.Button>
