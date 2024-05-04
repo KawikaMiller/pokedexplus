@@ -42,10 +42,12 @@ function LgTypeChartRow(props) {
 
   let typeEffectiveness = determineTypeEffectiveness(props.typeObj)
 
+  const temp = `${props.typeObj.length > 1 ? `bg-gradient-to-r from-${props.typeObj[0].type.name} to-${props.typeObj[1].type.name}` : `bg-${props.typeObj[0].type.name}`}`
+
   return (
-    <tr key={`${props.pokemon}_typechart_row`} className=" border-white border even:bg-black/40 odd:bg-black/10">
-      <td key={`${props.pokemon}_label`} className="">
-        <strong className="capitalize ">
+    <tr key={`${props.pokemon}_typechart_row`} className={`border-white border even:bg-black/40 odd:bg-black/10`}>
+      <td key={`${props.pokemon}_label`} className={``}>
+        <strong className="capitalize font-bold">
           {removeHyphen(props.pokemon)}
         </strong>
       </td>
@@ -145,7 +147,7 @@ function TeamTypeChart() {
               :
               teamState.team.map((pokemon, idx) => (
                 pokemon.name ?
-                  <LgTypeChartRow typeObj={pokemon.types || null} pokemon={pokemon.name} sprite={teamState.team[idx].sprite.front_default} />
+                  <LgTypeChartRow typeObj={pokemon.types || null} pokemon={pokemon.name} sprite={teamState.team[idx].sprite.front_default}/>
                   :
                   null
               ))
