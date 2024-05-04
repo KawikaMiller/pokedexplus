@@ -30,7 +30,7 @@ function TeamSlot(props) {
   }, [teamState.teamGeneration])
 
   return (
-    <MT.Card id={`team-slot-${props.position}`} className={`m-1 lg:m-1 lg:w-full lg:h-full rounded-md bg-black/50 min-h-0 border ${teamState.focus == props.position ? 'border-green-500' : null} ${isValid ? null : '!mix-blend-luminosity'}`}>
+    <MT.Card id={`team-slot-${props.position}`} className={`m-1 xl:m-1 xl:w-full xl:h-full rounded-md bg-black/50 min-h-0 border ${teamState.focus == props.position ? 'border-green-500' : null} ${isValid ? null : '!mix-blend-luminosity'}`}>
       <MT.CardBody
         className="p-0 items-center h-full w-auto text-white"
         onClick={() => dispatch(setFocus(props.position))}
@@ -71,8 +71,8 @@ function TeamSlot(props) {
                   </div>
                 </div>
 
-                <div className="flex justify-between md:justify-end lg:justify-center px-1 space-x-4 lg:space-x-0 items-center flex-grow">
-                  <MT.Button size="sm" color="blue" className="max-w-1/3 block lg:hidden" onClick={() => props.handleDialog()}>Edit</MT.Button>
+                <div className="flex justify-between md:justify-end xl:justify-center px-1 space-x-4 xl:space-x-0 items-center flex-grow">
+                  <MT.Button size="sm" color="blue" className="max-w-1/3 block xl:hidden" onClick={() => props.handleDialog()}>Edit</MT.Button>
                   <MT.Button size='sm' color="red" className="max-w-1/3" onClick={() => dispatch(removeFromTeam(props.position))}>Remove</MT.Button>
                 </div>
               </div>

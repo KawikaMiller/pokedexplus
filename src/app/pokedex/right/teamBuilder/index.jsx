@@ -27,13 +27,13 @@ function TeamBuilder(props) {
   return (
     <>
       {/* Team Builder Container */}
-      <div id='right-body-team-builder-container' className="flex flex-col justify-between min-h-0 lg:h-full">
+      <div id='right-body-team-builder-container' className="flex flex-col justify-between min-h-0 xl:h-full">
 
         {/* Team Builder Header */}
         <TeamBuilderHeader />
 
         <div id='right-body-team-builder-main' className="flex justify-between min-h-0 h-full">
-          <div id='team-member-container' className="flex-col lg:flex min-h-fit justify-evenly items-center w-full lg:w-1/2 border-r p-2">
+          <div id='team-member-container' className="flex-col xl:flex min-h-fit justify-evenly items-center w-full xl:w-1/2 border-r p-2">
             <TeamSlot handleDialog={handleDialog} position={0} />
             <TeamSlot handleDialog={handleDialog} position={1} />
             <TeamSlot handleDialog={handleDialog} position={2} />

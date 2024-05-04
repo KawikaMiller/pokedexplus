@@ -93,7 +93,7 @@ function PokemonArt(props) {
 
   return (
 
-    <div id='pokemon-image-container' className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative lg:h-4/5">
+    <div id='pokemon-image-container' className="border-[12px] rounded-md border-white border-solid min-h-0 min-w-0 object-fit bg-cyan-400 flex justify-center items-center relative xl:h-4/5">
 
       <Image id='pokemon-image' src={imgSrc} style={{ visibility: !dexState.isLoading ? 'visible' : 'hidden' }} alt={`official artwork of ${pokeState.pokemon?.name || null}`} className={`max-w-auto max-h-full`} height={450} width={450} />
       {/* {dexState.isLoading ?

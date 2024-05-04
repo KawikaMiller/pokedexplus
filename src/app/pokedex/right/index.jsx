@@ -23,7 +23,7 @@ function RightSide(props) {
     setActiveTab(idx)
   }
 
-  const rightSideStyle = `rounded-b-md lg:rounded-r-md lg:rounded-bl-none z-10`
+  const rightSideStyle = `rounded-b-md xl:rounded-r-md xl:rounded-bl-none z-10`
 
   const headerTabs = [
     {

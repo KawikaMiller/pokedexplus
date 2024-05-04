@@ -11,10 +11,10 @@ function Header(props) {
 
   return (
     // putting MT.Drawer in header with 'sticky' messes with the blurred overlay while drawer is open, consider moving MT.Drawer somewhere else and using Redux to control the state
-    <header className='h-16 lg:h-32 sticky top-0 lg:static z-20 bg-pkRed text-white flex justify-between items-center px-2  border-b-black border-b-8'>
+    <header className='h-16 xl:h-32 sticky top-0 xl:static z-20 bg-pkRed text-white flex justify-between items-center px-2  border-b-black border-b-8'>
       <section className="flex w-3/6 justify-between">
-        <h1 className="text-5xl mr-6 font-bold hidden lg:block">Pokedex+</h1>
-        <MT.Button variant='text' color="white" className="w-14 h-14 p-2 lg:hidden" onClick={() => openDrawer(true)}>
+        <h1 className="text-5xl mr-6 font-bold hidden xl:block">Pokedex+</h1>
+        <MT.Button variant='text' color="white" className="w-14 h-14 p-2 xl:hidden" onClick={() => openDrawer(true)}>
           <Bars3Icon className="h-max w-max min-w-0 min-h-0 text-white"/>
         </MT.Button>
         <MT.Drawer open={isOpen} onClose={() => openDrawer(false)} className="p-4 bg-pkRed">
@@ -93,10 +93,10 @@ function Header(props) {
         </MT.Drawer>
       </section>
 
-      <section className="flex flex-end flex-col lg:flex-row">
-        <MT.Avatar className='lg:hidden bg-white/50' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" withBorder={true} color="white" />
-        <MT.Button variant="filled" color="blue" className="hidden lg:block">Log-In</MT.Button>
-        <MT.Button variant="filled" color="blue" className="hidden lg:block">Sign Up</MT.Button>
+      <section className="flex flex-end flex-col xl:flex-row">
+        <MT.Avatar className='xl:hidden bg-white/50' src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png" withBorder={true} color="white" />
+        <MT.Button variant="filled" color="blue" className="hidden xl:block">Log-In</MT.Button>
+        <MT.Button variant="filled" color="blue" className="hidden xl:block">Sign Up</MT.Button>
       </section>
     </header>
   )

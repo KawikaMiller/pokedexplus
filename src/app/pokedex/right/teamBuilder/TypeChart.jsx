@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useScreenWidth } from "../../hooks/useScreenWidth";
 import { useDispatch, useSelector } from "react-redux";
 import TypeBadge from "../../accessory/TypeBadge";
@@ -44,19 +44,21 @@ function LgTypeChartRow(props) {
 
   return (
     <tr key={`${props.pokemon}_typechart_row`} className="odd:bg-blue-500/75 even:bg-red-500/75 border-white border flex w-full">
-      <td key={`${props.pokemon}_label`} className="flex justify-center p-1 flex-grow">
+      <td key={`${props.pokemon}_label`} className="flex justify-center items-center w-28">
         <strong>
           {capitalizeWord(removeHyphen(props.pokemon))}
         </strong>
-        {/* <img src={props.pokemon} className="h-3/4 w-3/4" /> */}
+        {/* <img src={props.sprite} className="h-3/4 w-3/4" /> */}
       </td>
       {
         typeEffectiveness ?
           typeEffectiveness.map(element => (
             <td
-              className={`${element.effectiveness < 1 ? 'bg-red-500' : element.effectiveness > 1 ? 'bg-green-500' : null} border-white border`}
+              className={`${element.effectiveness < 1 ? 'bg-red-500' : element.effectiveness > 1 ? 'bg-green-500' : null} flex border p-1`}
             >
+              <p className="w-8 h-8 p-1">
               {`x${element.effectiveness == '0.5' ? '1⁄2' : element.effectiveness == '0.25' ? '1⁄4' : element.effectiveness}`}
+              </p>
             </td>
           ))
           :
@@ -85,14 +87,28 @@ function TeamTypeChart() {
     setTeamIdx(newIdx)
   }
 
+  useEffect(() => {
+    if (screenWidth < 1280) {
+      if (!teamState.team[teamIdx].name) {
+        const targetPkmn = teamState.team.findIndex(pkmn => pkmn.name)
+        setTeamIdx(targetPkmn)
+        let els = document.getElementsByClassName('test');
+        els[targetPkmn].classList.add('!border-red-500')
+      } else {
+        let els = document.getElementsByClassName('test');
+        els[teamIdx].classList.add('!border-red-500')
+      }
+    }
+  }, [])
+
   return (
 
     <>
-      <table id='team-type-coverage-chart' className="w-full text-center text-white border-white border">
+      <table id='team-type-coverage-chart' className="w-full xl:w-fit text-center text-white border-white border">
 
         {/* TABLE HEADER i.e. COLUMN LABELS */}
         <thead id='type-chart-tablehead' key='type-chart-tablehead' className="">
-          <tr key='type-chart-headers' id='type-chart-headers' className="bg-blue-500 flex py-2">
+          <tr key='type-chart-headers' id='type-chart-headers' className="bg-blue-500 flex py-2 xl:py-0">
             {
               screenWidth < 1280 ?
                 <div className="flex justify-evenly w-full bg-blue-500">
@@ -108,34 +124,29 @@ function TeamTypeChart() {
                 </div>
                 :
                 <>
-                  <th className="border-white border flex-grow"></th>{/*intentionally blank*/}
-                  <div className="grid grid-cols-6 grid-rows-3">
-                    {types.map(element => (
-                      <th key={`${element}_header`} className="border border-white p-1">
-                        <div className="flex justify-center">
-                          <TypeBadge type={element} size={6} />
-                        </div>
-                      </th>
-                    ))}
-                  </div>
+                  <th className="border border-r-0 w-28"></th>{/*intentionally blank*/}
+                  {types.map(element => (
+                    <th key={`${element}_header`} className="border p-1">
+                      <TypeBadge type={element} />
+                    </th>
+                  ))}
                 </>
             }
           </tr>
         </thead>
 
         {/* TABLE BODY */}
-        <tbody id='type-chart-tablebody' key='type-chart-tablebody' className="odd:text-red-500">
+        <tbody id='type-chart-tablebody' key='type-chart-tablebody' className="">
           {
             screenWidth < 1280 ?
-              <div className="flex relative">
-                {/* <button className="bg-blue-500 p-2 font-bold rounded-full absolute" onClick={() => handleTeamIdx(-1)}>{`<`}</button> */}
+              <div className="">
+                <p className="capitalize font-bold bg-black/50">{teamState.team[teamIdx].nickname || teamState.team[teamIdx].name}</p>
                 <SmTypeChartRow typeObj={teamState.team[teamIdx].types || null} pokemon={teamState.team[teamIdx].name} sprite={teamState.team[teamIdx].sprite.front_default} />
-                {/* <button className="bg-blue-500 p-1 font-bold rounded-full absolute -right-4 top-0 bottom-0 m-auto" onClick={() => handleTeamIdx(1)}>{`>`}</button> */}
               </div>
               :
-              teamState.team.map(pokemon => (
+              teamState.team.map((pokemon, idx) => (
                 pokemon.name ?
-                  <LgTypeChartRow typeObj={pokemon.types || null} pokemon={pokemon.name} />
+                  <LgTypeChartRow typeObj={pokemon.types || null} pokemon={pokemon.name} sprite={teamState.team[idx].sprite.front_default} />
                   :
                   null
               ))

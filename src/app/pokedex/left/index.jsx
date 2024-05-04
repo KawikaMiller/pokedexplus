@@ -9,7 +9,7 @@ import SearchBar from "../SearchBar";
 import { cardStyle } from "../styles/tailwindClasses";
 
 
-const leftSideStyle = 'rounded-t-md lg:rounded-l-md lg:rounded-tr-none'
+const leftSideStyle = 'rounded-t-md xl:rounded-l-md xl:rounded-tr-none'
 
 function LeftSide(props) {
 
@@ -23,7 +23,7 @@ function LeftSide(props) {
           <div className="bg-yellow-300 w-4 h-4 rounded-[50%] mx-1 border-2"></div>
           <div className="bg-green-500 w-4 h-4 rounded-[50%] mx-1 border-2"></div>
         </div>
-        <div className="w-1/3 lg:w-5/6 flex justify-end pl-6 items-center">
+        <div className="w-1/3 xl:w-5/6 flex justify-end pl-6 items-center">
         {/* <p>prev</p> */}
         <SearchBar />
         {/* <p>next</p> */}
@@ -31,23 +31,23 @@ function LeftSide(props) {
       </div>
 
 
-      <div id="left-body" className="flex flex-col justify-between min-h-0 lg:h-full">
+      <div id="left-body" className="flex flex-col justify-between min-h-0 xl:h-full">
 
-        <div id="left-body-top" className="flex flex-col lg:flex-row h-fit lg:h-[75%]">
-          <div id='art-and-basic-container' className="flex flex-col w-auto m-2 min-h-fit justify-between lg:w-2/3 border">
+        <div id="left-body-top" className="flex flex-col xl:flex-row h-fit xl:h-[75%]">
+          <div id='art-and-basic-container' className="flex flex-col w-auto m-2 min-h-fit justify-between xl:w-2/3 border">
             <PokemonArt />
             <BasicInfo />
           </div>
-          <div id='detailed-info-container' className="flex-grow m-2 w-auto lg:w-1/3 border">
+          <div id='detailed-info-container' className="flex-grow m-2 w-auto xl:w-1/3 border">
             <DetailedInfo />
           </div>
         </div>
 
         <div id="left-body-bot" className="flex min-h-0">
-          <div id='type-matchup-container' className="flex flex-col m-2 justify-between min-w-0 w-2/3 lg:w-2/3 lg:min-w-0 border">
+          <div id='type-matchup-container' className="flex flex-col m-2 justify-between min-w-0 w-2/3 xl:w-2/3 xl:min-w-0 border">
             <TypeMatchup />
           </div>
-          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between m-2 w-1/3 lg:w-1/3 border">
+          <div id='abilities-and-base-stats-container' className="flex flex-col justify-between m-2 w-1/3 xl:w-1/3 border">
             <BaseStats />
           </div>
         </div>

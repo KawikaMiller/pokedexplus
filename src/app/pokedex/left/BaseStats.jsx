@@ -13,7 +13,7 @@ function BaseStats() {
         {
           statNames.map((stat, idx) => (
               <section key={`base-stat-${stat}`} className={`flex justify-center items-center ${idx !== 5 ? 'border-b' : null}`}>
-                <b className="bg-blue-500 w-2/3 lg:w-1/3 text-center">{`${stat}`}</b>
+                <b className="bg-blue-500 w-2/3 xl:w-1/3 text-center">{`${stat}`}</b>
                 <p className="text-center bg-transparent/25 w-1/3">
                   {
                     pokeState.pokemon?.stats ?

@@ -6,11 +6,11 @@ export const modalStyle = {
 }
 
 export const cardStyle = {
-  main: 'bg-pkRed flex flex-col p-2 max-h-[100%] min-h-0 lg:w-1/2',
+  main: 'bg-pkRed flex flex-col p-2 max-h-[100%] min-h-0 xl:w-1/2',
   header: 'min-h-[3rem] w-full flex justify-between p-1',
   body: {
-    container: 'flex flex-col justify-between min-h-0 lg:h-full',
-    top: 'flex flex-col lg:flex-row h-fit lg:h-[75%]',
+    container: 'flex flex-col justify-between min-h-0 xl:h-full',
+    top: 'flex flex-col xl:flex-row h-fit xl:h-[75%]',
     bot: 'flex min-h-0',
   },
 }

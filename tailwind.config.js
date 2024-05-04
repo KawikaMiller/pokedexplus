@@ -72,7 +72,7 @@ module.exports = withMT({
   theme: {
     extend: {
       screens: {
-        'lg': '1280px'
+        'xl': '1280px'
       },
       fontFamily:{
         sans:["Kanit", 'sans-serif'],

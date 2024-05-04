@@ -14,7 +14,7 @@ function BasicInfo(props) {
   return (
     <div id='pokemon-basic-info' className="flex flex-col justify-end h-fit">
         {/* POKEMON NAME AND NUMBER */}
-        <div id='basic-info-top' className="flex justify-between items-center lg:mt-0">
+        <div id='basic-info-top' className="flex justify-between items-center xl:mt-0">
           <h1 id='pokemon-name' className="font-bold text-4xl">
             {capitalizeWord(pokeState?.pokemon?.name.split('-')[0] || '') || 'missingName'}
             <span className="text-sm">
@@ -38,7 +38,7 @@ function BasicInfo(props) {
         {/* POKEMON GENUS AND TYPE(S) */}
         <div id='basic-info-bot' className="flex justify-between items-end">
 
-          <h1 id='pokemon-number' className="font-medium lg:font-semibold text-xl">{pokeState?.pokemon?.id ? `#${pokeState.pokemon?.id.toString().padStart(4, '0')}` : '#----'}</h1>
+          <h1 id='pokemon-number' className="font-medium xl:font-semibold text-xl">{pokeState?.pokemon?.id ? `#${pokeState.pokemon?.id.toString().padStart(4, '0')}` : '#----'}</h1>
 
           <h1 id='pokemon-category' className="">
             {pokeState?.pokemon?.name ?

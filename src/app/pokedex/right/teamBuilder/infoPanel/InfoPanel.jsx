@@ -85,7 +85,7 @@ function InfoPanel() {
         {
           teamState.team[teamState.focus].stats ?
             // BATTLE INFORMATION
-            <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly space-y-2 lg:space-y-0">
+            <form id='info-panel-form' onChange={(e) => handleChangeForm(e)} className="w-full h-full text-black flex flex-col justify-evenly space-y-2 xl:space-y-0">
 
               {/* LEVEL AND NICKNAME */}
               <InputContainer>

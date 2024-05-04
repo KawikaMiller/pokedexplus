@@ -21,8 +21,8 @@ function Main(props) {
   }
 
   return (
-    <main className='lg:flex lg:justify-center bg-blue-gray-700'>
-      <div id='pokedex-container' className="flex flex-col lg:flex-row justify-center p-2 py-10 lg:h-[97vh] place-content-center lg:w-[90%]">
+    <main className='xl:flex xl:justify-center bg-blue-gray-700'>
+      <div id='pokedex-container' className="flex flex-col xl:flex-row justify-center p-2 py-10 xl:h-[97vh] place-content-center xl:w-[90%]">
         <LeftSide />
 
         <div id="mid-spacer" className="w-20 bg-pkRed border-red-700 border-2">
@@ -44,7 +44,7 @@ function Main(props) {
           4
         </div>
       </div> */}
-        <MT.Alert open={dexState.showAlert} onClose={() => dispatch(toggleAlert({status: !dexState.showAlert, message: 'test'}))} className="bg-pkRed sticky bottom-20 z-[1000] border-white border-2 self-center lg:justify-center w-5/6">{dexState.alertMessage}</MT.Alert>
+        <MT.Alert open={dexState.showAlert} onClose={() => dispatch(toggleAlert({status: !dexState.showAlert, message: 'test'}))} className="bg-pkRed sticky bottom-20 z-[1000] border-white border-2 self-center xl:justify-center w-5/6">{dexState.alertMessage}</MT.Alert>
       </div>
     </main>
   )

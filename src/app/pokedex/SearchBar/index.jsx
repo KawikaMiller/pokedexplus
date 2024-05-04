@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 import MT from "@/app/lib/clientmaterialtailwind";
@@ -30,7 +30,7 @@ function SearchBar(props){
   }
 
   const handleSearch = async(event, searchInput = pokeState.searchInput) => {
-    event.preventDefault();
+    event?.preventDefault();
     dispatch(toggleIsLoading(true))
     try{
       console.log(searchInput)
@@ -46,6 +46,11 @@ function SearchBar(props){
       dispatch(toggleIsLoading(false))
     }
   }
+
+  // automatically searches for a pokemon when page loads for the first time
+  useEffect(() => {
+    handleSearch(null, '1')
+  }, [])
 
   return(
     <form type='submit' onSubmit={handleSearch} className="min-w-fit w-full">
