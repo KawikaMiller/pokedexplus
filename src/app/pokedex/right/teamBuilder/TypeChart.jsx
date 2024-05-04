@@ -43,22 +43,19 @@ function LgTypeChartRow(props) {
   let typeEffectiveness = determineTypeEffectiveness(props.typeObj)
 
   return (
-    <tr key={`${props.pokemon}_typechart_row`} className="odd:bg-blue-500/75 even:bg-red-500/75 border-white border flex w-full">
-      <td key={`${props.pokemon}_label`} className="flex justify-center items-center w-28">
-        <strong>
-          {capitalizeWord(removeHyphen(props.pokemon))}
+    <tr key={`${props.pokemon}_typechart_row`} className=" border-white border even:bg-black/40 odd:bg-black/10">
+      <td key={`${props.pokemon}_label`} className="">
+        <strong className="capitalize ">
+          {removeHyphen(props.pokemon)}
         </strong>
-        {/* <img src={props.sprite} className="h-3/4 w-3/4" /> */}
       </td>
       {
         typeEffectiveness ?
           typeEffectiveness.map(element => (
             <td
-              className={`${element.effectiveness < 1 ? 'bg-red-500' : element.effectiveness > 1 ? 'bg-green-500' : null} flex border p-1`}
+              className={`${element.effectiveness < 1 ? 'bg-red-500' : element.effectiveness > 1 ? 'bg-green-500' : ''} border p-1`}
             >
-              <p className="w-8 h-8 p-1">
               {`x${element.effectiveness == '0.5' ? '1⁄2' : element.effectiveness == '0.25' ? '1⁄4' : element.effectiveness}`}
-              </p>
             </td>
           ))
           :
@@ -104,11 +101,11 @@ function TeamTypeChart() {
   return (
 
     <>
-      <table id='team-type-coverage-chart' className="w-full xl:w-fit text-center text-white border-white border">
+      <table id='team-type-coverage-chart' className="w-full min-w-max text-center text-white border-white border">
 
         {/* TABLE HEADER i.e. COLUMN LABELS */}
         <thead id='type-chart-tablehead' key='type-chart-tablehead' className="">
-          <tr key='type-chart-headers' id='type-chart-headers' className="bg-blue-500 flex py-2 xl:py-0">
+          <tr key='type-chart-headers' id='type-chart-headers' className="bg-blue-500 py-2 xl:py-0">
             {
               screenWidth < 1280 ?
                 <div className="flex justify-evenly w-full bg-blue-500">
@@ -124,10 +121,12 @@ function TeamTypeChart() {
                 </div>
                 :
                 <>
-                  <th className="border border-r-0 w-28"></th>{/*intentionally blank*/}
+                  <th className="border border-r-0"></th>{/*intentionally blank*/}
                   {types.map(element => (
                     <th key={`${element}_header`} className="border p-1">
-                      <TypeBadge type={element} />
+                      <div className="flex justify-center">
+                        <TypeBadge type={element} />
+                      </div>
                     </th>
                   ))}
                 </>
