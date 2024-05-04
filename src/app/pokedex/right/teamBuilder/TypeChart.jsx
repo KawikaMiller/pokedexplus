@@ -74,16 +74,13 @@ function TeamTypeChart() {
   const screenWidth = useScreenWidth();
   const [teamIdx, setTeamIdx] = useState(0);
 
-  const handleTeamIdx = (val) => {
-    let newIdx = teamIdx + val;
+  const handleClick = (e, newIdx) => {
 
-    while (!teamState.team[newIdx]?.name) {
-      if (newIdx + val > 5) {
-        newIdx = 0
-      } else if (newIdx + val < 0) {
-        newIdx = 5
-      } else newIdx = newIdx + val
-    }
+    let els = document.getElementsByClassName('test');
+
+    els[teamIdx].classList.contains('!border-red-500')
+    els[teamIdx].classList.remove('!border-red-500');
+    els[newIdx].classList.add('!border-red-500')
 
     setTeamIdx(newIdx)
   }
@@ -98,12 +95,12 @@ function TeamTypeChart() {
           <tr key='type-chart-headers' id='type-chart-headers' className="bg-blue-500 flex py-2">
             {
               screenWidth < 1280 ?
-                <div className="flex justify-evenly w-full">
+                <div className="flex justify-evenly w-full bg-blue-500">
                   {
                     teamState.team.map((teamMember, idx) => (
-                      <button onClick={() => setTeamIdx(idx) } className="w-10 rounded-full border overflow-hidden" disabled={!teamMember?.name ? true : false}>
+                      <button onClick={(e) => handleClick(e, idx)} className="w-10 rounded-full border-2 overflow-hidden test" disabled={!teamMember?.name ? true : false}>
                         {
-                          <img className={`bg-white/20 rounded-full`} src={teamMember.sprite?.front_default || null}/>
+                          <img className={`bg-white/40 rounded-full`} src={teamMember.sprite?.front_default || null} />
                         }
                       </button>
                     ))
